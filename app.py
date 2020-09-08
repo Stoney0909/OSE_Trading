@@ -4,9 +4,12 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def login_page():
     return render_template('login_page.html')
 
+@app.route('/signup')
+def signup_page():
+    return render_template('signup_page.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

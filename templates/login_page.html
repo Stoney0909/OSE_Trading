@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login_page.css') }}">
 </head>
+
 <body>
-<p>login page</p>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">llll</h1>
+        </div>
+    </header>
+<ul>
+    <li><a href="{{ url_for('signup_page') }}">sonething</a></li>
+</ul>
+
+
 </body>
+
+<style>
+    body
+    {
+        background-image: url({{ url_for('static', filename='img/test.jpg') }});
+    }
+</style>
+
 </html>
