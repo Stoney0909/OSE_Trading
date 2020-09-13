@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
 </head>
-<body>
+<style>
 
+
+
+    header{
+        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/image.gif') }});
+        height: 100vh;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+    }
+
+
+
+</style>
+<body>
+<header>
+    <div class="wrapper">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/Logo.png') }}">
+        </div>
+        <ul class="nav">
+            <li><a href="#">link 1</a></li>
+            <li><a href="#">link 2</a></li>
+            <li><a href="#">link 3</a></li>
+            <li><a href="#">link 4</a></li>
+            <li><a href="{{ url_for('login_page') }}">Sign out</a></li>
+        </ul>
+    </div>
+    <div class="welcome">
+        <h1>Welcome!</h1>
+        <a href="#">Contact Us</a>
+    </div>
+</header>
 </body>
 </html>
