@@ -10,7 +10,7 @@ def login_page():
 def signup_page():
     return render_template('Signup_page.html')
 
-@app.route('/Findpassword')
+@app.route('/ForgetPassword')
 def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
 
