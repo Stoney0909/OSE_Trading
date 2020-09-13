@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginPage.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/loginPage.css') }}">
 </head>
 
 <style>
@@ -18,7 +18,7 @@
 
 <body>
 <form action="" method="">
-    <p class="image1_position"><img class="Logo_size" src="{{ url_for('static', filename='img/OSE.PNG') }}"></p>
+    <p class="image1_position"><img class="Logo_size" src="{{ url_for('static', filename='img/OSE.png') }}"></p>
   <div class="container">
 
     <label for="uname"><b>Username</b></label>
@@ -35,7 +35,6 @@
         <input class="checkBox_position" type="checkbox" checked="checked" name="remember"> Remember me
         <a href="{{ url_for('signup_page') }}" class="Create_account" >New User?</a>
     </label>
-
   </div>
 </form>
 </body>

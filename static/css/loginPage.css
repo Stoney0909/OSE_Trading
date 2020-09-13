@@ -1,4 +1,3 @@
-
     .Logo_size
     {
         height: 20%;
@@ -13,9 +12,9 @@
 form {
     background-color: white;
     width: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
+    margin: auto;
+    margin-top: 10%;
+
 }
 
 input[type=text], input[type=password] {
@@ -59,5 +58,3 @@ button:hover {
 {
     float: right;
 }
-
-
