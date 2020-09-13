@@ -30,7 +30,7 @@
     <span class="psw">Forgot <a href="{{ url_for('forgetPassword_page') }}">password?</a></span>
 
     <button class="login_btn" type="submit">Login</button>
-
+    <a href="{{ url_for('home_page') }}">Login</a> {# After complete the login function we can delete this tag #}
     <label>
         <input class="checkBox_position" type="checkbox" checked="checked" name="remember"> Remember me
         <a href="{{ url_for('signup_page') }}" class="Create_account" >New User?</a>
