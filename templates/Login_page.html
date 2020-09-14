@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/loginPage.css') }}">
+</head>
+
+<style>
+    body
+    {
+        background-image: url({{ url_for('static', filename='img/background.jpg') }});
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<body>
+<form action="" method="">
+    <p class="image1_position"><img class="Logo_size" src="{{ url_for('static', filename='img/Logo2.png') }}"></p>
+  <div class="container">
+
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <span class="psw">Forgot <a href="{{ url_for('forgetPassword_page') }}">password?</a></span>
+
+    <button class="login_btn" type="submit">Login</button>
+    <a href="{{ url_for('home_page') }}">Login</a> {# After complete the login function we can delete this tag #}
+    <label>
+        <input class="checkBox_position" type="checkbox" checked="checked" name="remember"> Remember me
+        <a href="{{ url_for('signup_page') }}" class="Create_account" >New User?</a>
+    </label>
+  </div>
+</form>
+</body>
+</html>
