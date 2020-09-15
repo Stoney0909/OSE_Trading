@@ -17,30 +17,48 @@
 </style>
 
 <body>
-<form action="">
-  <div class="container">
-      <a href="{{ url_for('login_page') }}"><img class="back_button" src="{{ url_for('static', filename='img/back.png') }}"></a>
-    <h1>Sign Up</h1>
+<div class="wrapper">
+    <a href="{{ url_for('login_page') }}"><img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
+    <form action="">
+        <div class="container">
+            <h2>Sign up</h2>
+            <label for="">
+                <input class="input-field" type="text" placeholder="User name" name="uname" required>
+                <input type="email" placeholder="Email" name="uname" required>
+                <input type="password" placeholder="Password" name="uname" required>
+                <input type="password" placeholder="Confirm Password" name="uname" required>
+            </label>
+                <button class="login_btn" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
 
-    <label for="username"><b>UserName</b></label>
-    <input type="text" placeholder="Enter User name" name="username" required>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
 
-    <label for="phone"><b>Phone</b></label>
-    <input type="text" placeholder="Enter phone number" name="phone" required>
+{#<form action="">#}
+{#  <div class="container">#}
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-
-    <div class="clearfix">
-      <p><button type="submit" class="signupbtn">Sign Up</button></p>
-    </div>
-  </div>
-</form>
+{#    <h1>Sign Up</h1>#}
+{##}
+{#    <label for="username"><b>UserName</b></label>#}
+{#    <input type="text" placeholder="Enter User name" name="username" required>#}
+{##}
+{#    <label for="email"><b>Email</b></label>#}
+{#    <input type="text" placeholder="Enter Email" name="email" required>#}
+{##}
+{#    <label for="phone"><b>Phone</b></label>#}
+{#    <input type="text" placeholder="Enter phone number" name="phone" required>#}
+{##}
+{#    <label for="psw"><b>Password</b></label>#}
+{#    <input type="password" placeholder="Enter Password" name="psw" required>#}
+{##}
+{#    <label for="psw-repeat"><b>Repeat Password</b></label>#}
+{#    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>#}
+{##}
+{#    <div class="clearfix">#}
+{#      <p><button type="submit" class="signupbtn">Sign Up</button></p>#}
+{#    </div>#}
+{#  </div>#}
+{#</form>#}
 </body>
 </html>

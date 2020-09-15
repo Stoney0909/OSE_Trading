@@ -1,66 +1,76 @@
-* {box-sizing: border-box}
+.container
+    {
+        padding: 16px;
+        padding-top: 0;
+    }
 
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  box-sizing: border-box;
-}
+    form
+    {
+        width: 40%;
+        margin-left: 10%;
+        margin-top: 10%;
+    }
 
+    .Logo
+    {
+        margin-top: 20%;
+        margin-right: 10%;
+        float: right;
+    }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
+    .wrapper
+    {
+        background-color: #ffffff;
+        width: 50%;
+        height: auto;
+        border: 2px solid #ffffff;
+        border-radius: 10px;
+        height: 470px;
+        margin: 7% auto;
+    }
 
-button:hover {
-  opacity:1;
-}
+    input
+    {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: none;
+        background-color: #f8f8f8;
+    }
+    input:focus
+    {
+        outline: none
+    }
 
-.signupbtn {
-  width: 50%;
+    h2
+    {
+        text-align: center;
+    }
 
-}
+    button
+    {
+        background-color: #415680;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 25px;
+    }
 
-.container {
-  padding: 16px;
-}
+    button:hover
+    {
+        opacity: 0.8;
+    }
 
-.clearfix::after {
+    a{
+        text-decoration: none;
+    }
 
-  clear: both;
-  display: table;
-}
-
-form
-{
-    background-color: white;
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-}
-
-h1
-{
-    margin-left: 30%;
-    margin-right: 30%;
-}
-
-p{
-    text-align: center;
-}
-
-.back_button
-{
-    height: 10%;
-    width: 10%;
-    float: left;
-}
+    p{
+        text-align: center;
+    }
