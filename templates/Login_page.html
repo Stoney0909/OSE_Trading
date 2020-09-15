@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/loginPage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <style>
@@ -16,26 +16,27 @@
     }
 </style>
 
+<style>
+
+</style>
+
 <body>
-<form action="" method="">
-    <p class="image1_position"><img class="Logo_size" src="{{ url_for('static', filename='img/Logo2.png') }}"></p>
-  <div class="container">
 
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <span class="psw">Forgot <a href="{{ url_for('forgetPassword_page') }}">password?</a></span>
-
-    <button class="login_btn" type="submit">Login</button>
-    <a href="{{ url_for('home_page') }}">Login</a> {# After complete the login function we can delete this tag #}
-    <label>
-        <input class="checkBox_position" type="checkbox" checked="checked" name="remember"> Remember me
-        <a href="{{ url_for('signup_page') }}" class="Create_account" >New User?</a>
-    </label>
-  </div>
-</form>
+<div class="wrapper">
+      <img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}">
+    <form action="">
+        <div class="container">
+            <h2>Member Login</h2>
+            <label for="">
+                <input type="text" placeholder="Email" name="uname" required>
+                <input type="password" placeholder="Password" name="uname" required>
+            </label>
+                <button class="login_btn" type="submit">Login</button>
+                <p><span class="psw">Forgot <a href="{{ url_for('forgetPassword_page') }}">password?</a></span></p>
+                <p><a href="{{ url_for('signup_page') }}" class="Create_account" >Create your account</a></p>
+                <p><a href="{{ url_for('home_page') }}">Login</a></p>
+        </div>
+    </form>
+</div>
 </body>
 </html>
