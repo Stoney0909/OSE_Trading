@@ -1,4 +1,4 @@
- .container
+.container
     {
         padding: 16px;
         padding-top: 0;
@@ -7,15 +7,15 @@
     form
     {
         width: 40%;
-        margin-left: 50%;
-        margin-top: 15%;
+        margin-left: 10%;
+        margin-top: 10%;
     }
 
     .Logo
     {
         margin-top: 20%;
-        margin-left: 10%;
-        float: left;
+        margin-right: 10%;
+        float: right;
     }
 
     .wrapper
@@ -23,13 +23,13 @@
         background-color: #eeeeee;
         width: 50%;
         height: auto;
-        border: 2px solid #e7e4e4;
+        border: 2px solid #eeeeee;
         border-radius: 10px;
         height: 470px;
         margin: 7% auto;
     }
 
-    input[type=text], input[type=password]
+    input
     {
         width: 100%;
         padding: 12px 20px;
@@ -40,11 +40,15 @@
         border: none;
         background-color: #f8f8f8;
     }
-    input[type="text"]:focus, input[type="password"]:focus
+    input:focus
     {
-        outline: none
+        outline: none;
     }
 
+    botton:focus
+    {
+         outline: none;
+    }
     h2
     {
         text-align: center;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_Page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login.css') }}">
 </head>
 
 <style>
@@ -18,7 +18,7 @@
 
 <body>
 <div class="wrapper">
-      <img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}">
+      <a href="{{ url_for('home_page') }}"><img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
     <form action="">
         <div class="container">
             <h2>Member Login</h2>
@@ -29,7 +29,6 @@
                 <button class="login_btn" type="submit">Login</button>
                 <p><span class="psw">Forgot <a href="{{ url_for('forgetPassword_page') }}">password?</a></span></p>
                 <p><a href="{{ url_for('signup_page') }}" class="Create_account" >Create your account</a></p>
-                <p><a href="{{ url_for('home_page') }}">Login</a></p>
         </div>
     </form>
 </div>
