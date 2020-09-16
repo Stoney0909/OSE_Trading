@@ -1,0 +1,80 @@
+.container
+    {
+        padding: 16px;
+        padding-top: 0;
+    }
+
+    form
+    {
+        width: 40%;
+        margin-left: 10%;
+        margin-top: 10%;
+    }
+
+    .Logo
+    {
+        margin-top: 20%;
+        margin-right: 10%;
+        float: right;
+    }
+
+    .wrapper
+    {
+        background-color: #eeeeee;
+        width: 50%;
+        height: auto;
+        border: 2px solid #eeeeee;
+        border-radius: 10px;
+        height: 470px;
+        margin: 7% auto;
+    }
+
+    input
+    {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: none;
+        background-color: #f8f8f8;
+    }
+    input:focus
+    {
+        outline: none;
+    }
+
+    botton:focus
+    {
+         outline: none;
+    }
+    h2
+    {
+        text-align: center;
+    }
+
+    button
+    {
+        background-color: #415680;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 25px;
+    }
+
+    button:hover
+    {
+        opacity: 0.8;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    p{
+        text-align: center;
+    }

@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_Page.css') }}">
 </head>
+
 <style>
-
-
-
     header{
         background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/image.gif') }});
         height: 100vh;
@@ -17,15 +15,13 @@
         background-position: center center;
         position: relative;
     }
-
-
-
 </style>
+
 <body>
 <header>
     <div class="wrapper">
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo.png') }}">
+            <img src="{{ url_for('static', filename='img/Logo1.png') }}">
         </div>
         <ul class="nav">
             <li><a href="#">link 1</a></li>
