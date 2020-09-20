@@ -59,7 +59,7 @@ def signup_page():
         else:
             cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)', ('Null','Null', username, email, password,'150',today))
             mysql.connection.commit()
-            msg = 'You have successfully registered !'
+            msg = 'You have successfully registered!'
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
     return render_template('Signup_page.html', msg=msg)

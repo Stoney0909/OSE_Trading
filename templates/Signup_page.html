@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>sign up</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Signupp.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup_p.css') }}">
 </head>
 
 <style>
@@ -20,7 +20,6 @@
 <div class="wrapper">
     <a href="{{ url_for('login_page') }}" ><img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
     <form method="post" autocomplete="off" action="">
-        <div class="msg">{{ msg }}</div>
         <div class="container">
             <h2>Sign up</h2>
             <label for="">
@@ -32,6 +31,7 @@
                 <button class="login_btn" type="submit">Submit</button>
         </div>
     </form>
+      <div class="msg">{{ msg }}</div>
 </div>
 </body>
 </html>
