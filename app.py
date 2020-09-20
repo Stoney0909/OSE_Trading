@@ -6,7 +6,6 @@ import datetime
 
 app = Flask(__name__)
 
-
 app.config['MYSQL_HOST'] = 'osetrading.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
