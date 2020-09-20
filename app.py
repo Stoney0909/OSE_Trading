@@ -35,8 +35,6 @@ def login_page():
             msg = 'Incorrect username / password !'
     return render_template('Login_page.html', msg=msg)
 
-
-
 @app.route('/Signup', methods=['GET', 'POST'])
 def signup_page():
     msg = ''
