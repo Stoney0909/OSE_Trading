@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/LoginP.css') }}">
 </head>
 
 <style>
@@ -16,11 +16,15 @@
     }
 </style>
 
+<script>
+  setTimeout(function(){$('#errorText').fadeOut();}, 1);
+</script>
+
 <body>
 <div class="wrapper">
-      <a href="{{ url_for('home_page') }}"><img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
+    <img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}">
     <form action="" method="post">
-        <div class="msg">{{ msg }}</div>
+
         <div class="container">
             <h2>Member Login</h2>
             <label for="">
@@ -32,6 +36,7 @@
                 <p><a href="{{ url_for('signup_page') }}" class="Create_account" >Create your account</a></p>
         </div>
     </form>
+    <div id="errorText">{{ msg }}</div>
 </div>
 </body>
 </html>

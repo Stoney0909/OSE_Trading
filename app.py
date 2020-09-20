@@ -18,7 +18,6 @@ currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
 @app.route('/',methods =['GET', 'POST'])
-# @app.route('/login', )
 def login_page():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -32,7 +31,6 @@ def login_page():
             # session['loggedin'] = True
             # session['trading_id'] = account['trading_id']
             # session['username'] = account['userName']
-            msg = 'Logged in successfully !'
             return render_template('Home_page.html', msg=msg)
         else:
             msg = 'Incorrect username / password !'
