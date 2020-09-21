@@ -18,15 +18,16 @@
 
 <body>
 <div class="wrapper">
-    <a href="{{ url_for('login_page') }}"><img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
-    <form action="">
+    <a href="{{ url_for('login_page') }}" ><img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
+    <form method="post" autocomplete="off" action="">
+        <div class="msg">{{ msg }}</div>
         <div class="container">
             <h2>Sign up</h2>
             <label for="">
-                <input class="input-field" type="text" placeholder="User name" name="uname" required>
-                <input type="email" placeholder="Email" name="uname" required>
-                <input type="password" placeholder="Password" name="uname" required>
-                <input type="password" placeholder="Confirm Password" name="uname" required>
+                <input class="input-field" type="text" placeholder="User name" name="username" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="password" placeholder="Confirm Password" name="password2" required>
             </label>
                 <button class="login_btn" type="submit">Submit</button>
         </div>

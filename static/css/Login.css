@@ -3,7 +3,11 @@
         padding: 16px;
         padding-top: 0;
     }
-
+    .msg
+    {
+        padding: 10px;
+        padding-top: 0;
+    }
     form
     {
         width: 40%;
