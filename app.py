@@ -43,10 +43,11 @@ def login_page():
 @app.route('/Signup', methods=['GET', 'POST'])
 def signup_page():
     msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'email' in request.form and 'password' in request.form:
+    if request.method == 'POST' and 'username' in request.form and 'email' in request.form and 'password' in request.form and 'password1' in request.form:
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
+        password1 = request.form['password1']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM trading_Profile WHERE username = % s', (username,))
         account = cursor.fetchone()
@@ -56,6 +57,8 @@ def signup_page():
             msg = 'Invalid email address !'
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'name must contain only characters and numbers !'
+        elif not password == password1:
+            msg = 'Password does not match'
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
