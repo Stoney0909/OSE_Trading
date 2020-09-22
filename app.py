@@ -67,9 +67,6 @@ def signup_page():
         msg = 'Please fill out the form !'
     return render_template('Signup_page.html', msg=msg)
 
-
-
-
 @app.route('/ForgetPassword')
 def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
