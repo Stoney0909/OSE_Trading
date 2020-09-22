@@ -1,25 +1,29 @@
- .container
+.container
     {
         padding: 16px;
         padding-top: 0;
     }
-    .msg
-    {
-        padding: 10px;
-        padding-top: 0;
-    }
+
     form
     {
         width: 40%;
-        margin-left: 50%;
-        margin-top: 15%;
+        margin-left: 10%;
+        margin-top: 10%;
     }
 
-    .Logo
+    .msg
     {
-        margin-top: 20%;
-        margin-left: 10%;
-        float: left;
+        margin-top: -14%;
+        color: #424e89;
+        margin-right: 6%;
+        float: right;
+    }
+
+     .Logo
+    {
+        margin-top: 18%;
+        margin-right: 10%;
+        float: right;
     }
 
     .wrapper
@@ -33,7 +37,7 @@
         margin: 7% auto;
     }
 
-    input[type=text], input[type=password]
+    input
     {
         width: 100%;
         padding: 12px 20px;
@@ -42,7 +46,7 @@
         box-sizing: border-box;
         border-radius: 25px;
         border: none;
-        background-color: #f8f8f8;
+        background-color: #d5d5d5;
     }
     input:focus
     {
@@ -51,9 +55,8 @@
 
     botton:focus
     {
-        outline: none;
+         outline: none;
     }
-
     h2
     {
         text-align: center;

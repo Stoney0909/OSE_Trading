@@ -18,7 +18,6 @@ currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
 @app.route('/',methods =['GET', 'POST'])
-# @app.route('/login', )
 def login_page():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -32,7 +31,6 @@ def login_page():
             # session['loggedin'] = True
             # session['trading_id'] = account['trading_id']
             # session['username'] = account['userName']
-            msg = 'Logged in successfully !'
             return render_template('Home_page.html', msg=msg)
         else:
             msg = 'Incorrect username / password !'
@@ -64,7 +62,7 @@ def signup_page():
         else:
             cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)', ('Null','Null', username, email, password,'150',today))
             mysql.connection.commit()
-            msg = 'You have successfully registered !'
+            msg = 'You have successfully registered!'
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
     return render_template('Signup_page.html', msg=msg)
