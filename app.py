@@ -71,11 +71,9 @@ def signup_page():
 def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
 
-
 @app.route('/Home')
 def home_page():
     return render_template('Home_page.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
