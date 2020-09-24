@@ -90,7 +90,6 @@
     {
         position: absolute;
         margin: 20% 37%;
-
         text-align: center;
     }
 
@@ -117,4 +116,97 @@
     .welcome a:hover{
         background: white;
         color: darkslategray;
+    }
+
+
+
+
+    .Go_back_image
+    {
+        margin-left: 96%;
+        width: 3%;
+        margin-top: 15px;
+        height: auto;
+    }
+
+    .label
+    {
+
+        font-size: 25px;
+        font-family: "Arial Black", Gadget, sans-serif;
+    }
+
+    .label_output
+    {
+        font-size: 25px;
+        font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    }
+
+    .profile_image
+    {
+        height:130px;
+        border-radius: 50%;
+        border: 10px solid #486393;
+    }
+
+    p
+    {
+        text-align: center;
+    }
+
+    .displayLeft
+    {
+        width: 46%;
+        margin-top: 3%;
+        float: left;
+    }
+
+    .display_right
+    {
+        width: 44%;
+        margin-top: 3%;
+        float: left;
+        margin-left: 10%;
+    }
+
+    botton:focus
+    {
+         outline: none;
+    }
+
+      button
+    {
+        background-color: #415680;
+        color: white;
+        padding: 14px 20px;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        width: 25%;
+        height: 50px;
+        border-radius: 25px;
+        margin-top: 50px;
+    }
+
+    button:hover
+    {
+        opacity: 0.8;
+    }
+
+    .displayEdit
+    {
+        background-color: #415680;
+        padding: 14px 20px;
+        border: none;
+        cursor: pointer;
+        width: 20%;
+        margin-top: -10%;
+        margin-bottom: 10%;
+        text-align: center;
+    }
+
+    .displayEdit a
+    {
+        color: white;
+        text-decoration: none;
     }

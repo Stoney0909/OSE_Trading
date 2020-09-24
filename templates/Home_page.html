@@ -3,19 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_P.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Home_p.css') }}">
 </head>
 
 <style>
     header{
         background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/image.gif') }});
-        height: 100vh;
+        height: 110vh;
         -webkit-background-size: cover;
         background-size: cover;
         background-position: center center;
         position: relative;
     }
+
+     #profile
+    {
+        position: absolute;
+        margin: 10% 20%;
+        background-color: #d4d3d3;
+        width: 62%;
+        height:500px;
+        overflow: auto;
+        display: block;
+    }
+
+      #container
+    {
+        padding: 16px;
+        padding-top: 0;
+          display: none;
+    }
+
+    #container2
+    {
+        display: none;
+    }
+
+    #container3
+    {
+         padding: 16px;
+        padding-top: 0;
+        display: block;
+    }
+
 </style>
+
+<script>
+function popfunction() {
+   document.getElementById("profile").style.display = "block";
+   document.getElementById("container2").style.display = "none";
+}
+
+function displayWelcome()
+{
+    document.getElementById("profile").style.display = "none";
+    document.getElementById("container2").style.display = "block";
+}
+
+function displayEditProfile()
+{
+    document.getElementById("container3").style.display = "block";
+    document.getElementById("container").style.display = "none";
+}
+
+function displayPopBack()
+{
+    document.getElementById("container3").style.display = "none";
+    document.getElementById("container").style.display = "block";
+}
+</script>
 
 <body>
 <header>
@@ -30,17 +86,76 @@
             <li><a href="#">link 4</a></li>
             <li class="dropdown">
                     <span class="user_name">User Name</span>
-                        <div class="dropdown-content">
-                        <a href="#">Profile</a>
-                        <a href="{{ url_for('login_page') }}">Sign out</a>
-                        </div>
+                    <div class="dropdown-content">
+                    <a href="#" onclick="popfunction()">Profile</a>
+                    <a href="#" onclick="popfunction()">Password</a>
+                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    </div>
             </li>
         </ul>
     </div>
+
+    {# Welcome view #}
     <div class="welcome">
-        <h1>Welcome!</h1>
+        <div id="container2">
+            <h1>Welcome!</h1>
         <a href="#">Contact Us</a>
+        </div>
     </div>
+
+    {# Profile view #}
+    <div id="profile">
+        {# ID container display info#}
+        <div id="container">
+            <form>
+                <a onclick="displayWelcome()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
+                <p><img class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p>
+                <div class="displayEdit">
+                    <a href="#" onclick="displayEditProfile()">Editing Profile</a>
+                </div>
+                <div class="displayLeft">
+                    <span class="label">User name: </span>
+                    <span class="label_output">Input(User_Name)</span> {# The User name display here #}
+                    <br><br><br><br>
+                    <span class="label">First name: </span>
+                    <span class="label_output">Input(First_Name)</span> {# The first name display here #}
+                    <br><br><br><br>
+                    <span class="label">Gender: </span>
+                    <span class="label_output">Input(Gender)</span> {# The Gender display here #}
+                    <br><br><br><br>
+                    <span class="label">Phone: </span>
+                    <span class="label_output">Input(Phone)</span> {# The phone number display here #}
+                    <br><br><br><br>
+                </div>
+
+                <div class="display_right">
+                    <span class="label">Email: </span>
+                    <span class="label_output">Input(User_Email)</span> {# The user email display here #}
+                    <br><br><br><br>
+                    <span class="label">Last name: </span>
+                    <span class="label_output">Input(Last_Name)</span> {# The last name display here #}
+                    <br><br><br><br>
+                    <span class="label">Age: </span>
+                    <span class="label_output">Input(age)</span> {# The age display here #}
+                    <br><br><br><br>
+                    <span class="label">Stock:</span>
+                    <span class="label_output">Input(Stock_number)</span> {# The number of stock user have display here #}
+                    <br><br><br><br>
+                </div>
+
+            </form>
+
+        </div>
+
+        {# ID container3 change info#}
+        <div id="container3">
+            <form>
+                <a onclick="displayPopBack()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
+            </form>
+
+        </div>
+    </div>
+
 </header>
 </body>
 </html>
