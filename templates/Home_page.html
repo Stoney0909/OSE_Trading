@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Home_p.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_p.css') }}">
+    <script src="{{url_for('static', filename='js/home_page.js')}}"></script>
 </head>
 
 <style>
@@ -15,87 +16,16 @@
         background-position: center center;
         position: relative;
     }
-
-     #profile
-    {
-        position: absolute;
-        margin: 10% 20%;
-        background-color: #d4d3d3;
-        width: 62%;
-        height:500px;
-        overflow: auto;
-        display: block;
-    }
-
-      #container
-    {
-        padding: 16px;
-        padding-top: 0;
-          display: none;
-    }
-
-    #container2
-    {
-        display: none;
-    }
-
-    #container3
-    {
-         padding: 16px;
-        padding-top: 0;
-        display: block;
-    }
-
-    #change_password
-    {
-        display: none;
-    }
-
 </style>
-
-<script>
-function popfunction() {
-   document.getElementById("profile").style.display = "block";
-   document.getElementById("container2").style.display = "none";
-}
-
-function displayWelcome()
-{
-    document.getElementById("profile").style.display = "none";
-    document.getElementById("container2").style.display = "block";
-    document.getElementById("change_password").style.display = "none";
-}
-
-function displayEditProfile()
-{
-    document.getElementById("container3").style.display = "block";
-    document.getElementById("container").style.display = "none";
-    document.getElementById("change_password").style.display = "none";
-}
-
-function displayPopBack()
-{
-    document.getElementById("container3").style.display = "none";
-    document.getElementById("container").style.display = "block";
-    document.getElementById("change_password").style.display = "none";
-}
-
-function  change_password()
-{
-     document.getElementById("profile").style.display = "none";
-     document.getElementById("container2").style.display = "none";
-     document.getElementById("change_password").style.display = "block";
-}
-</script>
 
 <body>
 <header>
     <div class="wrapper">
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo1.png') }}">
+            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
         </div>
         <ul class="nav">
-            <li><a href="#">link 1</a></li>
+            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
             <li><a href="#">link 2</a></li>
             <li><a href="#">link 3</a></li>
             <li><a href="#">link 4</a></li>
@@ -110,71 +40,93 @@ function  change_password()
         </ul>
     </div>
 
-    {# Welcome view #}
-    <div class="welcome">
-        <div id="container2">
-            <h1>Welcome!</h1>
+    <div id="welcome">
+        <h1>Welcome!</h1>
         <a href="#">Contact Us</a>
-        </div>
     </div>
 
-    {# Profile view #}
     <div id="profile">
-        {# ID container display info#}
         <div id="container">
             <form>
                 <a onclick="displayWelcome()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
-                <p><img class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p>
-                <div class="displayEdit">
+
+                <p><img id="Image_Change" class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p> {# Default image #}
+
+                {#<input type="file" name="img_one" id="file-ip-1" accept="image/*" onchange="showPreviewOne(event);" style="background-color: white; width: 20%; height: auto;">#}
+                {# Can't figured out how to add image, need help in this part #}
+
+                <div id="displayEdit_Button" class="displayEdit">
                     <a href="#" onclick="displayEditProfile()">Editing Profile</a>
                 </div>
+
                 <div class="displayLeft">
-                    <span class="label">User name: </span>
-                    <span class="label_output">Input(User_Name)</span> {# The User name display here #}
+
+                    <span class="label">User name:</span>
+                    <span id="UserName_Info" class="label_output">Input(User_Name)</span> {# The User name display here #}
+                    <input id="UserName_edit" class="label_output" type="text" placeholder="User name" name="Profile_username">
                     <br><br><br><br>
-                    <span class="label">First name: </span>
-                    <span class="label_output">Input(First_Name)</span> {# The first name display here #}
+
+                    <span class="label">First name:</span>
+                    <span id="FirstName_Info" class="label_output">Input(First_Name)</span> {# The first name display here #}
+                    <input id="FirstName_edit" class="label_output" type="text" placeholder="First name" name="Profile_first_name">
                     <br><br><br><br>
-                    <span class="label">Gender: </span>
-                    <span class="label_output">Input(Gender)</span> {# The Gender display here #}
+
+                    <span class="label">Gender:</span>
+                    <span id="Gender_Info" class="label_output">Input(Gender)</span> {# The Gender display here #}
+                    <select name="Profile_Gender" id="Gender_edit" class="label_output">
+                    <option>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    </select>
                     <br><br><br><br>
-                    <span class="label">Phone: </span>
-                    <span class="label_output">Input(Phone)</span> {# The phone number display here #}
+
+                    <span class="label">Phone:</span>
+                    <span  id="Phone_Info" class="label_output">Input(Phone)</span> {# The phone number display here #}
+                    <input id="Phone_edit" class="label_output" type="number" placeholder="Phone number" name="Profile_Phone_Number">
                     <br><br><br><br>
+
                 </div>
 
                 <div class="display_right">
                     <span class="label">Email: </span>
-                    <span class="label_output">Input(User_Email)</span> {# The user email display here #}
+                    <span id="Email_Info" class="label_output">Input(User_Email)</span> {# The user email display here #}
+                    <input id="Email_edit" class="label_output" type="email" placeholder="Email address" name="Profile_Email">
                     <br><br><br><br>
+
                     <span class="label">Last name: </span>
-                    <span class="label_output">Input(Last_Name)</span> {# The last name display here #}
+                    <span id="LastName_Info" class="label_output">Input(Last_Name)</span> {# The last name display here #}
+                    <input id="LastName_edit" class="label_output" type="text" placeholder="Last name" name="Profile_LastName">
                     <br><br><br><br>
+
                     <span class="label">Age: </span>
-                    <span class="label_output">Input(age)</span> {# The age display here #}
+                    <span id="Age_Info" class="label_output">Input(age)</span> {# The age display here #}
+                    <input id="Age_edit" class="label_output" type="number" placeholder="Age" name="Profile_Age">
                     <br><br><br><br>
-                    <span class="label">Stock:</span>
-                    <span class="label_output">Input(Stock_number)</span> {# The number of stock user have display here #}
+
+                    <span id="Stock_Label" class="label">Stock:</span>
+                    <span id="Stock_Info" class="label_output">Input(Stock_number)</span> {# The number of stock user have display here #}
                     <br><br><br><br>
+
+                    <div id="Saveprofile" style="display: none">
+{#                     <button type="submit">Save</button>#}
+                       <a href="#" onclick="saveProfile()">Save</a>{# After get button working, remove this line, if you not sure just tell me#}
+                    </div>
+
                 </div>
-
             </form>
-
-        </div>
-
-        {# ID container3 change info#}
-        <div id="container3">
-            <form>
-                <a onclick="displayPopBack()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
-            </form>
-
         </div>
     </div>
 
-    {# change password view #}
     <div id="change_password">
         <form>
-            <span style="color: white">yeah</span>
+            <div class="Set_new_password">
+            <p style="text-align: center"><a href="#" onclick="displayWelcome()"><img  src="{{ url_for('static', filename='img/Logo1.png') }}"></a></p>
+            <h2 style="text-align: center">Change password</h2>
+            <input type="password" placeholder="Old Password" name="Old_password" required>
+            <input type="password" placeholder="New Password" name="New_password" required>
+            <input type="password" placeholder="Confirm Password" name="Confirm_password" required>
+            <button class="save_password" type="submit" style="margin-bottom: 5%">Submit</button>
+        </div>
         </form>
     </div>
 

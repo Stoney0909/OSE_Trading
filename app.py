@@ -33,7 +33,7 @@ def login_page():
             # session['username'] = account['userName']
             return render_template('Home_page.html', msg=msg)
         else:
-            msg = 'Incorrect username / password !'
+            msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
 
 
@@ -74,6 +74,10 @@ def forgetPassword_page():
 @app.route('/Home')
 def home_page():
     return render_template('Home_page.html')
+
+@app.route('/StockMarket')
+def stock_page():
+    return render_template('StockMarket_page.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
