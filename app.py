@@ -6,13 +6,13 @@ import datetime
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'osetrading.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
 
 mysql = MySQL(app)
-
+currentUser =''
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
@@ -30,7 +30,8 @@ def login_page():
             # session['loggedin'] = True
             # session['trading_id'] = account['trading_id']
             # session['username'] = account['userName']
-            return render_template('Home_page.html', msg=msg)
+            currentUser = username
+            return render_template('Home_page.html', msg=currentUser)
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
@@ -76,5 +77,30 @@ def home_page():
 def stock_page():
     return render_template('StockMarket_page.html')
 
+@app.route('/Home', methods=['GET', 'POST'])
+def someName():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # sql = "SELECT * FROM trading_Profile WHERE username = % s",(currentUser,)
+    cursor.execute("SELECT * FROM trading_Profile WHERE username = % s",(currentUser,))
+    results = cursor.fetchall()
+    return render_template('Home_page.html', results =results)
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# from flask import Flask, request, render_template
+# import pymysql
+#
+# db = pymysql.connect("localhost", "username", "password", "database")
+#
+# app = Flask(__name__)
+# api = Api(app)
+#
+# @app.route('/')
+# def someName():
+#     cursor = db.cursor()
+#     sql = "SELECT * FROM table"
+#     cursor.execute(sql)
+#     results = cursor.fetchall()
+#     return render_template('index.html', results=results)

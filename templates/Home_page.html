@@ -30,7 +30,7 @@
             <li><a href="#">link 3</a></li>
             <li><a href="#">link 4</a></li>
             <li class="dropdown">
-                    <span class="user_name">User Name</span>
+                    <span class="user_name">{{ msg }}</span>
                     <div class="dropdown-content">
                     <a href="#" onclick="popfunction()">Profile</a>
                     <a href="#" onclick="change_password()">Password</a>
@@ -47,7 +47,7 @@
 
     <div id="profile">
         <div id="container">
-            <form>
+            <form method="post" action="/update">
                 <a onclick="displayWelcome()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
 
                 <p><img id="Image_Change" class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p> {# Default image #}
@@ -62,7 +62,7 @@
                 <div class="displayLeft">
 
                     <span class="label">User name:</span>
-                    <span id="UserName_Info" class="label_output">Input(User_Name)</span> {# The User name display here #}
+                    <span id="UserName_Info" class="label_output">{{ msg }} </span> {# The User name display here #}
                     <input id="UserName_edit" class="label_output" type="text" placeholder="User name" name="Profile_username">
                     <br><br><br><br>
 
