@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import datetime
+import yahoo_finance as yf
 
 app = Flask(__name__)
 
