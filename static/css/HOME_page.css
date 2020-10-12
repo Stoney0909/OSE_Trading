@@ -4,6 +4,27 @@
         padding: 0;
     }
 
+     .dropdown
+    {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content
+    {
+      display: none;
+      position: absolute;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .user_name:hover
+    {
+        background: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        color: darkslategray;
+    }
+
     .wrapper
     {
         width: 90%;
@@ -21,7 +42,7 @@
         display: inline-block;
     }
 
-    .nav li a{
+    .nav a{
         color: white;
         text-decoration: none;
         padding: 5px 50px;
@@ -29,23 +50,17 @@
         font-size: 20px;
     }
 
-    .dropdown
+     .user_name
     {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content
-    {
-      display: none;
-      position: absolute;
-      width:200px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
+        color: white;
+        text-decoration: none;
+        padding: 5px 50px;
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+        font-size: 20px;
     }
 
     .dropdown-content a {
-      color: black;
+      color: white;
       text-decoration: none;
       display: block;
     }
@@ -60,20 +75,7 @@
         display: block;
     }
 
-    .user_name
-    {
-        color: white;
-        text-decoration: none;
-        padding: 5px 50px;
-        font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
-        font-size: 20px;
-    }
 
-    .user_name:hover
-    {
-        background: white;
-        color: darkslategray;
-    }
 
     .nav li a:hover{
         background: white;
@@ -97,7 +99,6 @@
 
     .label
     {
-
         font-size: 25px;
         font-family: "Arial Black", Gadget, sans-serif;
     }

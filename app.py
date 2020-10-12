@@ -84,6 +84,9 @@ def home_page():
 def stock_page():
     return render_template('StockMarket_page.html')
 
+@app.route('/Profile')
+def profile_page():
+    return render_template('Profile_page.html')
 
 @app.route('/')
 def someName():

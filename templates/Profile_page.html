@@ -2,67 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_page.css') }}">
-    <script src="{{url_for('static', filename='js/home_page.js')}}"></script>
+    <title>Title</title>
 </head>
-
-<style>
-    header{
-        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/image.gif') }});
-        height: 110vh;
-        -webkit-background-size: cover;
-        background-size: cover;
-        background-position: center center;
-        position: relative;
-    }
-
-</style>
-
 <body>
-<header>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
-        </div>
-        <ul class="nav">
-            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
-            <li><a href="#">link 2</a></li>
-            <li><a href="#">link 3</a></li>
-            <li><a href="#">link 4</a></li>
-            <li class="dropdown">
-                    <span class="user_name">
-                        {{ msg['username']}}
-                    </span>
-                    <div class="dropdown-content">
-                    <a href="#" onclick="popfunction()">Profile</a>
-                    <a href="#" onclick="change_password()">Password</a>
-                    <a href="{{ url_for('login_page') }}">Sign out</a>
-                    </div>
-            </li>
-        </ul>
-    </div>
+<span class="label">User name:</span>
 
-    <div id="welcome">
-        <h1>Welcome!</h1>
-        <a href="#">Contact Us</a>
-    </div>
-
-    <div id="profile">
-        <div id="container">
-            <form>
-                <a onclick="displayWelcome()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
-
-                <p><img id="Image_Change" class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p> {# Default image #}
-
-                {#<input type="file" name="img_one" id="file-ip-1" accept="image/*" onchange="showPreviewOne(event);" style="background-color: white; width: 20%; height: auto;">#}
-                {# Can't figured out how to add image, need help in this part #}
-
-                <div id="displayEdit_Button" class="displayEdit">
-                    <a href="#" onclick="displayEditProfile()">Editing Profile</a>
-                </div>
-
-                <div class="displayLeft">
+                    <div class="displayLeft">
 
                     <span class="label">User name:</span>
 
@@ -94,7 +39,8 @@
 
                 </div>
 
-                <div class="display_right">
+
+                  <div class="display_right">
                     <span class="label">Email: </span>
                     <span id="Email_Info" class="label_output">{{ msg['email']}}</span> {# The user email display here #}
                     <input id="Email_edit" class="label_output" type="email" placeholder="Email address" name="Profile_Email">
@@ -120,23 +66,5 @@
                     </div>
 
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="change_password">
-        <form>
-            <div class="Set_new_password">
-            <p style="text-align: center"><a href="#" onclick="displayWelcome()"><img  src="{{ url_for('static', filename='img/Logo1.png') }}"></a></p>
-            <h2 style="text-align: center">Change password</h2>
-            <input type="password" placeholder="Old Password" name="Old_password" required>
-            <input type="password" placeholder="New Password" name="New_password" required>
-            <input type="password" placeholder="Confirm Password" name="Confirm_password" required>
-            <button class="save_password" type="submit" style="margin-bottom: 5%">Submit</button>
-        </div>
-        </form>
-    </div>
-
-</header>
 </body>
 </html>
