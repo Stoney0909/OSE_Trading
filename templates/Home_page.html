@@ -30,7 +30,9 @@
             <li><a href="#">link 3</a></li>
             <li><a href="#">link 4</a></li>
             <li class="dropdown">
-                    <span class="user_name">{{ msg }}</span>
+                    <span class="user_name">
+                        {{ msg['username']}}
+                    </span>
                     <div class="dropdown-content">
                     <a href="#" onclick="popfunction()">Profile</a>
                     <a href="#" onclick="change_password()">Password</a>
@@ -47,7 +49,7 @@
 
     <div id="profile">
         <div id="container">
-            <form method="post" action="/update">
+            <form>
                 <a onclick="displayWelcome()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
 
                 <p><img id="Image_Change" class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p> {# Default image #}
@@ -62,7 +64,11 @@
                 <div class="displayLeft">
 
                     <span class="label">User name:</span>
-                    <span id="UserName_Info" class="label_output">{{ msg }} </span> {# The User name display here #}
+
+                    <span id="UserName_Info" class="label_output">
+{#                  {{ msg['username']}}      {{ msg['username']}}#}
+                      {% for row in result %}  {{ result['username'] }} {% endfor %}
+                    </span> {# The User name display here #}
                     <input id="UserName_edit" class="label_output" type="text" placeholder="User name" name="Profile_username">
                     <br><br><br><br>
 
@@ -89,7 +95,7 @@
 
                 <div class="display_right">
                     <span class="label">Email: </span>
-                    <span id="Email_Info" class="label_output">Input(User_Email)</span> {# The user email display here #}
+                    <span id="Email_Info" class="label_output">{{ msg['email']}}</span> {# The user email display here #}
                     <input id="Email_edit" class="label_output" type="email" placeholder="Email address" name="Profile_Email">
                     <br><br><br><br>
 

@@ -1,0 +1,11 @@
+{% extends 'Home_page.html' %}
+{% block content %}
+    <h1>{% block title %} Welcome to FlaskBlog {% endblock %}</h1>
+    {% for row in result %}  {{ result['username'] }} {% endfor %}
+{#        <a href="#">#}
+{#            <h2>{{ post['title'] }}</h2>#}
+{#        </a>#}
+{#        <span class="badge badge-primary">{{ post['created'] }}</span>#}
+{#        <hr>#}
+    {% endfor %}
+{% endblock %}
