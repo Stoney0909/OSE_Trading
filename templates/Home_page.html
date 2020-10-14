@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/HOMEPAGE.css') }}">
     <script src="{{url_for('static', filename='js/home_page.js')}}"></script>
 </head>
 
@@ -16,6 +16,7 @@
         background-position: center center;
         position: relative;
     }
+
 
 </style>
 
@@ -51,36 +52,21 @@
     <div id="profile">
         <div id="container">
             <form>
-                <a onclick="displayWelcome()" href="#"><img class="Go_back_image" src="{{ url_for('static', filename='img/back.jpg') }}"></a>
-
-                <p><img id="Image_Change" class="profile_image" src="{{ url_for('static', filename='img/profile_image_defult.png') }}"></p> {# Default image #}
-
-                {#<input type="file" name="img_one" id="file-ip-1" accept="image/*" onchange="showPreviewOne(event);" style="background-color: white; width: 20%; height: auto;">#}
-                {# Can't figured out how to add image, need help in this part #}
-
-                <div id="displayEdit_Button" class="displayEdit">
-                    <a href="#" onclick="displayEditProfile()">Editing Profile</a>
-                </div>
-
+                <p style="text-align: center"><a href="#" onclick="displayWelcome()"><img  src="{{ url_for('static', filename='img/Logo1.png') }}"></a></p>
                 <div class="displayLeft">
-
                     <span class="label">User name:</span>
-
-                    <span id="UserName_Info" class="label_output">
-                    {{ msg['username']}}
-                      {% for row in result %}  {{ result['username'] }} {% endfor %}
-                    </span> {# The User name display here #}
-                    <input id="UserName_edit" class="label_output" type="text" placeholder="User name" name="Profile_username">
+                    <br>
+                    <input id="UserName_edit" class="label_output" type="text" placeholder={{ msg['username']}} name="Profile_username">
                     <br><br><br><br>
 
                     <span class="label">First name:</span>
-                    <span id="FirstName_Info" class="label_output">Input(First_Name)</span> {# The first name display here #}
+                    <br>
                     <input id="FirstName_edit" class="label_output" type="text" placeholder="First name" name="Profile_first_name">
                     <br><br><br><br>
 
                     <span class="label">Gender:</span>
-                    <span id="Gender_Info" class="label_output">Input(Gender)</span> {# The Gender display here #}
-                    <select name="Profile_Gender" id="Gender_edit" class="label_output">
+                    <br>
+                    <select name="Profile_Gender" id="Gender_edit" class="label_output" style="width: 80%;  background-color: #d5d5d5;">
                     <option>Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -88,35 +74,29 @@
                     <br><br><br><br>
 
                     <span class="label">Phone:</span>
-                    <span  id="Phone_Info" class="label_output">Input(Phone)</span> {# The phone number display here #}
+                    <br>
                     <input id="Phone_edit" class="label_output" type="number" placeholder="Phone number" name="Profile_Phone_Number">
-                    <br><br><br><br>
+                    <br><br><br>
 
                 </div>
-
                 <div class="display_right">
                     <span class="label">Email: </span>
-                    <span id="Email_Info" class="label_output">{{ msg['email']}}</span> {# The user email display here #}
+                    <br>
                     <input id="Email_edit" class="label_output" type="email" placeholder="Email address" name="Profile_Email">
                     <br><br><br><br>
 
                     <span class="label">Last name: </span>
-                    <span id="LastName_Info" class="label_output">Input(Last_Name)</span> {# The last name display here #}
+                    <br>
                     <input id="LastName_edit" class="label_output" type="text" placeholder="Last name" name="Profile_LastName">
                     <br><br><br><br>
 
                     <span class="label">Age: </span>
-                    <span id="Age_Info" class="label_output">Input(age)</span> {# The age display here #}
+                    <br>
                     <input id="Age_edit" class="label_output" type="number" placeholder="Age" name="Profile_Age">
-                    <br><br><br><br>
+                    <br><br><br><br><br>
 
-                    <span id="Stock_Label" class="label">Stock:</span>
-                    <span id="Stock_Info" class="label_output">Input(Stock_number)</span> {# The number of stock user have display here #}
-                    <br><br><br><br>
-
-                    <div id="Saveprofile" style="display: none">
-{#                     <button type="submit">Save</button>#}
-                       <a href="#" onclick="saveProfile()">Save</a>{# After get button working, remove this line, if you not sure just tell me#}
+                    <div id="Saveprofile">
+                    <button type="submit">Save</button>
                     </div>
 
                 </div>
