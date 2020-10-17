@@ -3,7 +3,9 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import datetime
-import yahoo_finance as yf
+from Python import get_graph_html as graph
+
+import yfinance as yf
 
 app = Flask(__name__)
 
@@ -13,11 +15,12 @@ app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
 
 mysql = MySQL(app)
-currentUser =''
+currentUser = ''
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
-@app.route('/',methods =['GET', 'POST'])
+
+@app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -36,6 +39,7 @@ def login_page():
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
+
 
 @app.route('/Signup', methods=['GET', 'POST'])
 def signup_page():
@@ -59,49 +63,45 @@ def signup_page():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)', ('Null','Null', username, email, password,'150',today))
+            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)',
+                           ('Null', 'Null', username, email, password, '150', today))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
     return render_template('Signup_page.html', msg=msg)
 
+
 @app.route('/ForgetPassword')
 def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
+
 
 @app.route('/Home')
 def home_page():
     return render_template('Home_page.html')
 
-@app.route('/StockMarket')
+
+@app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    return render_template('StockMarket_page.html')
+    stockid = ''
+    if request.method == 'POST' and 'stockID' in request.form:
+        stockid = request.form['stockID']
+
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    values = [10, 9, 8, 7, 6, 4, 7, 8]
+    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
+
 
 @app.route('/Home', methods=['GET', 'POST'])
 def someName():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     # sql = "SELECT * FROM trading_Profile WHERE username = % s",(currentUser,)
-    cursor.execute("SELECT * FROM trading_Profile WHERE username = % s",(currentUser,))
+    cursor.execute("SELECT * FROM trading_Profile WHERE username = % s", (currentUser,))
     results = cursor.fetchall()
-    return render_template('Home_page.html', results =results)
+    return render_template('Home_page.html', results=results)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# from flask import Flask, request, render_template
-# import pymysql
-#
-# db = pymysql.connect("localhost", "username", "password", "database")
-#
-# app = Flask(__name__)
-# api = Api(app)
-#
-# @app.route('/')
-# def someName():
-#     cursor = db.cursor()
-#     sql = "SELECT * FROM table"
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('index.html', results=results)
