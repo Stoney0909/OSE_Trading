@@ -2,10 +2,12 @@ import datetime
 import re
 import MySQLdb.cursors
 from flask_mail import Mail, Message
-from flask import Flask
-from flask import render_template, request
+from flask import Flask, flash
+from flask import render_template, request, session
 from flask_mysqldb import MySQL
+from flask_login import LoginManager, login_user
 
+login_manager = LoginManager()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
@@ -40,8 +42,11 @@ def login_page():
         account = cursor.fetchone()
         if account:
             currentUser = username
-            # cursor.execute("SELECT * FROM trading_Profile WHERE username = % s", (currentUser,))
-            # results = cursor.fetchone()
+            session['loggedin'] = True
+            session['id'] = account['trading_ID']
+            session['username'] = account['username']
+            session['email'] = account['email']
+
             return render_template('Home_page.html', msg=account)
         else:
             msg = 'Incorrect username / password!'
@@ -52,9 +57,33 @@ def Updating():
     # if request.method == "POST":
     if request.method == 'POST':
         # if request.form['Save_Button'] == 'Save':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
+        return render_template('Home_page.html', )
+
+
+from forms import EditProfileForm
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    form = EditProfileForm()
+    if 'loggedin' in session:
+        if form.validate_on_submit():
+            session['username'] = form.username.data
+            session['username'] = form.about_me.data
+            flash('Your changes have been saved.')
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
-            return render_template('Home_page.html', )
+            cursor2.execute('SELECT * FROM trading_Profile WHERE username = % s',
+                           (form.username.data,))
+            account = cursor2.fetchone()
+            return render_template('Home_page.html',msg =account)
+        elif request.method == 'GET':
+            form.username.data = session['username']
+            form.about_me.data = session['email']
+        return render_template('Profile.html', title='Edit Profile', form=form)
 
 
 # def Updating():
@@ -116,22 +145,24 @@ def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
 
 
-@app.route('/Home',methods=['GET', 'POST'])
+@app.route('/Home', methods=['GET', 'POST'])
 def home_page():
- if request.form['Save_Button'] == 'Save':
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
-    return render_template('Home_page.html', )
-    # return render_template('Home_page.html')
+    if request.form['Save_Button'] == 'Save':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
+        return render_template('Home_page.html', )
+        # return render_template('Home_page.html')
 
 
 @app.route('/StockMarket')
 def stock_page():
     return render_template('StockMarket_page.html', )
 
+
 @app.route('/ChangePassword')
 def changePassword_page():
     return render_template('ChangePassword.html', )
+
 
 @app.route('/Update', methods=['POST'])
 def Update():
@@ -139,6 +170,7 @@ def Update():
     cursor.execute("SELECT * FROM trading_Profile WHERE username = %s", ('Oumar',))
     data = cursor.fetchone()
     return render_template('Home_page.html', msg=data)
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -158,9 +190,11 @@ def contact():
         #         return render_template('Home_page.html')
         return '<h1>Form submitted!</h1>'
 
+
 @app.route('/ProfilePage')
 def pro_page():
     return render_template('Profile.html', )
+
 
 @app.route('/Updating', methods=['GET', 'POST'])
 def Updating():
