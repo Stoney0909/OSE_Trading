@@ -6,6 +6,7 @@ import datetime
 from Python import get_graph_html as graph
 
 import yfinance as yf
+from pandas_datareader import data
 
 app = Flask(__name__)
 
@@ -84,13 +85,22 @@ def home_page():
 
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    stockid = ''
+    stockid = 'MSFT'
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
     if request.method == 'POST' and 'stockID' in request.form:
         stockid = request.form['stockID']
 
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-    values = [10, 9, 8, 7, 6, 4, 7, 8]
+        stockData = yf.Ticker(stockid)
+        history = stockData.history(period="1d", interval="1m")
+        time = list()
+        for row in history.index:
+            date = datetime.datetime.timestamp(row)
+            time.append(date)
+        return render_template('StockMarket_page.html', stockid=history, values=history['Open'],
+                               labels=time, legend=legend)
+
+    values = [20, 21, 263, 10, 10, 10, 10, 10]
     return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
 
 

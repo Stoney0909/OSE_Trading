@@ -20,6 +20,8 @@
 <p>{{ stockid }}</p>
 
 <canvas id="myChart" width="400" height="400"></canvas>
+
+
 <script>
 Chart.defaults.global.responsive = false;
 
@@ -28,6 +30,7 @@ var chartData = {
   labels : [{% for item in labels %}
              "{{item}}",
             {% endfor %}],
+
   datasets : [{
       label: '{{ legend }}',
       fill: true,
