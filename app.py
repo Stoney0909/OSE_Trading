@@ -1,20 +1,29 @@
 import datetime
 import re
-
 import MySQLdb.cursors
-
+from flask_mail import Mail, Message
 from flask import Flask
 from flask import render_template, request
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
 
 mysql = MySQL(app)
+app.config.update(
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME='oumarcissevu@gmail.com',
+    MAIL_PASSWORD='Ousmane1998@'
+)
+
+mail = Mail(app)
+
 currentUser = ''
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
@@ -37,6 +46,26 @@ def login_page():
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
+
+
+def Updating():
+    # if request.method == "POST":
+    if request.method == 'POST':
+        # if request.form['Save_Button'] == 'Save':
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
+            return render_template('Home_page.html', )
+
+
+# def Updating():
+#     if request.method == 'POST':
+#         if request.form['Save_Button'] == 'Save':
+#             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+#             cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
+#             return render_template('Home_page.html', )
+#     else:
+#         pass
+#         return render_template('Home_page.html', )
 
 
 @app.route('/Signup', methods=['GET', 'POST'])
@@ -70,38 +99,86 @@ def signup_page():
     return render_template('Signup_page.html', msg=msg)
 
 
-@app.route('/ForgetPassword')
+@app.route('/ForgetPassword', methods=['GET', 'POST'])
 def forgetPassword_page():
+    if request.method == 'POST' and 'email' in request.form:
+        email = request.form['email']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM trading_Profile WHERE email = % s', (email,))
+        account = cursor.fetchone()
+        msg = Message(
+            'Hello',
+            sender=email,
+            recipients=[email]
+        )
+        msg.html = render_template('msg.html', result=account)
+        mail.send(msg)
     return render_template('ForgetPassword_page.html')
 
 
-@app.route('/Home')
+@app.route('/Home',methods=['GET', 'POST'])
 def home_page():
-    return render_template('Home_page.html')
+ if request.form['Save_Button'] == 'Save':
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
+    return render_template('Home_page.html', )
+    # return render_template('Home_page.html')
 
 
 @app.route('/StockMarket')
 def stock_page():
-    return render_template('StockMarket_page.html')
+    return render_template('StockMarket_page.html', )
 
-@app.route('/Profile')
-def profile_page():
-    return render_template('Profile_page.html')
+@app.route('/ChangePassword')
+def changePassword_page():
+    return render_template('ChangePassword.html', )
 
-@app.route('/')
-def someName():
+@app.route('/Update', methods=['POST'])
+def Update():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM trading_Profile WHERE username = % s", (currentUser,))
-    query = cursor.fetchone()
-    return render_template('Home_page.html', result=query)
+    cursor.execute("SELECT * FROM trading_Profile WHERE username = %s", ('Oumar',))
+    data = cursor.fetchone()
+    return render_template('Home_page.html', msg=data)
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'GET':
+        return render_template('contact.html')
+    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form:
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        return '<h1>Form submitted!</h1>'
+    else:
+        #         msg = Message(form.subject.data, sender='[SENDER EMAIL]', recipients=['your reciepients gmail id'])
+        #         msg.body = """
+        #     	from: %s &lt;%s&gt
+        # 		%s
+        # 		""" % (form.name.data, form.email.data, form.message.data)
+        #         mail.send(msg)
+        #         return render_template('Home_page.html')
+        return '<h1>Form submitted!</h1>'
+
+@app.route('/ProfilePage')
+def pro_page():
+    return render_template('Profile.html', )
+
+@app.route('/Updating', methods=['GET', 'POST'])
+def Updating():
+    # if request.method == "POST":
+    if request.method == 'POST':
+        if request.form['Save_Button'] == 'Save':
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
+            return render_template('Home_page.html', )
+    else:
+        pass
+        return render_template('Home_page.html', )
+    # else:
+    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #     cursor.execute("SELECT * FROM trading_Profile WHERE username = %s", ('Oumar',))
+    #     data = cursor.fetchone()
+    #     return render_template('Home_page.html',result=data)
 
 
-# @app.route('/')
-# def someName():
-#     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#     sql = "SELECT * FROM table"
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('index.html', results=results)
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile page</title>
+</head>
+<body>
+<div id="profile">
+        <div id="container">
+            <form>
+                <a href="{{ url_for('home_page') }}"><img  src="{{ url_for('static', filename='img/Logo1.png') }}"></a>
+                <div class="displayLeft">
+                    <span class="label">User name:</span>
+                    <br>
+                    <input id="UserName_edit" class="label_output" type="text" placeholder="user name" name="Profile_username">
+                    <br><br><br><br>
+
+                    <span class="label">First name:</span>
+                    <br>
+                    <input id="FirstName_edit" class="label_output" type="text" placeholder="First name" name="Profile_first_name">
+                    <br><br><br><br>
+
+                    <span class="label">Gender:</span>
+                    <br>
+                    <select name="Profile_Gender" id="Gender_edit" class="label_output" style="width: 80%;  background-color: #d5d5d5;">
+                    <option>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    </select>
+                    <br><br><br><br>
+
+                    <span class="label">Phone:</span>
+                    <br>
+                    <input id="Phone_edit" class="label_output" type="number" placeholder="Phone number" name="Profile_Phone_Number">
+                    <br><br><br>
+
+                </div>
+                <div class="display_right">
+                    <span class="label">Email: </span>
+                    <br>
+                    <input id="Email_edit" class="label_output" type="email" placeholder="Email address" name="Profile_Email">
+                    <br><br><br><br>
+
+                    <span class="label">Last name: </span>
+                    <br>
+                    <input id="LastName_edit" class="label_output" type="text" placeholder="Last name" name="Profile_LastName">
+                    <br><br><br><br>
+
+                    <span class="label">Age: </span>
+                    <br>
+                    <input id="Age_edit" class="label_output" type="number" placeholder="Age" name="Profile_Age">
+                    <br><br><br><br><br>
+
+                    <div id="Saveprofile">
+                    <button type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
