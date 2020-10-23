@@ -7,9 +7,7 @@ from flask import render_template, request, session
 from flask_mysqldb import MySQL
 from flask_login import LoginManager
 
-
 app = Flask(__name__)
-
 
 login_manager = LoginManager()
 
@@ -60,7 +58,9 @@ def login_page():
     return render_template('Login_page.html', msg=msg)
 
 
-from forms import EditProfileForm,ChangePassword
+from forms import EditProfileForm, ChangePassword
+
+
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
     form = EditProfileForm()
@@ -104,31 +104,34 @@ def edit_profile():
                 form.phone.data = session['phone']
         return render_template('Profile.html', title='Edit Profile', form=form)
 
+
 @app.route('/ChangePassword', methods=['GET', 'POST'])
 def changePassword_page():
-    msg=''
+    msg = ''
     if request.method == 'POST' and 'oldPassword' in request.form and 'newPassword' in request.form and 'newPassword2' in request.form:
         oldpassword = request.form['oldPassword']
         newPassword = request.form['newPassword']
         newPassword2 = request.form['newPassword2']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s AND password = %s', (session['id'], oldpassword,))
+        cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s AND password = %s',
+                       (session['id'], oldpassword,))
         account = cursor.fetchone()
         if account:
-           if newPassword2 != newPassword:
-              msg = 'New Password does not match'
-           else:
-              cursor.execute('UPDATE trading_Profile SET password = %s '
-                           'WHERE trading_ID = %s',
-                           (newPassword,session['id'],))
-              mysql.connection.commit()
-              return render_template('Home_page.html', msg=msg)
+            if newPassword2 != newPassword:
+                msg = 'New Password does not match'
+            else:
+                cursor.execute('UPDATE trading_Profile SET password = %s '
+                               'WHERE trading_ID = %s',
+                               (newPassword, session['id'],))
+                mysql.connection.commit()
+                return render_template('Home_page.html', msg=msg)
         else:
             msg = 'Old password does not match'
             render_template('ChangePassword.html', msg=msg)
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
-    return render_template('ChangePassword.html', msg =msg)
+    return render_template('ChangePassword.html', msg=msg)
+
 
 @app.route('/Signup', methods=['GET', 'POST'])
 def signup_page():
@@ -184,15 +187,11 @@ def home_page():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
         return render_template('Home_page.html', )
-        # return render_template('Home_page.html')
 
 
 @app.route('/StockMarket')
 def stock_page():
     return render_template('StockMarket_page.html', )
-
-
-
 
 
 @app.route('/contact', methods=['GET', 'POST'])
