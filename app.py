@@ -58,7 +58,7 @@ def login_page():
     return render_template('Login_page.html', msg=msg)
 
 
-from forms import EditProfileForm, ChangePassword
+from forms import EditProfileForm
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -169,7 +169,7 @@ def forgetPassword_page():
     if request.method == 'POST' and 'email' in request.form:
         email = request.form['email']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM trading_Profile WHERE email = % s', (email,))
+        cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s', (1,))
         account = cursor.fetchone()
         msg = Message(
             'Hello',
@@ -209,24 +209,6 @@ def contact():
 @app.route('/ProfilePage')
 def pro_page():
     return render_template('Profile.html', )
-
-
-@app.route('/Updating', methods=['GET', 'POST'])
-def Updating():
-    # if request.method == "POST":
-    if request.method == 'POST':
-        if request.form['Save_Button'] == 'Save':
-            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
-            return render_template('Home_page.html', )
-    else:
-        pass
-        return render_template('Home_page.html', )
-    # else:
-    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     cursor.execute("SELECT * FROM trading_Profile WHERE username = %s", ('Oumar',))
-    #     data = cursor.fetchone()
-    #     return render_template('Home_page.html',result=data)
 
 
 if __name__ == '__main__':
