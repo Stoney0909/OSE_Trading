@@ -5,11 +5,14 @@ from flask_mail import Mail, Message
 from flask import Flask, flash, redirect, url_for
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
-from flask_login import LoginManager, login_user
-from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+
+
+app = Flask(__name__)
+
 
 login_manager = LoginManager()
-app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
@@ -47,9 +50,9 @@ def login_page():
             session['id'] = account['trading_ID']
             session['username'] = account['username']
             session['email'] = account['email']
-            session['first_name']=account['first_Name']
-            session['last_name']=account['last_Name']
-            session['phone']= account['phone']
+            session['first_name'] = account['first_Name']
+            session['last_name'] = account['last_Name']
+            session['phone'] = account['phone']
             session['gender'] = account['gender']
             return render_template('Home_page.html', msg=account)
         else:
@@ -57,18 +60,7 @@ def login_page():
     return render_template('Login_page.html', msg=msg)
 
 
-def Updating():
-    # if request.method == "POST":
-    if request.method == 'POST':
-        # if request.form['Save_Button'] == 'Save':
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
-        return render_template('Home_page.html', )
-
-
-from forms import EditProfileForm
-
-
+from forms import EditProfileForm,ChangePassword
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
     form = EditProfileForm()
@@ -86,7 +78,7 @@ def edit_profile():
                            ', phone = %s, gender = %s'
                            'WHERE trading_ID = %s',
                            (session['username'], session['email'], session['first_name'],
-                            session['last_name'], session['phone'],session['gender'],
+                            session['last_name'], session['phone'], session['gender'],
                             session['id'],))
 
             cursor.execute('SELECT * FROM trading_Profile WHERE username = %s',
@@ -111,6 +103,32 @@ def edit_profile():
             else:
                 form.phone.data = session['phone']
         return render_template('Profile.html', title='Edit Profile', form=form)
+
+@app.route('/ChangePassword', methods=['GET', 'POST'])
+def changePassword_page():
+    msg=''
+    if request.method == 'POST' and 'oldPassword' in request.form and 'newPassword' in request.form and 'newPassword2' in request.form:
+        oldpassword = request.form['oldPassword']
+        newPassword = request.form['newPassword']
+        newPassword2 = request.form['newPassword2']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s AND password = %s', (session['id'], oldpassword,))
+        account = cursor.fetchone()
+        if account:
+           if newPassword2 != newPassword:
+              msg = 'New Password does not match'
+           else:
+              cursor.execute('UPDATE trading_Profile SET password = %s '
+                           'WHERE trading_ID = %s',
+                           (newPassword,session['id'],))
+              mysql.connection.commit()
+              return render_template('Home_page.html', msg=msg)
+        else:
+            msg = 'Old password does not match'
+            render_template('ChangePassword.html', msg=msg)
+    elif request.method == 'POST':
+        msg = 'Please fill out the form !'
+    return render_template('ChangePassword.html', msg =msg)
 
 @app.route('/Signup', methods=['GET', 'POST'])
 def signup_page():
@@ -174,9 +192,7 @@ def stock_page():
     return render_template('StockMarket_page.html', )
 
 
-@app.route('/ChangePassword')
-def changePassword_page():
-    return render_template('ChangePassword.html', )
+
 
 
 @app.route('/contact', methods=['GET', 'POST'])

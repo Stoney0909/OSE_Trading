@@ -9,6 +9,26 @@ from app import session, mysql
 import re
 from wtforms.fields.html5 import EmailField
 
+
+class ChangePassword(FlaskForm):
+    oldPassword = StringField('old_password', validators=[DataRequired()])
+    newPassword = StringField('new_password', validators=[DataRequired()])
+    newPassword2 = StringField('new_password', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def validate_Password(form, newPassword, newPasword2):
+        if newPassword != newPasword2:
+            raise ValidationError("The New password does not match")
+
+    def validate_Old_Password(form, oldPassword):
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT passwrod FROM trading_Profile WHERE trading_ID = %s',
+                       (session['id']))
+        account = cursor.fetchone()
+        if not account:
+            raise ValidationError("Your old password does not match")
+
+
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     first_Name = StringField('First_Name', validators=[DataRequired()])
@@ -37,4 +57,3 @@ class EditProfileForm(FlaskForm):
         account = cursor.fetchone()
         if account:
             raise ValidationError(account)
-
