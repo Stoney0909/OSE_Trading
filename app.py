@@ -3,8 +3,6 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import datetime
-from Python import get_graph_html as graph
-
 import yfinance as yf
 from pandas_datareader import data
 
@@ -86,7 +84,6 @@ def home_page():
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
     stockid = 'MSFT'
-    legend = 'Monthly Data'
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
     if request.method == 'POST' and 'stockID' in request.form:
         stockid = request.form['stockID']
@@ -97,11 +94,11 @@ def stock_page():
         for row in history.index:
             date = datetime.datetime.timestamp(row)
             time.append(date)
-        return render_template('StockMarket_page.html', stockid=history, values=history['Open'],
-                               labels=time, legend=legend)
+        return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                               labels=time, legend=stockid)
 
     values = [20, 21, 263, 10, 10, 10, 10, 10]
-    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
+    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=stockid)
 
 
 @app.route('/Home', methods=['GET', 'POST'])
