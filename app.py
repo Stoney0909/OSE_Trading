@@ -1,4 +1,8 @@
 import datetime
+from Python import get_graph_html as graph
+
+import yfinance as yf
+from pandas_datareader import data
 import re
 import MySQLdb.cursors
 from flask_mail import Mail, Message
@@ -181,7 +185,7 @@ def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
 
 
-@app.route('/Home', methods=['GET', 'POST'])
+@app.route('/Home')
 def home_page():
     if request.form['Save_Button'] == 'Save':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -189,21 +193,26 @@ def home_page():
         return render_template('Home_page.html', )
 
 
-@app.route('/StockMarket')
+
+@app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    return render_template('StockMarket_page.html', )
+    stockid = 'MSFT'
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    if request.method == 'POST' and 'stockID' in request.form:
+        stockid = request.form['stockID']
 
+        stockData = yf.Ticker(stockid)
+        history = stockData.history(period="1d", interval="1m")
+        time = list()
+        for row in history.index:
+            date = datetime.datetime.timestamp(row)
+            time.append(date)
+        return render_template('StockMarket_page.html', stockid=history, values=history['Open'],
+                               labels=time, legend=legend)
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    if request.method == 'GET':
-        return render_template('contact.html')
-    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form:
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        return '<h1>Form submitted!</h1>'
-    else:
-        return '<h1>Form submitted!</h1>'
+    values = [20, 21, 263, 10, 10, 10, 10, 10]
+    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
 
 
 @app.route('/ProfilePage')
@@ -211,5 +220,23 @@ def pro_page():
     return render_template('Profile.html', )
 
 
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# from flask import Flask, request, render_template
+# import pymysql
+#
+# db = pymysql.connect("localhost", "username", "password", "database")
+#
+# app = Flask(__name__)
+# api = Api(app)
+#
+# @app.route('/')
+# def someName():
+#     cursor = db.cursor()
+#     sql = "SELECT * FROM table"
+#     cursor.execute(sql)
+#     results = cursor.fetchall()
+#     return render_template('index.html', results=results)
