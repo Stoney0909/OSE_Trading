@@ -219,24 +219,18 @@ def stock_page():
 def pro_page():
     return render_template('Profile.html', )
 
-
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'GET':
+        return render_template('contact.html')
+    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form:
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        return '<h1>Form submitted!</h1>'
+    else:
+        return '<h1>Form submitted!</h1>'
 
 if __name__ == '__main__':
     app.run(debug=True)
 
 
-# from flask import Flask, request, render_template
-# import pymysql
-#
-# db = pymysql.connect("localhost", "username", "password", "database")
-#
-# app = Flask(__name__)
-# api = Api(app)
-#
-# @app.route('/')
-# def someName():
-#     cursor = db.cursor()
-#     sql = "SELECT * FROM table"
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('index.html', results=results)
