@@ -104,22 +104,6 @@
         text-align: center;
     }
 
-    .displayLeft
-    {
-        width: 43%;
-        margin-top: 3%;
-        float: left;
-        margin-left: 10%;
-    }
-
-    .display_right
-    {
-        width: 43%;
-        margin-top: 3%;
-        float: left;
-        margin-left: 1%;
-    }
-
     botton:focus
     {
          outline: none;
@@ -219,40 +203,6 @@
     #Saveprofile:hover
     {
         opacity: 0.8;
-    }
-
-     #change_password
-    {
-        position: absolute;
-        margin: 10% 35%;
-        background-color: #ffffff;
-        display: none;
-        width: 30%;
-        height: auto;
-        border-radius: 10px;
-    }
-
-    #change_password input
-    {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        box-sizing: border-box;
-        border-radius: 25px;
-        border: none;
-        background-color: #d5d5d5;
-    }
-
-    #change_password input:focus
-    {
-        outline: none;
-    }
-
-    .Set_new_password
-    {
-        padding: 30px;
-        padding-top: 0;
     }
 
      button

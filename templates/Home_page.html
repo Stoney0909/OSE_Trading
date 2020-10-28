@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/HOMEPAGE.css') }}">
-    <script src="{{url_for('static', filename='js/home_page.js')}}"></script>
 </head>
 
 <style>
@@ -16,8 +15,6 @@
         background-position: center center;
         position: relative;
     }
-
-
 </style>
 
 <body>
@@ -33,9 +30,7 @@
             <li><a href="#">link 3</a></li>
             <li><a href="#">link 4</a></li>
             <li class="dropdown">
-                    <span class="user_name">
-                        {{ session['username']}}
-                    </span>
+                    <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
                     <a href="{{ url_for('edit_profile') }}">Profile</a>
                     <a href="{{ url_for('changePassword_page') }}">Password</a>

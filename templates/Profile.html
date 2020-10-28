@@ -1,14 +1,49 @@
-{% block content %}
-    <h1>Edit Profile</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+
+<style>
+ body
+ {
+     background-image: url({{ url_for('static', filename='img/BackGroundImage.jpg') }});
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: 100% 100%;
+ }
+
+ .container {
+    position: absolute;
+    margin: 0 30%;
+    background-color: #ffffff;
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+}
+
+ form
+ {
+     padding: 14px 20px;
+ }
+</style>
+
+<body>
+<div class="container">
+    <p style="text-align: center"><a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo1.png') }}"></a></p>
+    <h2 style="text-align: center">Edit Profile</h2>
+    {% block content %}
+
     <form action="" method="post">
        {{ form.hidden_tag() }}
-         <p>
+
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}<br>
             {% for error in form.username.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-         </p>
+
          <p>
             {{ form.category.label }}<br>
             {{ form.category}}<br>
@@ -47,3 +82,11 @@
          <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
+
+</div>
+
+
+</body>
+</html>
+
+

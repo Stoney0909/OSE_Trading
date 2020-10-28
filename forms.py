@@ -9,8 +9,6 @@ from app import session, mysql
 import re
 from wtforms.fields.html5 import EmailField
 
-
-
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     first_Name = StringField('First_Name', validators=[DataRequired()])

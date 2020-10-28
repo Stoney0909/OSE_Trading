@@ -9,11 +9,8 @@ from flask_mail import Mail, Message
 from flask import Flask, flash, redirect, url_for
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
-from flask_login import LoginManager
 
 app = Flask(__name__)
-
-login_manager = LoginManager()
 
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
@@ -63,7 +60,6 @@ def login_page():
 
 
 from forms import EditProfileForm
-
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
@@ -187,10 +183,7 @@ def forgetPassword_page():
 
 @app.route('/Home')
 def home_page():
-    if request.form['Save_Button'] == 'Save':
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("UPDATE trading_Profile SET email = %s WHERE username = %s", ('Oumar', 'Oumar',))
-        return render_template('Home_page.html', )
+    return render_template('Home_page.html')
 
 
 
@@ -208,7 +201,7 @@ def stock_page():
         for row in history.index:
             date = datetime.datetime.timestamp(row)
             time.append(date)
-        return render_template('StockMarket_page.html', stockid=history, values=history['Open'],
+        return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                labels=time, legend=legend)
 
     values = [20, 21, 263, 10, 10, 10, 10, 10]
