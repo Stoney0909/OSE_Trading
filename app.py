@@ -185,8 +185,6 @@ def forgetPassword_page():
 def home_page():
     return render_template('Home_page.html')
 
-
-
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
     stockid = 'MSFT'
@@ -203,7 +201,6 @@ def stock_page():
             time.append(date)
         return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                labels=time, legend=legend)
-
     values = [20, 21, 263, 10, 10, 10, 10, 10]
     return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
 

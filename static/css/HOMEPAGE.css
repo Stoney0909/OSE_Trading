@@ -50,7 +50,7 @@
         font-size: 20px;
     }
 
-     .user_name
+    .user_name
     {
         color: white;
         text-decoration: none;
@@ -109,41 +109,10 @@
          outline: none;
     }
 
-      button
-    {
-        background-color: #415680;
-        color: white;
-        padding: 14px 20px;
-        text-align: center;
-        border: none;
-        cursor: pointer;
-        width: 25%;
-        height: 50px;
-        border-radius: 25px;
-        margin-top: 50px;
-    }
-
-    button:hover
-    {
-        opacity: 0.8;
-    }
-
     .displayEdit a
     {
         color: white;
         text-decoration: none;
-    }
-
-    #profile
-    {
-        position: absolute;
-        margin: 10% 27%;
-        background-color: #ffffff;
-        width: 45%;
-        height:500px;
-        overflow: auto;
-        display: none;
-        background-color: #e0e0e0;
     }
 
       #container
@@ -151,75 +120,6 @@
         padding: 16px;
         padding-top: 0;
         display: block;
-    }
-
-    #profile input
-    {
-        width: 80%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border-radius: 25px;
-        border: none;
-        background-color: #d5d5d5;
-    }
-
-    #profile input:focus
-    {
-        outline: none;
-    }
-
-    select
-    {
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border-radius: 25px;
-        border: none;
-        background-color: #e8e8e8;
-    }
-
-    #Saveprofile
-    {
-        background-color: #415680;
-        border-radius: 25px;
-        border: none;
-        cursor: pointer;
-        width: 80%;
-        text-align: center;
-    }
-
-     #Saveprofile a
-    {
-        color: white;
-        text-decoration: none;
-    }
-
-    #Saveprofile:focus
-    {
-        outline: none;
-    }
-
-    #Saveprofile:hover
-    {
-        opacity: 0.8;
-    }
-
-     button
-    {
-        background-color: #415680;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        border-radius: 25px;
-    }
-
-    button:hover
-    {
-        opacity: 0.8;
     }
 
     #welcome
