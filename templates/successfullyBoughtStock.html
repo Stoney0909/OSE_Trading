@@ -6,12 +6,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stockMarket_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buyStock.css') }}">
     <title>Stock Market</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <style>
+    .description
+    {
+        font-size: 50px;
+            color: white;
+            font-family: "Arial Black", Gadget, sans-serif;
+    }
+
     header{
             background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
             height: 100vh;
@@ -19,7 +26,7 @@
             background-size: cover;
             background-position: center center;
             position: relative;
-        }
+    }
 </style>
 
 <body>
@@ -30,7 +37,7 @@
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="#">link 2</a></li>
+            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
             <li><a href="#">link 3</a></li>
             <li><a href="#">link 4</a></li>
             <li class="dropdown">
@@ -45,16 +52,9 @@
     </div>
 
     <div id="StockSearchSideBar" >
-        <form action="" method="POST">
-            <div id="searchBar">
-                <p class="searchText">Stock Search</p>
-                <div class="input-icons">
-                     <i class="fa fa-search icon"></i>
-                     <input style="outline: none" type="text" placeholder="Search for a Stock" name="stockID" class="input-field ">
-                </div>
-            </div>
-            <button class="enter_btn" type="submit">Search</button>
-            <a href="{{ url_for('buy_Stock') }}">Buy</a>
+        <form action="" method="">
+
+            <p class='description' name="stockPriceID" >{{ msg }}</p>
         </form>
     </div>
 

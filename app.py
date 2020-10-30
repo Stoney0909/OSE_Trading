@@ -32,7 +32,7 @@ mail = Mail(app)
 
 currentUser = ''
 currentDT = datetime.datetime.now()
-today = currentDT.strftime("%Y-%m-%d")
+today = currentDT.strftime("%Y-%m-%d %H:%M:%S")
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -60,6 +60,7 @@ def login_page():
 
 
 from forms import EditProfileForm
+
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
@@ -155,8 +156,8 @@ def signup_page():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)',
-                           ('Null', 'Null', username, email, password, '150', today))
+            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
+                           ('Null', 'Null', username, email, password, '500', today, 'Null', 'Null'))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -185,6 +186,7 @@ def forgetPassword_page():
 def home_page():
     return render_template('Home_page.html')
 
+
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
     stockid = 'MSFT'
@@ -192,22 +194,70 @@ def stock_page():
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
     if request.method == 'POST' and 'stockID' in request.form:
         stockid = request.form['stockID']
-
+        session['IdOfSearch'] = stockid
         stockData = yf.Ticker(stockid)
         history = stockData.history(period="1d", interval="1m")
         time = list()
         for row in history.index:
             date = datetime.datetime.timestamp(row)
             time.append(date)
+
         return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                labels=time, legend=legend)
+    session['IdOfSearch'] = stockid
     values = [20, 21, 263, 10, 10, 10, 10, 10]
     return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
 
 
-@app.route('/ProfilePage')
-def pro_page():
-    return render_template('Profile.html', )
+@app.route('/buyStock', methods=['GET', 'POST'])
+def buy_Stock():
+    msg = ''
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    stockData = yf.Ticker(session['IdOfSearch'])
+    history = stockData.history(period="1d", interval="1m")
+    time = list()
+    priceOfStock = stockData.info['dayLow']
+    for row in history.index:
+        date = datetime.datetime.timestamp(row)
+        time.append(date)
+    company_name = stockData.info['longName']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT amount_Money FROM trading_Profile WHERE trading_ID = %s',
+                   (session['id'],))
+    account = cursor.fetchone()
+    moneyAvalaible = account['amount_Money']
+    if request.method == 'GET':
+        return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
+                               labels=time, legend=legend, msg=priceOfStock, company_name=company_name)
+    elif request.method == 'POST' and 'stockPrice' in request.form:
+        numberOfShare = request.form.get('stockPrice', type=int)
+        symbol = session['IdOfSearch']
+        if numberOfShare < 1:
+            msg = 'The number of share has to be positive!'
+        elif float(moneyAvalaible) < numberOfShare * float(priceOfStock):
+            msg = "You don't have enough fund to buy this stock"
+        else:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
+                           (priceOfStock, numberOfShare, 'Null', 'Null', today, 'Null',
+                            session['id'], company_name, symbol))
+            cursor.execute('UPDATE trading_Profile SET amount_Money = %s '
+                           'WHERE trading_ID = %s',
+                           (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'],))
+            mysql.connection.commit()
+            msg='You successfully bought the stock'
+            return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
+                                   labels=time, legend=legend, msg=msg, company_name=company_name)
+
+    return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
+                           labels=time, legend=legend, msg=msg, company_name=company_name)
+
+
+@app.route('/SuccessFullBought')
+def successBought():
+    return render_template('successfullyBoughtStock.html')
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -220,7 +270,6 @@ def contact():
     else:
         return '<h1>Form submitted!</h1>'
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-

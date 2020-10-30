@@ -1,13 +1,14 @@
 import MySQLdb
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField, validators
+from wtforms import StringField, TextAreaField, SubmitField, SelectField, validators, IntegerField
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import DataRequired, Length, ValidationError, Email
+from wtforms.validators import DataRequired, Length, ValidationError, Email, NumberRange
 from wtforms import ValidationError
 import phonenumbers
 from app import session, mysql
 import re
 from wtforms.fields.html5 import EmailField
+
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -37,3 +38,10 @@ class EditProfileForm(FlaskForm):
         account = cursor.fetchone()
         if account:
             raise ValidationError(account)
+
+
+class BuyStock(FlaskForm):
+    symbolOfStock = StringField('symbolOfStock', validators=[DataRequired()])
+    numberOfShare = IntegerField('numberOfShare', validators=[NumberRange(min=1, max=10000000000)])
+    priceOfShare = StringField('priceOfShare', validators=[DataRequired()])
+    submit = SubmitField('Buy')
