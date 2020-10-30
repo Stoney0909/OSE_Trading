@@ -44,6 +44,9 @@ def login_page():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM trading_Profile WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
+        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor2.fetchall()
         if account:
             session['loggedin'] = True
             session['id'] = account['trading_ID']
@@ -53,7 +56,8 @@ def login_page():
             session['last_name'] = account['last_Name']
             session['phone'] = account['phone']
             session['gender'] = account['gender']
-            return render_template('Home_page.html', msg=account)
+
+            return render_template('Home_page.html', len =len(data), data = data)
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
@@ -182,9 +186,13 @@ def forgetPassword_page():
     return render_template('ForgetPassword_page.html')
 
 
-@app.route('/Home')
+@app.route('/Home',methods=['GET', 'POST'])
 def home_page():
-    return render_template('Home_page.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+    data = cursor.fetchall()  # data from database
+    # return render_template("example.html", value=data)
+    return render_template('Home_page.html', len=len(data), data=data)
 
 
 @app.route('/StockMarket', methods=['GET', 'POST'])
