@@ -9,6 +9,7 @@ from flask_mail import Mail, Message
 from flask import Flask, flash, redirect, url_for
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
+from Python import stockPage
 
 app = Flask(__name__)
 
@@ -60,6 +61,7 @@ def login_page():
 
 
 from forms import EditProfileForm
+
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
@@ -185,29 +187,16 @@ def forgetPassword_page():
 def home_page():
     return render_template('Home_page.html')
 
+
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    stockid = 'MSFT'
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-    if request.method == 'POST' and 'stockID' in request.form:
-        stockid = request.form['stockID']
-
-        stockData = yf.Ticker(stockid)
-        history = stockData.history(period="1d", interval="1m")
-        time = list()
-        for row in history.index:
-            date = datetime.datetime.timestamp(row)
-            time.append(date)
-        return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                               labels=time, legend=legend)
-    values = [20, 21, 263, 10, 10, 10, 10, 10]
-    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
+    return stockPage.loadDay()
 
 
 @app.route('/ProfilePage')
 def pro_page():
     return render_template('Profile.html', )
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -220,7 +209,6 @@ def contact():
     else:
         return '<h1>Form submitted!</h1>'
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
