@@ -98,7 +98,36 @@
         text-decoration: none;
     }
 
-        button
+    .input-icons i {
+            position: absolute;
+        }
+
+        .input-icons {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            padding: 10px;
+            color: #455778;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 60%;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .searchText
+        {
+            font-size: 50px;
+            color: white;
+            font-family: "Arial Black", Gadget, sans-serif;
+        }
+
+    button
     {
         background-color: #14375e;
         color: white;
@@ -109,6 +138,25 @@
         width: 35%;
         border-radius: 25px;
         outline: none;
+    }
+
+
+    .Buy{
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 20px;
+        background-color: #4a6b8b;
+        color: white;
+        padding: 5px 5px;
+        border: none;
+        cursor: pointer;
+        width: 20%;
+        outline: none;
+    }
+
+    .Buy:hover
+    {
+        opacity: 0.9;
     }
 
     button:hover

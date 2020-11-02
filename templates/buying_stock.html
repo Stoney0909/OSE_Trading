@@ -6,34 +6,27 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/buyStock.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buyStock_page.css') }}">
     <title>Stock Market</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <style>
-    .description
-    {
-        font-size: 50px;
-            color: white;
-            font-family: "Arial Black", Gadget, sans-serif;
-    }
-
-    header{
+        header{
             background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
             height: 100vh;
             -webkit-background-size: cover;
             background-size: cover;
             background-position: center center;
             position: relative;
-    }
+         }
 </style>
 
 <body>
 <header>
     <div class="wrapper">
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
+            <a href="{{ url_for('stock_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
@@ -53,12 +46,10 @@
 
     <div id="StockSearchSideBar" >
         <form action="" method="POST">
-            <p class='description' for="sockID">The Stock:</p>
-            <p class='description' for="nameOfStock">{{ company_name }}</p>
-            <p class='description' for="stockPriceID">The Price:</p>
-            <p class='description' name="stockPriceID" >{{ msg }}</p>
-            <input type="number"  name="stockPrice"><br><br>
-            <button class="enter_btn" type="submit">Buy</button>
+            <p style="text-align: center" class='description' for="sockID">The Stock: &nbsp;{{ company_name }}</p>
+            <p style="text-align: center" class='description' for="stockPriceID">The Price:&nbsp;{{ msg }}</p>
+            <p style="text-align: center" ><input type="number"  name="stockPrice"></p>
+            <p style="text-align: center" ><button class="enter_btn" type="submit">Buy</button></p>
         </form>
     </div>
 
