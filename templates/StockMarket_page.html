@@ -6,27 +6,28 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stockMarket_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stock_page.css') }}">
     <title>Stock Market</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <style>
-    header{
-            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
-            height: 100vh;
-            -webkit-background-size: cover;
-            background-size: cover;
-            background-position: center center;
-            position: relative;
-        }
-</style>
+    header
+    {
+        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
+        height: 100vh;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+    }
 
+</style>
 <body>
 <header>
     <div class="wrapper">
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
+            <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
@@ -54,13 +55,14 @@
                 </div>
             </div>
             <button class="enter_btn" type="submit">Search</button>
-            <a href="{{ url_for('buy_Stock') }}">Buy</a>
         </form>
     </div>
 
     <div id="Stock_show">
     <div class="container">
-        <h2>Stock Name:&nbsp;{{ stockid }}</h2>
+    <a class="Buy" href="{{ url_for('buy_Stock') }}">Buy this stock</a>
+        <br>
+        <h2 style="padding-top: 5px">Stock Name:&nbsp;{{ stockid }}</h2>
         <canvas id="myChart" width="400" height="400"></canvas>
         <script>
 Chart.defaults.global.responsive = false;

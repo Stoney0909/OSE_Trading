@@ -32,7 +32,7 @@ mail = Mail(app)
 
 currentUser = ''
 currentDT = datetime.datetime.now()
-today = currentDT.strftime("%Y-%m-%d %H:%M:%S")
+today = currentDT.strftime("%Y-%m-%d")
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -160,8 +160,8 @@ def signup_page():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
-                           ('Null', 'Null', username, email, password, '500', today, 'Null', 'Null'))
+            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)',
+                           ('Null', 'Null', username, email, password, '150', today))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -281,3 +281,5 @@ def contact():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
