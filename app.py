@@ -88,9 +88,12 @@ def edit_profile():
 
             cursor.execute('SELECT * FROM trading_Profile WHERE username = %s',
                            (session['id'],))
+            cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+            data = cursor2.fetchall()
             account = cursor.fetchone()
             mysql.connection.commit()
-            return render_template('Home_page.html', msg=account)
+            return render_template('Home_page.html', msg=account,len =len(data), data = data)
         elif request.method == 'GET':
             form.username.data = session['username']
             form.email.data = session['email']
