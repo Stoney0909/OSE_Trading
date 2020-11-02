@@ -124,6 +124,9 @@ def changePassword_page():
         cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s AND password = %s',
                        (session['id'], oldpassword,))
         account = cursor.fetchone()
+        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor2.fetchall()
         if account:
             if newPassword2 != newPassword:
                 msg = 'New Password does not match'
@@ -132,7 +135,7 @@ def changePassword_page():
                                'WHERE trading_ID = %s',
                                (newPassword, session['id'],))
                 mysql.connection.commit()
-                return render_template('Home_page.html', msg=msg)
+                return render_template('Home_page.html', msg=msg,len =len(data), data = data)
         else:
             msg = 'Old password does not match'
             render_template('ChangePassword.html', msg=msg)
