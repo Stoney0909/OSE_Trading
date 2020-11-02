@@ -5,24 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ url_for('static', filename='css/stockMarket_p.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stockMarket_page.css') }}">
     <title>Stock Market</title>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
+
+<style>
+    header{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
+            height: 100vh;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+        }
+</style>
+
 <body>
-<form action="" method="POST">
-    <div id="searchBar">
-        <input type="text" placeholder="Search for Stock" name="stockID">
-        <button class="enter_btn" type="submit">Enter</button>
+<header>
+    <div class="wrapper">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
+        </div>
+        <ul class="nav">
+            <li><a href="{{ url_for('home_page') }}">Home</a></li>
+            <li><a href="#">link 2</a></li>
+            <li><a href="#">link 3</a></li>
+            <li><a href="#">link 4</a></li>
+            <li class="dropdown">
+                    <span class="user_name">{{ session['username']}}</span>
+                    <div class="dropdown-content">
+                    <a href="{{ url_for('edit_profile') }}">Profile</a>
+                    <a href="{{ url_for('changePassword_page') }}">Password</a>
+                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    </div>
+            </li>
+        </ul>
     </div>
-</form>
-<p>{{ stockid }}</p>
 
-<canvas id="myChart" width="800" height="800"></canvas>
+    <div id="StockSearchSideBar" >
+        <form action="" method="POST">
+            <div id="searchBar">
+                <p class="searchText">Stock Search</p>
+                <div class="input-icons">
+                     <i class="fa fa-search icon"></i>
+                     <input style="outline: none" type="text" placeholder="Search for a Stock" name="stockID" class="input-field ">
+                </div>
+            </div>
+            <button class="enter_btn" type="submit">Search</button>
+            <h1>{{ test }}</h1>
+        </form>
+    </div>
 
-
-<script>
+    <div id="Stock_show">
+    <div class="container">
+        <h2>Stock Name:&nbsp;{{ stockid }}</h2>
+        <canvas id="myChart" width="600" height="600"></canvas>
+        <script>
 Chart.defaults.global.responsive = false;
 
 // define the chart data
@@ -42,12 +82,12 @@ var chartData = {
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
       pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
+      pointBackgroundColor: "#ffffff",
+      pointBorderWidth: 2,
       pointHoverRadius: 5,
       pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
+      pointHoverBorderColor: "rgb(255,255,255)",
+      pointHoverBorderWidth: 1,
       pointRadius: 1,
       pointHitRadius: 10,
       data : [{% for item in values %}
@@ -66,6 +106,11 @@ var myChart = new Chart(ctx, {
   data: chartData,
 });
 </script>
+    </div>
+
+    </div>
+</header>
+
 </body>
 
 </html>

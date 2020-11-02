@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ProfilePage.css') }}">
+</head>
+
+<style>
+ body
+ {
+     background-image: url({{ url_for('static', filename='img/BackGroundImage.jpg') }});
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: 100% 100%;
+ }
+</style>
+
+<body>
+<div class="container">
+    <h1 style="text-align: center">Edit Profile</h1>
+    <a href="{{ url_for('home_page') }}"><img class="Logo" src="{{ url_for('static', filename='img/Logo1.png') }}"></a>
+
+    {% block content %}
+        <form action="" method="post">
+           {{ form.hidden_tag() }}
+
+            <span style="font-size: 20px">{{ form.username.label }}:</span>
+            {{ form.username(style="
+            width: 100%;
+            padding: 6px 20px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            outline: none;
+            border-radius: 10px;
+            background-color: #f8f8f8;") }}
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br><br>
+
+            <span style="font-size: 20px">{{ form.email.label }}:</span>
+            {{ form.email(style="
+            width: 100%;
+            padding: 6px 20px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            outline: none;
+            border-radius: 10px;
+            background-color: #f8f8f8;") }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br><br>
+
+            <span style="font-size: 20px">{{ form.first_Name.label }}:</span>
+            {{ form.first_Name(style="
+            width: 100%;
+            padding: 6px 20px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            outline: none;
+            border-radius: 10px;
+            background-color: #f8f8f8;") }}
+            {% for error in form.first_Name.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br><br>
+
+            <span style="font-size: 20px">{{ form.last_Name.label }}:</span>
+            {{ form.last_Name(style="
+            width: 100%;
+            padding: 6px 20px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            outline: none;
+            border-radius: 10px;
+            background-color: #f8f8f8;") }}
+            {% for error in form.last_Name.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br><br>
+
+            <span style="font-size: 20px">{{ form.phone.label }}：</span>
+            {{ form.phone(style="
+            width: 100%;
+            padding: 6px 20px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            outline: none;
+            border-radius: 10px;
+            background-color: #f8f8f8;") }}
+            {% for error in form.phone.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br><br>
+
+            <span style="font-size: 20px">{{ form.category.label }}:<br></span>
+            {{ form.category(style="width: 100%;
+            padding: 6px 20px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            outline: none;
+            border-radius: 10px;
+            background-color: #f8f8f8;")}}
+            {% for error in form.category.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br><br>
+
+            <span class="button">{{ form.submit(style="
+            background-color: #415680;
+            color: white;
+            padding: 14px 20px;
+            margin-top: 3px;
+            margin-left: 10px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            width: 200px;
+            border-radius: 25px;
+            ") }}</span>
+
+        </form>
+    {% endblock %}
+
+</div>
+
+</body>
+</html>
+
+
