@@ -292,9 +292,15 @@ def successBought():
 def contact():
     if request.method == 'GET':
         return render_template('contact.html')
-    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form:
+    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form\
+            and 'email' in request.form and 'feedback' in request.form:
         firstname = request.form['firstname']
         lastname = request.form['lastname']
+        feedback = request.form['feedback']
+        email = request.form['email']
+        msg = Message("Feedback",sender=email, recipients=['oumarcisseju@gmail.com'])
+        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email,feedback)
+        mail.send(msg)
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
         data = cursor2.fetchall()
