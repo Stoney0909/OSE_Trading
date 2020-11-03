@@ -263,6 +263,8 @@ def buy_Stock():
             msg = 'The number of share has to be positive!'
         elif float(moneyAvalaible) < numberOfShare * float(priceOfStock):
             msg = "You don't have enough fund to buy this stock"
+            return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
+                                   labels=time, legend=legend, msg=msg, company_name=company_name)
         else:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO transactions_Table VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
