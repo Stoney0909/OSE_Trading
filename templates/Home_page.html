@@ -178,9 +178,9 @@
                     <th>Username</th>
                     <th>Fund Available</th>
                 </tr>
-                {%for i in range(1, len)%}
+                {%for i in range(0, len)%}
                     <tr>
-                       <td>{{i}}</td>
+                       <td>{{i + 1}}</td>
                        <td>{{data[i]['username']}}</td>
                        <td>${{data[i]['amount_Money']}}</td>
                     </tr>

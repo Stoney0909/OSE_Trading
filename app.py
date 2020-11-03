@@ -1,6 +1,7 @@
 import datetime
 from Python import get_graph_html as graph
-
+import random
+import string
 import yfinance as yf
 from pandas_datareader import data
 import re
@@ -13,7 +14,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_HOST'] = 'trading.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
@@ -57,7 +58,7 @@ def login_page():
             session['phone'] = account['phone']
             session['gender'] = account['gender']
 
-            return render_template('Home_page.html', len =len(data), data = data)
+            return render_template('Home_page.html', len=len(data), data=data)
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
@@ -93,7 +94,7 @@ def edit_profile():
             data = cursor2.fetchall()
             account = cursor.fetchone()
             mysql.connection.commit()
-            return render_template('Home_page.html', msg=account,len =len(data), data = data)
+            return render_template('Home_page.html', msg=account, len=len(data), data=data)
         elif request.method == 'GET':
             form.username.data = session['username']
             form.email.data = session['email']
@@ -135,7 +136,7 @@ def changePassword_page():
                                'WHERE trading_ID = %s',
                                (newPassword, session['id'],))
                 mysql.connection.commit()
-                return render_template('Home_page.html', msg=msg,len =len(data), data = data)
+                return render_template('Home_page.html', msg=msg, len=len(data), data=data)
         else:
             msg = 'Old password does not match'
             render_template('ChangePassword.html', msg=msg)
@@ -166,8 +167,8 @@ def signup_page():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)',
-                           ('Null', 'Null', username, email, password, '150', today))
+            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
+                           ('Null', 'Null', username, email, password, '500', today, 'Null', 'Null'))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -180,19 +181,30 @@ def forgetPassword_page():
     if request.method == 'POST' and 'email' in request.form:
         email = request.form['email']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s', (1,))
+        cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
         account = cursor.fetchone()
-        msg = Message(
-            'Hello',
-            sender=email,
-            recipients=[email]
-        )
-        msg.html = render_template('msg.html', result=account)
-        mail.send(msg)
+        if account:
+            password = get_random_string(8)
+            msg = Message(
+                'Hello',
+                sender=email,
+                recipients=[email]
+            )
+            msg.html = render_template('msg.html', result=account, password=password)
+            mail.send(msg)
+            cursor.execute('UPDATE trading_Profile SET password = %s '
+                           'WHERE email = %s',
+                           (password, email,))
+            mysql.connection.commit()
+            msg = "Check your email for the new password"
+            return render_template('ForgetPassword_page.html', msg=msg)
+        else:
+            msg = 'This account does not exist'
+            render_template('ForgetPassword_page.html', msg = msg)
     return render_template('ForgetPassword_page.html')
 
 
-@app.route('/Home',methods=['GET', 'POST'])
+@app.route('/Home', methods=['GET', 'POST'])
 def home_page():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
@@ -260,7 +272,7 @@ def buy_Stock():
                            'WHERE trading_ID = %s',
                            (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'],))
             mysql.connection.commit()
-            msg='You successfully bought the stock'
+            msg = 'You successfully bought the stock'
             return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
                                    labels=time, legend=legend, msg=msg, company_name=company_name)
 
@@ -280,12 +292,21 @@ def contact():
     elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form:
         firstname = request.form['firstname']
         lastname = request.form['lastname']
-        return '<h1>Form submitted!</h1>'
+        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor2.fetchall()
+        return render_template('Home_page.html', len=len(data), data=data)
+
     else:
-        return '<h1>Form submitted!</h1>'
+        return render_template('contact.html')
+
+
+def get_random_string(length):
+    # Random string with the combination of lower and upper case
+    letters = string.ascii_letters
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
