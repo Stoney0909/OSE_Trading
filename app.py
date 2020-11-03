@@ -183,7 +183,10 @@ def forgetPassword_page():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
         account = cursor.fetchone()
-        if account:
+        if account is None:
+            msg = 'This account does not exist'
+            return render_template('ForgetPassword_page.html', msg=msg)
+        else:
             password = get_random_string(8)
             msg = Message(
                 'Hello',
@@ -198,9 +201,7 @@ def forgetPassword_page():
             mysql.connection.commit()
             msg = "Check your email for the new password"
             return render_template('ForgetPassword_page.html', msg=msg)
-        else:
-            msg = 'This account does not exist'
-            render_template('ForgetPassword_page.html', msg = msg)
+
     return render_template('ForgetPassword_page.html')
 
 
