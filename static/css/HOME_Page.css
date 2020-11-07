@@ -87,6 +87,11 @@
         height: auto;
     }
 
+    p
+    {
+        text-align: center;
+    }
+
     botton:focus
     {
          outline: none;
@@ -98,67 +103,28 @@
         text-decoration: none;
     }
 
-        button
+    #FormDisplay
     {
-        background-color: #14375e;
+        position: absolute;
+        margin: 15% 37%;
+        border-radius: 5%;
+        outline: none;
         color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 35%;
-        border-radius: 25px;
+    }
+
+    table{
+        padding: 20px 6px;
         outline: none;
     }
 
-    button:hover
+    table td
     {
-        background-color: #235593;
-    }
-
-    #Stock_show
-    {
-        background-color: white;
-        opacity: 0.9;
-        position: absolute;
-        margin-top: 13%;
-        margin-left: 60% ;
         text-align: center;
-        border-radius: 3%;
+        width: 150px;
+        padding-top: 5px;
     }
 
-    .container
-    {
-        padding: 14px 20px;
-    }
-
-    #StockSearchSideBar
-    {
-        position: absolute;
-        margin-top: 15%;
-        margin-left: 10%;
-        width: 30%;
-    }
-
-    .description
-    {
-        padding-top: 10px;
-        font-size: 30px;
-        color: white;
-        font-family: "Arial Black", Gadget, sans-serif;
-    }
-
-    input
-    {
-        width: 40%;
-        padding: 5px;
-        margin: 8px 0;
-        display: inline-block;
-        box-sizing: border-box;
-        border: none;
-        background-color: #f8f8f8;
-    }
-    input:focus
-    {
-        outline: none
+    table th{
+        width: 150px;
+        text-align: center;
     }
