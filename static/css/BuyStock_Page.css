@@ -87,11 +87,6 @@
         height: auto;
     }
 
-    p
-    {
-        text-align: center;
-    }
-
     botton:focus
     {
          outline: none;
@@ -103,61 +98,67 @@
         text-decoration: none;
     }
 
-    #welcome
+        button
+    {
+        background-color: #14375e;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 35%;
+        border-radius: 25px;
+        outline: none;
+    }
+
+    button:hover
+    {
+        background-color: #235593;
+    }
+
+    #Stock_show
+    {
+        background-color: white;
+        opacity: 0.9;
+        position: absolute;
+        margin-top: 13%;
+        margin-left: 60% ;
+        text-align: center;
+        border-radius: 3%;
+    }
+
+    .container
+    {
+        padding: 14px 20px;
+    }
+
+    #StockSearchSideBar
     {
         position: absolute;
-        margin: 20% 37%;
-        text-align: center;
-        display: block;
+        margin-top: 15%;
+        margin-left: 10%;
+        width: 30%;
     }
 
-    #welcome h1
+    .description
     {
-        text-align: center;
+        padding-top: 10px;
+        font-size: 30px;
         color: white;
-        text-transform: uppercase;
-        font-size: 70px;
+        font-family: "Arial Black", Gadget, sans-serif;
     }
 
-    #welcome a
+    input
     {
-        border: 1px solid white;
-        padding: 10px 25px;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-size: 14px;
-        margin-top: 20px;
+        width: 40%;
+        padding: 5px;
+        margin: 8px 0;
         display: inline-block;
-        color: white;
+        box-sizing: border-box;
+        border: none;
+        background-color: #f8f8f8;
     }
-
-    #welcome a:hover{
-        background: white;
-        color: darkslategray;
-    }
-
-    #FormDisplay
+    input:focus
     {
-        position: absolute;
-        margin: 13% -2%;
-        border-radius: 5%;
-        outline: none;
-        color: white;
-    }
-
-    table{
-        padding: 20px 6px;
-        outline: none;
-    }
-
-    table td
-    {
-        text-align: center;
-        width: 150px;
-        padding-top: 5px;
-    }
-
-    table th{
-        width: 150px;
-        text-align: center;
+        outline: none
     }

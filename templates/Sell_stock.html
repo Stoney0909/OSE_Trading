@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sell Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/SellStock.css') }}">
+</head>
+
+<style>
+    header{
+        background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url({{ url_for('static', filename='img/SellStock.jpg') }});
+        height: 110vh;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+    }
+
+{#    Do your basic css in here, I will make it nice later —— Ethan #}
+</style>
+
+<body>
+<header>
+    <div class="wrapper">
+        <div class="logo">
+            <li><a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a></li>
+
+        </div>
+        <ul class="nav">
+            <li><a href="{{ url_for('home_page') }}">Home</a></li>
+            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
+            <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li class="dropdown">
+                    <span class="user_name">{{ session['username']}}</span>
+                    <div class="dropdown-content">
+                    <a href="{{ url_for('edit_profile') }}">Profile</a>
+                    <a href="{{ url_for('changePassword_page') }}">Password</a>
+                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    </div>
+            </li>
+        </ul>
+    </div>
+</header>
+</body>
+</html>

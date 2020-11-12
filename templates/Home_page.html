@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Home_Page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_Page.css') }}">
 </head>
 
 <style>
@@ -25,9 +25,9 @@
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
-            <li><a href="#">link 2</a></li>
-            <li><a href="#">link 3</a></li>
-            <li><a href="#">link 4</a></li>
+            <li><a href="{{ url_for('sellStock_Page') }}">Sell stock</a></li>
+            <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
@@ -39,30 +39,23 @@
         </ul>
     </div>
 
-    <form id="FormDisplay" action="" method="post">
+<form id="FormDisplay" action="" method="post">
         <table>
-                <caption style="font-size: 40px; font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif">Leader Board</caption>
+                <caption style="font-size: 50px; font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; text-align: center">Leader Board</caption>
                 <tr>
                     <th>Place</th>
                     <th>Username</th>
                     <th>Fund Available</th>
                 </tr>
-                {%for i in range(1, len)%}
+                {%for i in range(0, len)%}
                     <tr>
-                       <td>{{i}}</td>
+                       <td>{{i + 1}}</td>
                        <td>{{data[i]['username']}}</td>
                        <td>${{data[i]['amount_Money']}}</td>
                     </tr>
-
                 {%endfor%}
-
         </table>
  </form>
-
-    <div id="welcome">
-        <h1 id="title">Welcome! </h1>
-     <a id="ContectInfo" href="{{ url_for('contact') }}">Contact Us</a>
-    </div>
 </header>
 </body>
 </html>

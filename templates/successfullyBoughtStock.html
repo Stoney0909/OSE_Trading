@@ -6,19 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/buyStock_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/BuyStock_Page.css') }}">
     <title>Stock Market</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <style>
-    .description
-    {
-        font-size: 50px;
-            color: white;
-            font-family: "Arial Black", Gadget, sans-serif;
-    }
-
     header{
             background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
             height: 100vh;
@@ -27,19 +20,25 @@
             background-position: center center;
             position: relative;
     }
+
+    .StockMess
+    {
+        color: white;
+        font-size: 30px;
+    }
 </style>
 
 <body>
 <header>
     <div class="wrapper">
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
+            <a href="{{ url_for('stock_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
-            <li><a href="#">link 3</a></li>
-            <li><a href="#">link 4</a></li>
+            <li><a href="{{ url_for('sellStock_Page') }}">Sell stock</a></li>
+            <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
@@ -52,9 +51,8 @@
     </div>
 
     <div id="StockSearchSideBar" >
-        <form action="" method="">
-
-            <p class='description' name="stockPriceID" >{{ msg }}</p>
+        <form action="" method="" >
+            <p class='StockMess' name="stockPriceID" >{{ msg }}</p>
         </form>
     </div>
 

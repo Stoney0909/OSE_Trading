@@ -45,6 +45,9 @@ def login_page():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM trading_Profile WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
+        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor2.fetchall()
         if account:
             session['loggedin'] = True
             session['id'] = account['trading_ID']
@@ -54,7 +57,8 @@ def login_page():
             session['last_name'] = account['last_Name']
             session['phone'] = account['phone']
             session['gender'] = account['gender']
-            return render_template('Home_page.html', msg=account)
+
+            return render_template('Home_page.html', len=len(data), data=data)
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
@@ -90,7 +94,7 @@ def edit_profile():
             data = cursor2.fetchall()
             account = cursor.fetchone()
             mysql.connection.commit()
-            return render_template('Home_page.html', msg=account,len =len(data), data = data)
+            return render_template('Home_page.html', msg=account, len=len(data), data=data)
         elif request.method == 'GET':
             form.username.data = session['username']
             form.email.data = session['email']
@@ -121,6 +125,9 @@ def changePassword_page():
         cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s AND password = %s',
                        (session['id'], oldpassword,))
         account = cursor.fetchone()
+        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor2.fetchall()
         if account:
             if newPassword2 != newPassword:
                 msg = 'New Password does not match'
@@ -129,7 +136,7 @@ def changePassword_page():
                                'WHERE trading_ID = %s',
                                (newPassword, session['id'],))
                 mysql.connection.commit()
-                return render_template('Home_page.html', msg=msg)
+                return render_template('Home_page.html', msg=msg, len=len(data), data=data)
         else:
             msg = 'Old password does not match'
             render_template('ChangePassword.html', msg=msg)
@@ -160,8 +167,8 @@ def signup_page():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s)',
-                           ('Null', 'Null', username, email, password, '150', today))
+            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
+                           ('Null', 'Null', username, email, password, '500', today, 'Null', 'Null'))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -174,21 +181,37 @@ def forgetPassword_page():
     if request.method == 'POST' and 'email' in request.form:
         email = request.form['email']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM trading_Profile WHERE trading_ID = %s', (1,))
+        cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
         account = cursor.fetchone()
-        msg = Message(
-            'Hello',
-            sender=email,
-            recipients=[email]
-        )
-        msg.html = render_template('msg.html', result=account)
-        mail.send(msg)
+        if account is None:
+            msg = 'This account does not exist'
+            return render_template('ForgetPassword_page.html', msg=msg)
+        else:
+            password = get_random_string(8)
+            msg = Message(
+                'Hello',
+                sender=email,
+                recipients=[email]
+            )
+            msg.html = render_template('msg.html', result=account, password=password)
+            mail.send(msg)
+            cursor.execute('UPDATE trading_Profile SET password = %s '
+                           'WHERE email = %s',
+                           (password, email,))
+            mysql.connection.commit()
+            msg = "Check your email for the new password"
+            return render_template('ForgetPassword_page.html', msg=msg)
+
     return render_template('ForgetPassword_page.html')
 
 
-@app.route('/Home')
+@app.route('/Home', methods=['GET', 'POST'])
 def home_page():
-    return render_template('Home_page.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+    data = cursor.fetchall()  # data from database
+    # return render_template("example.html", value=data)
+    return render_template('Home_page.html', len=len(data), data=data)
 
 
 @app.route('/StockMarket', methods=['GET', 'POST'])
@@ -196,21 +219,86 @@ def stock_page():
     return stockPage.loadDay()
 
 
-@app.route('/ProfilePage')
-def pro_page():
-    return render_template('Profile.html', )
+@app.route('/buyStock', methods=['GET', 'POST'])
+def buy_Stock():
+    msg = ''
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    stockData = yf.Ticker(session['IdOfSearch'])
+    history = stockData.history(period="1d", interval="1m")
+    time = list()
+    priceOfStock = stockData.info['dayLow']
+    for row in history.index:
+        date = datetime.datetime.timestamp(row)
+        time.append(date)
+    company_name = stockData.info['longName']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT amount_Money FROM trading_Profile WHERE trading_ID = %s',
+                   (session['id'],))
+    account = cursor.fetchone()
+    moneyAvalaible = account['amount_Money']
+    if request.method == 'GET':
+        return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
+                               labels=time, legend=legend, msg=priceOfStock, company_name=company_name)
+    elif request.method == 'POST' and 'stockPrice' in request.form:
+        numberOfShare = request.form.get('stockPrice', type=int)
+        symbol = session['IdOfSearch']
+        if numberOfShare < 1:
+            msg = 'The number of share has to be positive!'
+        elif float(moneyAvalaible) < numberOfShare * float(priceOfStock):
+            msg = "You don't have enough fund to buy this stock"
+            return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
+                                   labels=time, legend=legend, msg=msg, company_name=company_name)
+        else:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
+                           (priceOfStock, numberOfShare, 'Null', 'Null', today, 'Null',
+                            session['id'], company_name, symbol))
+            cursor.execute('UPDATE trading_Profile SET amount_Money = %s '
+                           'WHERE trading_ID = %s',
+                           (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'],))
+            mysql.connection.commit()
+            msg = 'You successfully bought the stock'
+            return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
+                                   labels=time, legend=legend, msg=msg, company_name=company_name)
+
+    return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
+                           labels=time, legend=legend, msg=msg, company_name=company_name)
+
+
+@app.route('/SuccessFullBought')
+def successBought():
+    return render_template('successfullyBoughtStock.html')
 
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'GET':
         return render_template('contact.html')
-    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form:
+    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form\
+            and 'email' in request.form and 'feedback' in request.form:
         firstname = request.form['firstname']
         lastname = request.form['lastname']
-        return '<h1>Form submitted!</h1>'
+        feedback = request.form['feedback']
+        email = request.form['email']
+        msg = Message("Feedback",sender=email, recipients=['oumarcisseju@gmail.com'])
+        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email,feedback)
+        mail.send(msg)
+        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor2.fetchall()
+        return render_template('Home_page.html', len=len(data), data=data)
+
     else:
-        return '<h1>Form submitted!</h1>'
+        return render_template('contact.html')
+
+
+def get_random_string(length):
+    # Random string with the combination of lower and upper case
+    letters = string.ascii_letters
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+
 
 
 if __name__ == '__main__':
