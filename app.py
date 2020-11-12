@@ -265,6 +265,13 @@ def buy_Stock():
     return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
                            labels=time, legend=legend, msg=msg, company_name=company_name)
 
+@app.route('/SellStock')
+def sellStock_Page():
+    return render_template('Sell_stock.html')
+
+@app.route('/Portfolio')
+def portfolio_Page():
+    return render_template('Portfolio_page.html')
 
 @app.route('/SuccessFullBought')
 def successBought():

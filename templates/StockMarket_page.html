@@ -75,6 +75,9 @@ var chartData = {
 
   datasets : [{
       label: '{{ legend }}',
+      legend: {
+          display: false
+      },
       fill: true,
       lineTension: 0.1,
       backgroundColor: "rgba(75,192,192,0.4)",
@@ -95,7 +98,8 @@ var chartData = {
       data : [{% for item in values %}
                 {{item}},
               {% endfor %}],
-      spanGaps: false
+      spanGaps: false,
+
   }]
 }
 

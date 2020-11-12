@@ -2,9 +2,6 @@ import yfinance as yf
 from flask import render_template, request
 
 
-
-
-
 def loadDay():
     stockid = 'MSFT'
     legend = 'Monthly Data'
