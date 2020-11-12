@@ -25,8 +25,8 @@
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
-            <li><a href="#">Sell stock</a></li>
-            <li><a href="#">Polish</a></li>
+            <li><a href="{{ url_for('sellStock_Page') }}">Sell stock</a></li>
+            <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>

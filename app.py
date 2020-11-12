@@ -287,6 +287,13 @@ def buy_Stock():
 def successBought():
     return render_template('successfullyBoughtStock.html')
 
+@app.route('/SellStock')
+def sellStock_Page():
+    return render_template('Sell_stock.html')
+
+@app.route('/Portfolio')
+def portfolio_Page():
+    return render_template('Portfolio_page.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -315,6 +322,7 @@ def get_random_string(length):
     letters = string.ascii_letters
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
+
 
 
 if __name__ == '__main__':
