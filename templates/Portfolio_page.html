@@ -40,6 +40,42 @@
             </li>
         </ul>
     </div>
+    <form action="" method="post">
+     <table>
+  <!-- Table Header Row -->
+
+
+    <tr>
+      <th>Stock Name</th>
+      <th>Number of Shares</th>
+      <th>Purchase Price</th>
+      <th>Purchase Date</th>
+      <th>Current Share Price</th>
+      <th>Current Gain</th>
+    </tr>
+
+        {%for i in range(0, len)%}
+            <tr>
+            <td>{{account[i]['symbol_Of_Stock']}}</td>
+            <td>{{account[i]['numberOfShareAtBuying']}}</td>
+            <td>${{account[i]['priceOfShareAtBuying']}}</td>
+            <td>{{account[i]['boughtShare']}}</td>
+            <td>${{account[i]['sellSharePrice']}} </td>
+            <td>${{account[i]['Gain']}} </td>
+            <td><button class="enter_btn" type="submit">Sell</button></td>
+            </tr>
+        {% endfor %}
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td><b>TOTAL VALUE</b></td>
+         <td><b>msg</b></td>
+
+
+     </table>
+</form>
+
 </header>
 </body>
 </html>

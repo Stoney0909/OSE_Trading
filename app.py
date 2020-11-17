@@ -10,6 +10,7 @@ from flask_mail import Mail, Message
 from flask import Flask, flash, redirect, url_for
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
+from yahoo_fin import stock_info as si
 
 app = Flask(__name__)
 
@@ -287,26 +288,51 @@ def buy_Stock():
 def successBought():
     return render_template('successfullyBoughtStock.html')
 
+
 @app.route('/SellStock')
 def sellStock_Page():
     return render_template('Sell_stock.html')
 
-@app.route('/Portfolio')
+
+@app.route('/Portfolio',methods=['GET', 'POST'])
 def portfolio_Page():
-    return render_template('Portfolio_page.html')
+    msg = ''
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
+                   (session['id'],))
+    account = cursor.fetchall()
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
+                       (session['id'],))
+        account = cursor.fetchall()
+        if account:
+            for i in range(0, len(account)):
+                msg = si.get_live_price(account[i]['symbol_Of_Stock'])
+                msg = format(msg, ".2f")
+                account[i]['sellSharePrice'] = msg
+                account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -
+                                             float(account[i]['numberOfShareAtBuying']) * float(
+                            account[i]['priceOfShareAtBuying'])), ".2f")
+            msg = account
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg)
+
+    return render_template('Portfolio_page.html', msg=msg)
+
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'GET':
         return render_template('contact.html')
-    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form\
+    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form \
             and 'email' in request.form and 'feedback' in request.form:
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         feedback = request.form['feedback']
         email = request.form['email']
-        msg = Message("Feedback",sender=email, recipients=['oumarcisseju@gmail.com'])
-        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email,feedback)
+        msg = Message("Feedback", sender=email, recipients=['oumarcisseju@gmail.com'])
+        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email, feedback)
         mail.send(msg)
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
@@ -324,8 +350,5 @@ def get_random_string(length):
     return result_str
 
 
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
