@@ -1,6 +1,7 @@
 import datetime
 from Python import get_graph_html as graph
-
+import random
+import string
 import yfinance as yf
 from pandas_datareader import data
 import re
@@ -9,7 +10,7 @@ from flask_mail import Mail, Message
 from flask import Flask, flash, redirect, url_for
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
-from Python import stockPage
+from yahoo_fin import stock_info as si
 
 app = Flask(__name__)
 
@@ -216,25 +217,24 @@ def home_page():
 
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    # time = request.form['Time']
-    #
-    # time = ""
-    # stockPage.loadDay()
-    # if request.method == 'POST' and 'stockID' in request.form:
-    #     return stockPage.loadDay()
-    # if request.method == 'POST' and 'stockID' in request.form:
-    #     return stockPage.loadMonth()
-    # if request.method == 'POST' and 'stockID' in request.form:
-    #     return stockPage.load3Month()
-    stockid = request.form['stockID']
-    if stockid == "":
-        stockid = 'MSFT'
-
+    stockid = 'MSFT'
     legend = 'Monthly Data'
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    if request.method == 'POST' and 'stockID' in request.form:
+        stockid = request.form['stockID']
+        session['IdOfSearch'] = stockid
+        stockData = yf.Ticker(stockid)
+        history = stockData.history(period="1d", interval="1m")
+        time = list()
+        for row in history.index:
+            date = datetime.datetime.timestamp(row)
+            time.append(date)
+
+        return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                               labels=time, legend=legend)
+    session['IdOfSearch'] = stockid
     values = [20, 21, 263, 10, 10, 10, 10, 10]
     return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
-
 
 
 @app.route('/buyStock', methods=['GET', 'POST'])
@@ -283,31 +283,64 @@ def buy_Stock():
     return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
                            labels=time, legend=legend, msg=msg, company_name=company_name)
 
-@app.route('/SellStock')
-def sellStock_Page():
-    return render_template('Sell_stock.html')
-
-@app.route('/Portfolio')
-def portfolio_Page():
-    return render_template('Portfolio_page.html')
 
 @app.route('/SuccessFullBought')
 def successBought():
     return render_template('successfullyBoughtStock.html')
 
 
+@app.route('/SellStock')
+def sellStock_Page():
+    return render_template('Sell_stock.html')
+
+
+@app.route('/Portfolio',methods=['GET', 'POST'])
+def portfolio_Page():
+    msg = ''
+    totalGain =0.0
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
+                   (session['id'],))
+    account = cursor.fetchall()
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
+                       (session['id'],))
+        account = cursor.fetchall()
+        if account:
+            for i in range(0, len(account)):
+                msg = si.get_live_price(account[i]['symbol_Of_Stock'])
+                msg = format(msg, ".2f")
+                account[i]['sellSharePrice'] = msg
+                account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -
+                                             float(account[i]['numberOfShareAtBuying']) * float(
+                            account[i]['priceOfShareAtBuying'])), ".2f")
+                totalGain = totalGain + float(account[i]['Gain'])
+            totalGain = format(totalGain, ".2f")
+            msg = account
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,totalGain =totalGain)
+        else:
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,totalGain =totalGain)
+    if request.method == 'POST':
+        post_id = request.form['Sell']
+        msg = post_id
+        return render_template('Sell_stock.html', msg=msg)
+    return render_template('Portfolio_page.html', msg=msg)
+
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'GET':
         return render_template('contact.html')
-    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form\
+    elif request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form \
             and 'email' in request.form and 'feedback' in request.form:
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         feedback = request.form['feedback']
         email = request.form['email']
-        msg = Message("Feedback",sender=email, recipients=['oumarcisseju@gmail.com'])
-        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email,feedback)
+        msg = Message("Feedback", sender=email, recipients=['oumarcisseju@gmail.com'])
+        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email, feedback)
         mail.send(msg)
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
@@ -325,8 +358,5 @@ def get_random_string(length):
     return result_str
 
 
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
