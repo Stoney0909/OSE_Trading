@@ -15,6 +15,38 @@
         background-position: center center;
         position: relative;
     }
+   table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: .9rem;
+    }
+
+    td, th {
+  border: 1px solid #ddd;
+  padding: 1.25rem .8rem;
+  overflow: hidden;
+    }
+
+    th {
+  padding-bottom: .8rem;
+  border-top: 2px solid #DDD;
+  border-bottom: 4px solid #DDD;
+  text-align: left;
+      }
+
+tbody tr:nth-child(even) {
+  background-color: #F9F9F9;
+}
+
+tfoot td {
+  background-color: #DDD;
+}
+
+table a {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
 
 {#    Do your basic css in here, I will make it nice later —— Ethan #}
 </style>
@@ -47,6 +79,7 @@
 
     <tr>
       <th>Stock Name</th>
+        <th>Name Of Company</th>
       <th>Number of Shares</th>
       <th>Purchase Price</th>
       <th>Purchase Date</th>
@@ -56,21 +89,24 @@
 
         {%for i in range(0, len)%}
             <tr>
-            <td>{{account[i]['symbol_Of_Stock']}}</td>
-            <td>{{account[i]['numberOfShareAtBuying']}}</td>
-            <td>${{account[i]['priceOfShareAtBuying']}}</td>
-            <td>{{account[i]['boughtShare']}}</td>
-            <td>${{account[i]['sellSharePrice']}} </td>
-            <td>${{account[i]['Gain']}} </td>
-            <td><button class="enter_btn" type="submit">Sell</button></td>
+                <td>{{account[i]['symbol_Of_Stock']}}</td>
+                <td>{{account[i]['CompanyName']}}</td>
+                <td>{{account[i]['numberOfShareAtBuying']}}</td>
+                <td>${{account[i]['priceOfShareAtBuying']}}</td>
+                <td>{{account[i]['boughtShare']}}</td>
+                <td>${{account[i]['sellSharePrice']}} </td>
+                <td>${{account[i]['Gain']}} </td>
+                <td><button class="enter_btn"
+                           name="Sell" value="{{account[i]['symbol_Of_Stock']}}" type="submit">Sell</button></td>
             </tr>
         {% endfor %}
          <td></td>
          <td></td>
          <td></td>
          <td></td>
+         <td></td>
          <td><b>TOTAL VALUE</b></td>
-         <td><b>msg</b></td>
+         <td><b>${{ totalGain }}</b></td>
 
 
      </table>

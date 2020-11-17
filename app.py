@@ -297,6 +297,7 @@ def sellStock_Page():
 @app.route('/Portfolio',methods=['GET', 'POST'])
 def portfolio_Page():
     msg = ''
+    totalGain =0.0
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
                    (session['id'],))
@@ -314,9 +315,16 @@ def portfolio_Page():
                 account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -
                                              float(account[i]['numberOfShareAtBuying']) * float(
                             account[i]['priceOfShareAtBuying'])), ".2f")
+                totalGain = totalGain + float(account[i]['Gain'])
+            totalGain = format(totalGain, ".2f")
             msg = account
-            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg)
-
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,totalGain =totalGain)
+        else:
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,totalGain =totalGain)
+    if request.method == 'POST':
+        post_id = request.form['Sell']
+        msg = post_id
+        return render_template('Sell_stock.html', msg=msg)
     return render_template('Portfolio_page.html', msg=msg)
 
 
