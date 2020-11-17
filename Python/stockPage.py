@@ -1,27 +1,63 @@
 import yfinance as yf
 from flask import render_template, request
-
+stockid = ""
 
 def loadDay():
-    stockid = 'MSFT'
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-    if request.method == 'POST' and 'stockID' in request.form:
-        stockid = request.form['stockID']
+    legend = "Daily"
+    stockid = request.form['stockID']
+    if stockid == "":
+        stockid = "MSFT"
 
-        stockData = yf.Ticker(stockid)
-        history = stockData.history(period="1d", interval="1m")
-        time = list()
-        for row in history.index:
-            if (row.hour > 12):
-                date = "{}:{}".format(row.hour - 12, row.minute)
-            else:
-                date = "{}:{}".format(row.hour, row.minute)
 
-            time.append(date)
-        currentPrice = history['Open'].iloc[-1]
+    stockData = yf.Ticker(stockid)
+    history = stockData.history(period="1d", interval="1m")
+    time = list()
+    for row in history.index:
+        if (row.hour > 12):
+            date = "{}:{}".format(row.hour - 12, row.minute)
+        else:
+            date = "{}:{}".format(row.hour, row.minute)
 
-        return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                               labels=time, legend=legend, test="")
-    values = [20, 21, 263, 10, 10, 10, 10, 10]
-    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
+        time.append(date)
+    currentPrice = history['Open'].iloc[-1]
+
+    return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                           labels=time, legend=legend, test="")
+
+
+def loadMonth():
+    legend = "Monthly"
+    stockid = request.form['stockID']
+    if stockid == "":
+        stockid = "MSFT"
+
+    stockData = yf.Ticker(stockid)
+    history = stockData.history(period="1d", interval="1m")
+    time = list()
+    for row in history.index:
+        if (row.hour > 12):
+            date = "{}:{}".format(row.hour - 12, row.minute)
+        else:
+            date = "{}:{}".format(row.hour, row.minute)
+
+        time.append(date)
+    currentPrice = history['Open'].iloc[-1]
+
+    return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                           labels=time, legend=legend, test="")
+
+
+def load3Month():
+    loadDay()
+
+
+def load6Month():
+    loadDay()
+
+
+def loadYear():
+    loadDay()
+
+
+def loadAllTime():
+    loadDay()

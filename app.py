@@ -14,7 +14,7 @@ from Python import stockPage
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_HOST'] = 'database-1.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
@@ -216,7 +216,25 @@ def home_page():
 
 @app.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    return stockPage.loadDay()
+    # time = request.form['Time']
+    #
+    # time = ""
+    # stockPage.loadDay()
+    # if request.method == 'POST' and 'stockID' in request.form:
+    #     return stockPage.loadDay()
+    # if request.method == 'POST' and 'stockID' in request.form:
+    #     return stockPage.loadMonth()
+    # if request.method == 'POST' and 'stockID' in request.form:
+    #     return stockPage.load3Month()
+    stockid = request.form['stockID']
+    if stockid == "":
+        stockid = 'MSFT'
+
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    values = [20, 21, 263, 10, 10, 10, 10, 10]
+    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
+
 
 
 @app.route('/buyStock', methods=['GET', 'POST'])
