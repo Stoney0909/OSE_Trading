@@ -102,3 +102,53 @@
         color: white;
         text-decoration: none;
     }
+
+    table
+   {
+       table-layout: fixed;
+       border-collapse: collapse;
+       font-size: .9rem;
+       background-color: white;
+       position: absolute;
+       margin: 15% 15%;
+   }
+
+    td, th
+    {
+       border: 1px solid #ddd;
+       padding: 1.25rem .8rem;
+       overflow: hidden;
+    }
+
+    th
+    {
+       padding-bottom: .8rem;
+       border-top: 2px solid #DDD;
+       border-bottom: 4px solid #DDD;
+       text-align: left;
+    }
+
+tfoot td {
+  background-color: #DDD;
+}
+
+table a {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+button
+    {
+        background-color: #415680;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 25px;
+    }
+
+    button:hover
+    {
+        opacity: 0.8;
+    }
