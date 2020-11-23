@@ -51,7 +51,7 @@
                     <tr>
                        <td>{{i + 1}}</td>
                        <td>{{data[i]['username']}}</td>
-                       <td>${{data[i]['amount_Money']}}</td>
+                       <td>${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>
                     </tr>
                 {%endfor%}
         </table>
