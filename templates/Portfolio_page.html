@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{#    <meta name="description" content="">#}
+{#    <meta name="author" content="">#}
     <title>Portfolio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/protfolio.css') }}">
 </head>
@@ -55,12 +58,13 @@
              <tr>
              <td>{{account[i]['symbol_Of_Stock']}}</td>
              <td>{{account[i]['CompanyName']}}</td>
-             <td>{{account[i]['numberOfShareAtBuying']}}</td>
+             <td>{{ account[i]['numberOfShareAtBuying'] - account[i]['numberOfShareSold']}}</td>
              <td>${{account[i]['priceOfShareAtBuying']}}</td>
              <td>{{account[i]['boughtShare']}}</td>
              <td>${{account[i]['sellSharePrice']}} </td>
              <td>${{account[i]['Gain']}} </td>
-             <td><button class="enter_btn"  name="Sell" value="{{account[i]['symbol_Of_Stock']}}" type="submit">Sell</button></td>
+             <td><button class="enter_btn" name="Sell" value="{{account[i]['transactions_ID']}}" type="submit">Sell</button></td>
+
         </tr>
          {% endfor %}
 

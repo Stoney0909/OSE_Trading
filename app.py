@@ -1,4 +1,9 @@
 import datetime
+
+import flask
+import requests
+from bs4 import BeautifulSoup
+import time
 from Python import get_graph_html as graph
 import random
 import string
@@ -7,7 +12,7 @@ from pandas_datareader import data
 import re
 import MySQLdb.cursors
 from flask_mail import Mail, Message
-from flask import Flask, flash, redirect, url_for
+from flask import Flask, flash, redirect, url_for, jsonify
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
 from yahoo_fin import stock_info as si
@@ -267,10 +272,11 @@ def buy_Stock():
             msg = "You don't have enough fund to buy this stock"
             return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
                                    labels=time, legend=legend, msg=msg, company_name=company_name)
+
         else:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
-                           (priceOfStock, numberOfShare, 'Null', 'Null', today, 'Null',
+            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, % s, %s,% s,% s,% s,% s,% s,% s,%s,%s)',
+                           (priceOfStock, numberOfShare, 'Null', 'Null', 'Null', today, 'Null',
                             session['id'], company_name, symbol))
             cursor.execute('UPDATE trading_Profile SET amount_Money = %s '
                            'WHERE trading_ID = %s',
@@ -289,44 +295,165 @@ def successBought():
     return render_template('successfullyBoughtStock.html')
 
 
-@app.route('/SellStock')
-def sellStock_Page():
-    return render_template('Sell_stock.html')
-
-
-@app.route('/Portfolio',methods=['GET', 'POST'])
+@app.route('/Portfolio', methods=['GET', 'POST'])
 def portfolio_Page():
     msg = ''
-    totalGain =0.0
+    sellOrNot = 0.0
+    totalGain = 0.0
+    number = 0.0
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
                    (session['id'],))
-    account = cursor.fetchall()
     if request.method == 'GET':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
-                       (session['id'],))
+        cursor.execute(
+            'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
+            (session['id'],))
         account = cursor.fetchall()
         if account:
             for i in range(0, len(account)):
                 msg = si.get_live_price(account[i]['symbol_Of_Stock'])
                 msg = format(msg, ".2f")
                 account[i]['sellSharePrice'] = msg
+                sellOrNot = float(account[i]['numberOfShareAtBuying']) - float(account[i]['numberOfShareSold'])
+                account[i]['Gain'] = format((sellOrNot * float(msg) -
+                                             sellOrNot * float(
+                            account[i]['priceOfShareAtBuying'])), ".2f")
+                totalGain = totalGain + float(account[i]['Gain'])
+
+            totalGain = format(totalGain, ".2f")
+            msg = account
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,
+                                   totalGain=totalGain)
+        else:
+            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,
+                                   totalGain=totalGain)
+    else:
+        profitOrLoss = 0.0
+        post_id = request.form['Sell']
+        session['Transaction_ID'] = post_id
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s',
+                       (post_id,))
+        account = cursor.fetchall()
+        if account:
+            for i in range(0, len(account)):
+                number = account[i]['numberOfShareAtBuying']
+                stockID = account[i]['symbol_Of_Stock']
+                msg = si.get_live_price(account[i]['symbol_Of_Stock'])
+                msg = format(msg, ".2f")
+                account[i]['sellSharePrice'] = msg
                 account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -
                                              float(account[i]['numberOfShareAtBuying']) * float(
                             account[i]['priceOfShareAtBuying'])), ".2f")
-                totalGain = totalGain + float(account[i]['Gain'])
-            totalGain = format(totalGain, ".2f")
-            msg = account
-            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,totalGain =totalGain)
-        else:
-            return render_template('Portfolio_page.html', account=account, len=len(account), msg=msg,totalGain =totalGain)
-    if request.method == 'POST':
-        post_id = request.form['Sell']
-        msg = post_id
-        return render_template('Sell_stock.html', msg=msg)
-    return render_template('Portfolio_page.html', msg=msg)
+                profitOrLoss = format(float(account[i]['Gain']), ".2f")
+        stockid, values, labels, legend, msg, company_name = getGraph(stockID)
+        return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
+                               legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
+                               company_name=company_name)
+    account, len2, msg, totalGain = getTable()
+    return render_template('Portfolio_page.html', account=account, len=len2, msg=msg,
+                           totalGain=totalGain)
 
+
+@app.route('/SellStock', methods=['GET', 'POST'])
+def sellStock_Page():
+    number = 0
+    error = None
+    if request.method == 'POST':
+        shareToSold = request.form['shareToSold']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s',
+                       (session['Transaction_ID'],))
+        account = cursor.fetchall()
+        currentPrice = 0.0
+        number, shareYouOwn, profitOrLoss, stockID = gotToPortfolio()
+        stockid, values, labels, legend, msg, company_name = getGraph(stockID)
+        if account:
+            for i in range(0, len(account)):
+                currentPrice = si.get_live_price(account[i]['symbol_Of_Stock'])
+            if float(shareToSold) > float(shareYouOwn):
+                error = "You Don't Own That amount of share"
+                return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
+                                       legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
+                                       company_name=company_name, error=error)
+            elif float(shareToSold) < 1:
+                error = "Please input positive number"
+                return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
+                                       legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
+                                       company_name=company_name, error=error)
+            else:
+                cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor2.execute('UPDATE transactions_Table SET numberOfShareSold = %s, sellSharePrice = %s '
+                                ', sellShare = %s WHERE transactions_ID = %s',
+                                (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
+                cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor3.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+                data = cursor3.fetchall()
+                mysql.connection.commit()
+                flash("Congrate")
+
+                return render_template('Home_page.html', len=len(data), data=data)
+
+
+def getGraph(nameOfStock):
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    stockData = yf.Ticker(nameOfStock)
+    history = stockData.history(period="1d", interval="1m")
+    time = list()
+    priceOfStock = si.get_live_price(nameOfStock)
+    priceOfStock = format(priceOfStock, ".2f")
+    for row in history.index:
+        date = datetime.datetime.timestamp(row)
+        time.append(date)
+    company_name = stockData.info['longName']
+    stockid = company_name
+    values = history['Open']
+    labels = time
+    legend = legend
+    msg = priceOfStock
+    company_name = company_name
+    return stockid, values, labels, legend, msg, company_name
+
+
+def getTable():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
+                   (session['id'],))
+    account = cursor.fetchall()
+    if account:
+        for i in range(0, len(account)):
+            msg = si.get_live_price(account[i]['symbol_Of_Stock'])
+            msg = format(msg, ".2f")
+            account[i]['sellSharePrice'] = msg
+            account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -
+                                         float(account[i]['numberOfShareAtBuying']) * float(
+                        account[i]['priceOfShareAtBuying'])), ".2f")
+            totalGain = totalGain + float(account[i]['Gain'])
+        totalGain = format(totalGain, ".2f")
+        msg = account
+    return account, len(account), msg, totalGain
+
+
+def gotToPortfolio():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s',
+                   (session['Transaction_ID'],))
+    account = cursor.fetchall()
+    if account:
+        for i in range(0, len(account)):
+            number = account[i]['numberOfShareAtBuying']
+            stockID = account[i]['symbol_Of_Stock']
+            msg = si.get_live_price(account[i]['symbol_Of_Stock'])
+            msg = format(msg, ".2f")
+            account[i]['sellSharePrice'] = msg
+            account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -
+                                         float(account[i]['numberOfShareAtBuying']) * float(
+                        account[i]['priceOfShareAtBuying'])), ".2f")
+            profitOrLoss = format(float(account[i]['Gain']), ".2f")
+            shareBought = account[i]['numberOfShareAtBuying']
+    return number, shareBought, profitOrLoss, stockID
 
 
 @app.route('/contact', methods=['GET', 'POST'])
