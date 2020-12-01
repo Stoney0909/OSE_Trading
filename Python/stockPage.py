@@ -22,7 +22,7 @@ def loadDay():
     currentPrice = history['Open'].iloc[-1]
 
     return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                           labels=time, legend=legend, test="")
+                           labels=time, legend=legend)
 
 
 def loadMonth():
