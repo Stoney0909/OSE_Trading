@@ -30,7 +30,7 @@
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
-            <li><a href="{{ url_for('sellStock_Page') }}">Sell Stock</a></li>
+            <li><a href="#">Sell History</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
@@ -64,7 +64,6 @@
              <td>${{account[i]['sellSharePrice']}} </td>
              <td>${{account[i]['Gain']}} </td>
              <td><button class="enter_btn" name="Sell" value="{{account[i]['transactions_ID']}}" type="submit">Sell</button></td>
-
         </tr>
          {% endfor %}
 

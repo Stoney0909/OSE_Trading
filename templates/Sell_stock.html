@@ -6,14 +6,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/BuyStock_Page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Sell_stock.css') }}">
     <title>Stock Market</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <style>
         header{
-            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/StockHead.jpg') }});
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/SellStock.jpg') }});
             height: 100vh;
             -webkit-background-size: cover;
             background-size: cover;
@@ -26,12 +26,12 @@
 <header>
     <div class="wrapper">
         <div class="logo">
-            <a href="{{ url_for('stock_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
+            <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="">Sell stock</a></li>
             <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="#">Sell History</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
@@ -46,73 +46,76 @@
 
     <div id="StockSearchSideBar" >
         <form action="/SellStock" method="post">
-            <p style="text-align: center" class='description' for="sockID">The Stock: &nbsp;{{ company_name }}</p>
-            <p style="text-align: center" class='description' for="stockPriceID">Current Price/Share:&nbsp;${{ price}}</p>
-            <p style="text-align: center" class='description' for="Gain">Profit/Loss:&nbsp;${{ profitOrLoss}}</p>
-            <p style="text-align: center" ><input type="number"  value="{{ number }}" required name="shareToSold"></p>
-            <p style="text-align: center" ><button class="enter_btn"
-                                                   type="submit">Sell</button></p>
+            <p  class='description' for="sockID">The Stock: &nbsp;{{ company_name }}</p>
+            <br>
+            <p  class='description' for="stockPriceID">Current Price/Share:&nbsp;${{ price}}</p>
+            <br>
+            <p  class='description' for="Gain">Profit/Loss:&nbsp;${{ profitOrLoss}}</p>
+            <br>
+            <p><input type="number"  value="{{ number }}" required name="shareToSold"></p>
+            <br>
+            <button class="enter_btn" type="submit">Sell</button>
         </form>
         {% if error %}
          <p><strong>Error:</strong> {{ error }}
       {% endif %}
-
     </div>
 
 
     <div id="Stock_show">
-    <div class="container">
-        <h2>Stock Name:&nbsp;{{ stockid }}</h2>
-        <canvas id="myChart" width="400" height="400"></canvas>
-        <script>
+        <div class="container">
+            <h3>{{ stockid }}</h3>
+            <canvas id="myChart" width="400" height="400"></canvas>
+            <div class="container2">
+                <script>
 
-Chart.defaults.global.responsive = false;
+    Chart.defaults.global.responsive = false;
 
-// define the chart data
-var chartData = {
-  labels : [{% for item in labels %}
-             "{{item}}",
-            {% endfor %}],
+    // define the chart data
+    var chartData = {
+      labels : [{% for item in labels %}
+                 "{{item}}",
+                {% endfor %}],
 
-  datasets : [{
-      label: '{{ legend }}',
-      fill: true,
-      lineTension: 0.1,
-      backgroundColor: "rgba(75,192,192,0.4)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#ffffff",
-      pointBorderWidth: 2,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgb(255,255,255)",
-      pointHoverBorderWidth: 1,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data : [{% for item in values %}
-                {{item}},
-              {% endfor %}],
-      spanGaps: false
-  }]
-}
+      datasets : [{
+          label: '{{ legend }}',
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: "rgba(75,192,192,0.4)",
+          borderColor: "rgba(75,192,192,1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(75,192,192,1)",
+          pointBackgroundColor: "#ffffff",
+          pointBorderWidth: 2,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgb(255,255,255)",
+          pointHoverBorderWidth: 1,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data : [{% for item in values %}
+                    {{item}},
+                  {% endfor %}],
+          spanGaps: false
+      }]
+    }
 
-// get chart canvas
-var ctx = document.getElementById("myChart").getContext("2d");
+    // get chart canvas
+    var ctx = document.getElementById("myChart").getContext("2d");
 
-// create the chart using the chart canvas
-var myChart = new Chart(ctx, {
-  type: 'line',
-  data: chartData,
-});
+    // create the chart using the chart canvas
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+    });
 
 
-</script>
-    </div>
-
+    </script>
+            </div>
+        </div>
     </div>
 </header>
 
