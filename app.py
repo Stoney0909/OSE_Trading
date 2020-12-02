@@ -338,7 +338,7 @@ def portfolio_Page():
         account = cursor.fetchall()
         if account:
             for i in range(0, len(account)):
-                number = account[i]['numberOfShareAtBuying']
+                number = int(account[i]['numberOfShareAtBuying'])- int(account[i]['numberOfShareSold'])
                 stockID = account[i]['symbol_Of_Stock']
                 msg = si.get_live_price(account[i]['symbol_Of_Stock'])
                 msg = format(msg, ".2f")
@@ -372,7 +372,7 @@ def sellStock_Page():
         if account:
             for i in range(0, len(account)):
                 currentPrice = si.get_live_price(account[i]['symbol_Of_Stock'])
-            if float(shareToSold) > float(shareYouOwn):
+            if int(shareToSold) > int(number):
                 error = "You Don't Own That amount of share"
                 return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
                                        legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
@@ -384,12 +384,12 @@ def sellStock_Page():
                                        company_name=company_name, error=error)
             else:
                 cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-                cursor2.execute('UPDATE transactions_Table SET numberOfShareSold = %s, sellSharePrice = %s '
+                cursor2.execute('UPDATE transactions_Table SET numberOfShareSold = numberOfShareSold + %s, sellSharePrice = %s '
                                 ', sellShare = %s WHERE transactions_ID = %s',
                                 (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
                 cursor2.execute('UPDATE trading_Profile SET amount_Money = amount_Money + %s '
                                 'WHERE trading_ID = %s',
-                                (( int(shareToSold) * currentPrice), session['id'],))
+                                ((int(shareToSold) * currentPrice), session['id'],))
                 cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
                 cursor3.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
                 data = cursor3.fetchall()
@@ -445,7 +445,7 @@ def gotToPortfolio():
     account = cursor.fetchall()
     if account:
         for i in range(0, len(account)):
-            number = account[i]['numberOfShareAtBuying']
+            number = int(account[i]['numberOfShareAtBuying'])- int(account[i]['numberOfShareSold'])
             stockID = account[i]['symbol_Of_Stock']
             msg = si.get_live_price(account[i]['symbol_Of_Stock'])
             msg = format(msg, ".2f")
