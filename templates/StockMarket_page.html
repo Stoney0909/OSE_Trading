@@ -51,10 +51,20 @@
                 <p class="searchText">Stock Search</p>
                 <div class="input-icons">
                      <i class="fa fa-search icon"></i>
-                     <input style="outline: none" type="text" placeholder="Search for a Stock" name="stockID" class="input-field ">
+                    <input style="outline: none" type="text" placeholder="Search for a Stock" name="stockID" class="input-field ">
                 </div>
             </div>
             <button class="enter_btn" type="submit">Search</button>
+            <select name="Time" id="Time">
+                <option value="Day">Day</option>
+                <option value="Week">Week</option>
+                <option value="Month">Month</option>
+                <option value="3 Months">3 Months</option>
+                <option value="6 Months">6 Months</option>
+                <option value="Year">Year</option>
+                <option value="All Time">All Time</option>
+            </select>
+
         </form>
     </div>
 
@@ -75,6 +85,9 @@ var chartData = {
 
   datasets : [{
       label: '{{ legend }}',
+      legend: {
+          display: false
+      },
       fill: true,
       lineTension: 0.1,
       backgroundColor: "rgba(75,192,192,0.4)",
@@ -95,7 +108,8 @@ var chartData = {
       data : [{% for item in values %}
                 {{item}},
               {% endfor %}],
-      spanGaps: false
+      spanGaps: false,
+
   }]
 }
 
