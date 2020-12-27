@@ -1,15 +1,9 @@
 import datetime
-
-
 import MySQLdb.cursors
 from flask_mail import Mail, Message
 from flask import Flask
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
-from FunctionToCall.Account import account_api
-from FunctionToCall.StockUserAccount import stock_Account_api
-from FunctionToCall.Buy_Sell import Buy_Sell_api
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
@@ -19,7 +13,7 @@ app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
 
 mysql = MySQL(app)
-work = MySQL(app)
+
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=465,
@@ -35,6 +29,7 @@ currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
 # Calling the function for Sign up , edit Profile and ChangePassword
+from FunctionToCall.Account import account_api
 
 app.register_blueprint(account_api, url_prefix='/Signup')
 
@@ -45,13 +40,13 @@ app.register_blueprint(account_api, url_prefix='/ChangePassword')
 app.register_blueprint(account_api, url_prefix='/ForgetPassword')
 
 # Calling the function for StockMarketPage and Portfolio
-
+from FunctionToCall.StockUserAccount import stock_Account_api
 app.register_blueprint(stock_Account_api, url_prefix='/StockMarket')
 
 app.register_blueprint(stock_Account_api, url_prefix='/Portfolio')
 
 # Calling the function for buy and Sell stock
-
+from FunctionToCall.Buy_Sell import Buy_Sell_api
 app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
