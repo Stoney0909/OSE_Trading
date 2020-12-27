@@ -94,6 +94,11 @@ def successBought():
     return render_template('successfullyBoughtStock.html')
 
 
+@app.route('/Hexagone')
+def hexagone():
+    return render_template('leaderboard.html')
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'GET':
