@@ -29,14 +29,14 @@
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
+            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
             <li><a href="#">Sell History</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('changePassword_page') }}">Password</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}">Password</a>
                     <a href="{{ url_for('login_page') }}">Sign out</a>
                     </div>
             </li>

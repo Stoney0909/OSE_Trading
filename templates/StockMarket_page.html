@@ -31,14 +31,14 @@
         </div>
         <ul class="nav">
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
             <li><a href="#">Sell History</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('changePassword_page') }}">Password</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}">Password</a>
                     <a href="{{ url_for('login_page') }}">Sign out</a>
                     </div>
             </li>
@@ -55,22 +55,22 @@
                 </div>
             </div>
             <button class="enter_btn" type="submit">Search</button>
-            <select name="Time" id="Time">
-                <option value="Day">Day</option>
-                <option value="Week">Week</option>
-                <option value="Month">Month</option>
-                <option value="3 Months">3 Months</option>
-                <option value="6 Months">6 Months</option>
-                <option value="Year">Year</option>
-                <option value="All Time">All Time</option>
-            </select>
+{#            <select name="Time" id="Time">#}
+{#                <option value="Day">Day</option>#}
+{#                <option value="Week">Week</option>#}
+{#                <option value="Month">Month</option>#}
+{#                <option value="3 Months">3 Months</option>#}
+{#                <option value="6 Months">6 Months</option>#}
+{#                <option value="Year">Year</option>#}
+{#                <option value="All Time">All Time</option>#}
+{#            </select>#}
 
         </form>
     </div>
 
     <div id="Stock_show">
     <div class="container">
-    <a class="Buy" href="{{ url_for('buy_Stock') }}">Buy this stock</a>
+    <a class="Buy" href="{{ url_for('Buy_Sell_api.buy_Stock') }}">Buy this stock</a>
         <br>
         <h2 style="padding-top: 5px">Stock Name:&nbsp;{{ stockid }}</h2>
         <canvas id="myChart" width="400" height="400"></canvas>

@@ -24,15 +24,15 @@
             <img src="{{ url_for('static', filename='img/Logo2.png') }}">
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('stock_page') }}">Stock Market</a></li>
-            <li><a href="{{ url_for('portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
+            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
             <li><a href="#">Sell History</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('changePassword_page') }}">Password</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >Password</a>
                     <a href="{{ url_for('login_page') }}">Sign out</a>
                     </div>
             </li>
@@ -45,13 +45,13 @@
                 <tr>
                     <th>Place</th>
                     <th>Username</th>
-                    <th>Fund Available</th>
+{#                    <th>Fund Available</th>#}
                 </tr>
                 {%for i in range(0, len)%}
                     <tr>
                        <td>{{i + 1}}</td>
                        <td>{{data[i]['username']}}</td>
-                       <td>${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>
+{#                       <td>${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>#}
                     </tr>
                 {%endfor%}
         </table>
