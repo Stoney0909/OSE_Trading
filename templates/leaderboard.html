@@ -6,6 +6,33 @@
      <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
 </head>
 <body>
- <div class="hexagon"></div>
+  <div class= "position">
+  <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
+      </div>
+  <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}">
+        </div>
+  <div class= "position2">
+  <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
+      </div>
+<div style="width:700px;height:300px;border:1px solid #000;position: absolute; left:30px; top: 250px; ">
+    <div class="table">
+    <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                     <th>Score</th>
+{#                    <th>Fund Available</th>#}
+                </tr>
+{#                {%for i in range(0, len)%}#}
+{#                    <tr>#}
+{#                       <td>{{i + 1}}</td>#}
+{#                       <td>{{data[i]['username']}}</td>#}
+{#                       <td>${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>#}
+{#                    </tr>#}
+{#                {%endfor%}#}
+        </table>
+        </div>
+</div>
 </body>
 </html>

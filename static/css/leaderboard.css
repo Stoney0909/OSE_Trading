@@ -1,31 +1,67 @@
-* {
- box-sizing: border-box;
+
+.hexagon {
+    overflow: hidden;
+    visibility: hidden;
+    -webkit-transform: rotate(120deg);
+       -moz-transform: rotate(120deg);
+        -ms-transform: rotate(120deg);
+         -o-transform: rotate(120deg);
+            transform: rotate(120deg);
+    cursor: pointer;
+    }
+#box {
+  fill: white;
+  stroke: blue;
+
 }
-body{
-    height: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.logo{
+     position: absolute; visibility: visible; left: 280px; top: 125px; z-index: 200;
 }
-.hexagon{
-    position: relative;
-    width: 300px;
-    height: 173px;
-    background: lightblue;
+.table{
+    position: absolute; left: 280px; top: 125px;
 }
-.hexagon::before,
-.hexagon::after{
-    content: '';
-    position: absolute;
-    width: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
+.position {
+    position: absolute; visibility: visible; left: 20px; top: 200px; z-index: 200; }
+.position2{
+    position: absolute; visibility: visible; left: 500px; top: 200px; z-index: 200;
 }
-.hexagon::before{
-    bottom: 99.9%;
-    border-bottom: 86px solid lightblue;
-}
-.hexagon::after{
-    top: 100%;
-    border-top: 86px solid lightblue;
-}
+.hexagon-in1 {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: rotate(-60deg);
+       -moz-transform: rotate(-60deg);
+        -ms-transform: rotate(-60deg);
+         -o-transform: rotate(-60deg);
+            transform: rotate(-60deg);
+    }
+.hexagon-in2 {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-color: lightblue;
+    visibility: visible;
+    -webkit-transform: rotate(-60deg);
+       -moz-transform: rotate(-60deg);
+        -ms-transform: rotate(-60deg);
+         -o-transform: rotate(-60deg);
+            transform: rotate(-60deg);
+    }
+
+.hexagon1 {
+    width: 400px;
+    height: 100px;
+    margin: 0 0 0 -80px;
+    }
+.hexagon2 {
+    width: 100px;
+    height: 400px;
+    margin: -80px 0 0 20px;
+    }
+.dodecagon {
+    width: 200px;
+    height: 200px;
+    margin: -80px 0 0 20px;
+    }
+
