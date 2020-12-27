@@ -1,15 +1,23 @@
 import re
 import datetime
 import MySQLdb
+import mail
+
 from flask import request, session, render_template, flash
-from app import mysql
+
 from flask import Blueprint
+import random
+import string
+
+
+from flask_mail import Mail, Message
+
+from app import mysql
+from forms import EditProfileForm
 
 account_api = Blueprint('account_api', __name__)
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
-
-from forms import EditProfileForm
 
 
 @account_api.route('/Signup', methods=['GET', 'POST'])
@@ -119,3 +127,39 @@ def changePassword_page():
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
     return render_template('ChangePassword.html', msg=msg)
+
+
+@account_api.route('/ForgetPassword', methods=['GET', 'POST'])
+def forgetPassword_page():
+    if request.method == 'POST' and 'email' in request.form:
+        email = request.form['email']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
+        account = cursor.fetchone()
+        if account is None:
+            msg = 'This account does not exist'
+            return render_template('ForgetPassword_page.html', msg=msg)
+        else:
+            password = get_random_string(8)
+            msg = Message(
+                'Hello',
+                sender=email,
+                recipients=[email]
+            )
+            msg.html = render_template('msg.html', result=account, password=password)
+            mail.send(msg)
+            cursor.execute('UPDATE trading_Profile SET password = %s '
+                           'WHERE email = %s',
+                           (password, email,))
+            mysql.connection.commit()
+            msg = "Check your email for the new password"
+            return render_template('ForgetPassword_page.html', msg=msg)
+
+    return render_template('ForgetPassword_page.html')
+
+
+def get_random_string(length):
+    # Random string with the combination of lower and upper case
+    letters = string.ascii_letters
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str

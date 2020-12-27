@@ -1,7 +1,6 @@
 import datetime
 
-import random
-import string
+
 import MySQLdb.cursors
 from flask_mail import Mail, Message
 from flask import Flask
@@ -10,6 +9,7 @@ from flask_mysqldb import MySQL
 from FunctionToCall.Account import account_api
 from FunctionToCall.StockUserAccount import stock_Account_api
 from FunctionToCall.Buy_Sell import Buy_Sell_api
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
@@ -19,7 +19,7 @@ app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
 
 mysql = MySQL(app)
-
+work = MySQL(app)
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=465,
@@ -42,13 +42,15 @@ app.register_blueprint(account_api, url_prefix='/edit_profile')
 
 app.register_blueprint(account_api, url_prefix='/ChangePassword')
 
+app.register_blueprint(account_api, url_prefix='/ForgetPassword')
+
 # Calling the function for StockMarketPage and Portfolio
 
 app.register_blueprint(stock_Account_api, url_prefix='/StockMarket')
 
 app.register_blueprint(stock_Account_api, url_prefix='/Portfolio')
 
-# Calling the function for buy and Sell stcok
+# Calling the function for buy and Sell stock
 
 app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
@@ -83,33 +85,33 @@ def login_page():
     return render_template('Login_page.html', msg=msg)
 
 
-@app.route('/ForgetPassword', methods=['GET', 'POST'])
-def forgetPassword_page():
-    if request.method == 'POST' and 'email' in request.form:
-        email = request.form['email']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
-        account = cursor.fetchone()
-        if account is None:
-            msg = 'This account does not exist'
-            return render_template('ForgetPassword_page.html', msg=msg)
-        else:
-            password = get_random_string(8)
-            msg = Message(
-                'Hello',
-                sender=email,
-                recipients=[email]
-            )
-            msg.html = render_template('msg.html', result=account, password=password)
-            mail.send(msg)
-            cursor.execute('UPDATE trading_Profile SET password = %s '
-                           'WHERE email = %s',
-                           (password, email,))
-            mysql.connection.commit()
-            msg = "Check your email for the new password"
-            return render_template('ForgetPassword_page.html', msg=msg)
-
-    return render_template('ForgetPassword_page.html')
+# @app.route('/ForgetPassword', methods=['GET', 'POST'])
+# def forgetPassword_page():
+#     if request.method == 'POST' and 'email' in request.form:
+#         email = request.form['email']
+#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+#         cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
+#         account = cursor.fetchone()
+#         if account is None:
+#             msg = 'This account does not exist'
+#             return render_template('ForgetPassword_page.html', msg=msg)
+#         else:
+#             password = get_random_string(8)
+#             msg = Message(
+#                 'Hello',
+#                 sender=email,
+#                 recipients=[email]
+#             )
+#             msg.html = render_template('msg.html', result=account, password=password)
+#             mail.send(msg)
+#             cursor.execute('UPDATE trading_Profile SET password = %s '
+#                            'WHERE email = %s',
+#                            (password, email,))
+#             mysql.connection.commit()
+#             msg = "Check your email for the new password"
+#             return render_template('ForgetPassword_page.html', msg=msg)
+#
+#     return render_template('ForgetPassword_page.html')
 
 
 @app.route('/Home', methods=['GET', 'POST'])
@@ -146,13 +148,6 @@ def contact():
 
     else:
         return render_template('contact.html')
-
-
-def get_random_string(length):
-    # Random string with the combination of lower and upper case
-    letters = string.ascii_letters
-    result_str = ''.join(random.choice(letters) for i in range(length))
-    return result_str
 
 
 if __name__ == '__main__':
