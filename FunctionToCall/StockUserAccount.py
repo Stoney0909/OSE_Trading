@@ -1,4 +1,3 @@
-import re
 from yahoo_fin import stock_info as si
 import yfinance as yf
 import datetime

@@ -1,18 +1,12 @@
 import re
 import datetime
 import MySQLdb
-import mail
-
 from flask import request, session, render_template, flash
-
 from flask import Blueprint
 import random
 import string
-
-
 from flask_mail import Mail, Message
-
-from app import mysql
+from app import mysql, mail
 from forms import EditProfileForm
 
 account_api = Blueprint('account_api', __name__)

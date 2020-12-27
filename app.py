@@ -80,35 +80,6 @@ def login_page():
     return render_template('Login_page.html', msg=msg)
 
 
-# @app.route('/ForgetPassword', methods=['GET', 'POST'])
-# def forgetPassword_page():
-#     if request.method == 'POST' and 'email' in request.form:
-#         email = request.form['email']
-#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#         cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
-#         account = cursor.fetchone()
-#         if account is None:
-#             msg = 'This account does not exist'
-#             return render_template('ForgetPassword_page.html', msg=msg)
-#         else:
-#             password = get_random_string(8)
-#             msg = Message(
-#                 'Hello',
-#                 sender=email,
-#                 recipients=[email]
-#             )
-#             msg.html = render_template('msg.html', result=account, password=password)
-#             mail.send(msg)
-#             cursor.execute('UPDATE trading_Profile SET password = %s '
-#                            'WHERE email = %s',
-#                            (password, email,))
-#             mysql.connection.commit()
-#             msg = "Check your email for the new password"
-#             return render_template('ForgetPassword_page.html', msg=msg)
-#
-#     return render_template('ForgetPassword_page.html')
-
-
 @app.route('/Home', methods=['GET', 'POST'])
 def home_page():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
