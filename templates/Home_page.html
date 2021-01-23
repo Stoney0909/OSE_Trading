@@ -49,7 +49,9 @@
     </div>
     <div class = "AccountMoneyDisplay">
         <h1>Amount of Money</h1>
-        <h2>${{ Money['amount_Money'] }}</h2>
+        {% for i in Money %}
+        <h2>${{ i ['amount_Money']}}</h2>
+        {% endfor %}
     </div>
 {#<form id="FormDisplay" action="" method="post">#}
 {#        <table>#}

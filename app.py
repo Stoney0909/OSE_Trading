@@ -63,6 +63,7 @@ def login_page():
         account = cursor.fetchone()
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+
         data = cursor2.fetchall()
         if account:
             session['loggedin'] = True
@@ -73,8 +74,10 @@ def login_page():
             session['last_name'] = account['last_Name']
             session['phone'] = account['phone']
             session['gender'] = account['gender']
-
-            return render_template('Home_page.html', len=len(data), data=data)
+            cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor3.execute('SELECT * FROM trading_Profile where username = %s', (account['username'],))
+            Money = cursor3.fetchall()
+            return render_template('Home_page.html', len=len(data), data=data, Money= Money)
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
@@ -87,10 +90,10 @@ def home_page():
     data = cursor.fetchall()  # data from database
 
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor2.execute('SELECT amount_Money FROM trading_Profile where username = %s', (session['username'],))
+    cursor2.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor2.fetchall()
     # return render_template("example.html", value=data)
-    return render_template('Home_page.html', len=len(data), data=data, Money=Money)
+    return render_template('Home_page.html', len=len(data), data=data, Money = Money)
 
 
 @app.route('/SuccessFullBought')
@@ -120,11 +123,17 @@ def contact():
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
         data = cursor2.fetchall()
-        return render_template('Home_page.html', len=len(data), data=data)
+        Money= getMoney()
+        return render_template('Home_page.html', len=len(data), data=data, Money = Money)
 
     else:
         return render_template('contact.html')
 
+def getMoney():
+    cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
+    Money = cursor3.fetchall()
+    return  Money
 
 if __name__ == '__main__':
     app.run(debug=True)
