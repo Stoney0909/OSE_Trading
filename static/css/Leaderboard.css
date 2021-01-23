@@ -14,7 +14,7 @@
   stroke: blue;
 
 }
-.logo{
+.logos{
      position: absolute; visibility: visible; left: 280px; top: 125px; z-index: 200;
 }
 .table{

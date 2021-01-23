@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_Page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Leaderboard.css') }}">
 </head>
 
 <style>
@@ -14,6 +15,14 @@
         background-size: cover;
         background-position: center center;
         position: relative;
+    }
+
+    .AccountMoneyDisplay
+    {
+        font-size: large;
+        color: white;
+        position: absolute;
+        margin: 15% 5%;
     }
 </style>
 
@@ -26,7 +35,7 @@
         <ul class="nav">
             <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
             <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
-            <li><a href="{{ url_for('hexagone') }}">Sell History</a></li>
+            <li><a href="{{ url_for('transaction_history') }}">Sell History</a></li>
             <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
@@ -38,24 +47,64 @@
             </li>
         </ul>
     </div>
-
-<form id="FormDisplay" action="" method="post">
-        <table>
-                <caption style="font-size: 50px; font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; text-align: center">Leader Board</caption>
-                <tr>
-                    <th>Place</th>
-                    <th>Username</th>
+    <div class = "AccountMoneyDisplay">
+        <h1>Amount of Money</h1>
+        <h2>${{ Money['amount_Money'] }}</h2>
+    </div>
+{#<form id="FormDisplay" action="" method="post">#}
+{#        <table>#}
+{#                <caption style="font-size: 50px; font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; text-align: center">Leader Board</caption>#}
+{#                <tr>#}
+{#                    <th>Place</th>#}
+{#                    <th>Username</th>#}
 {#                    <th>Fund Available</th>#}
-                </tr>
-                {%for i in range(0, len)%}
-                    <tr>
-                       <td>{{i + 1}}</td>
-                       <td>{{data[i]['username']}}</td>
+{#                </tr>#}
+{#                {%for i in range(0, len)%}#}
+{#                    <tr>#}
+{#                       <td>{{i + 1}}</td>#}
+{#                       <td>{{data[i]['username']}}</td>#}
 {#                       <td>${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>#}
-                    </tr>
-                {%endfor%}
-        </table>
- </form>
+{#                    </tr>#}
+{#                {%endfor%}#}
+{#        </table>#}
+{# </form>#}
+
+
+
+    <div id="FormDisplay">
+        <div class= "position">
+            <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
+        </div>
+
+        <div class="logos">
+            <img src="{{ url_for('static', filename='img/logo.png') }}">
+        </div>
+
+        <div class= "position2">
+            <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
+        </div>
+
+        <div style="width:700px;height:300px;border:1px solid #000;position: absolute; left:30px; top: 250px; ">
+            <div class="table">
+                <table>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                {#th>Fund Available</th>#}
+                            </tr>
+                                {#{%for i in range(0, len)%}#}
+                                {#<tr>#}
+                                {#<td>{{i + 1}}</td>#}
+                                {#<td>{{data[i]['username']}}</td>#}
+                                {#<td>${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>#}
+                                {#</tr>#}
+                                {#{%endfor%}#}
+                </table>
+            </div>
+        </div>
+    </div>
+
 </header>
 </body>
 </html>

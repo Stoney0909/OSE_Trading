@@ -85,8 +85,12 @@ def home_page():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
     data = cursor.fetchall()  # data from database
+
+    cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor2.execute('SELECT amount_Money FROM trading_Profile where username = %s', (session['username'],))
+    Money = cursor2.fetchall()
     # return render_template("example.html", value=data)
-    return render_template('Home_page.html', len=len(data), data=data)
+    return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
 
 @app.route('/SuccessFullBought')
@@ -94,9 +98,10 @@ def successBought():
     return render_template('successfullyBoughtStock.html')
 
 
-@app.route('/Hexagone')
-def hexagone():
-    return render_template('leaderboard.html')
+@app.route('/TransactionHistory', methods=['GET', 'POST'])
+def transaction_history():
+
+    return render_template('TransactionHistory.html')
 
 
 @app.route('/contact', methods=['GET', 'POST'])
