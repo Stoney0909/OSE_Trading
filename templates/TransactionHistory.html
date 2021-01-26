@@ -150,14 +150,15 @@
         outline: none
     }
 
-        table
+    table
    {
-       table-layout: fixed;
-       border-collapse: collapse;
-       font-size: .9rem;
-       background-color: white;
-       position: absolute;
-       margin: 15% 15%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        font-size: .9rem;
+        background-color: white;
+        position: absolute;
+        margin: 15% 15%;
+        width: 70%;
    }
 
     td, th
@@ -219,24 +220,15 @@
          <th>Price</th>
          <th>Amount of Money</th>
      </tr>
-
         {%for i in range(0, len)%}
-
-     <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-     </tr>
-
-     <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td>TOTAL VALUE</td>
-         <td></td>
-     </tr>
+            <tr>
+                <td>{{Account[i]['HistoryID']}}</td>
+                <td>{{Account[i]['Transaction_Date']}}</td>
+                <td>{{Account[i]['Process_Des'] }}</td>
+                <td>{{Account[i]['Price'] }}</td>
+                <td>{{Account[i]['Amount_of_Money'] }}</td>
+            </tr>
+        {% endfor %}
      </table>
 </header>
 </body>
