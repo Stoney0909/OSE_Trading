@@ -103,9 +103,10 @@ def successBought():
 
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
 def transaction_history():
-
-    return render_template('TransactionHistory.html')
-
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s', (session['id'],))
+    account = cursor.fetchall()
+    return render_template('TransactionHistory.html', len=len(account), Account = account)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

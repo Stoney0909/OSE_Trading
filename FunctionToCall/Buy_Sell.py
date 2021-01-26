@@ -2,6 +2,7 @@ from yahoo_fin import stock_info as si
 import yfinance as yf
 import datetime
 import MySQLdb
+import app
 from flask import request, session, render_template
 from app import mysql
 from flask import Blueprint
@@ -48,9 +49,17 @@ def buy_Stock():
 
         else:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, % s, %s,% s,% s,% s,% s,% s,% s,%s,%s)',
+            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, %s, %s,% s,% s,% s,% s,% s,% s,%s,%s)',
                            (priceOfStock, numberOfShare, 'Null', 'Null', 'Null', today, 'Null',
                             session['id'], company_name, symbol))
+
+            SpendMoney = float(numberOfShare) * float(priceOfStock)
+            amountOfMoneyAfterSpend = float(moneyAvalaible) - float(SpendMoney)
+            Description = 'Spend $'+ str(round(float(SpendMoney), 2)) + ' to buy ' + str(round(float(numberOfShare), 2)) + ' share of ' + company_name + '\'s stock'
+
+            cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
+                           (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend)))
+
             cursor.execute('UPDATE trading_Profile SET amount_Money = %s '
                            'WHERE trading_ID = %s',
                            (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'],))
@@ -61,6 +70,7 @@ def buy_Stock():
 
     return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
                            labels=time, legend=legend, msg=msg, company_name=company_name)
+
 
 
 @Buy_Sell_api.route('/SellStock', methods=['GET', 'POST'])
@@ -90,10 +100,18 @@ def sellStock_Page():
                                        company_name=company_name, error=error)
             else:
                 cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-                cursor2.execute(
-                    'UPDATE transactions_Table SET numberOfShareSold = numberOfShareSold + %s, sellSharePrice = %s '
-                    ', sellShare = %s WHERE transactions_ID = %s',
-                    (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
+
+                cursor2.execute('UPDATE transactions_Table SET numberOfShareSold = numberOfShareSold + %s, sellSharePrice = %s '
+                                ', sellShare = %s WHERE transactions_ID = %s',
+                                (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
+
+                # Description = 'Sold ' + shareToSold + ' share of ' + company_name + '\'s stock'
+                # GetMoney = float(currentPrice * shareToSold)
+                # Money = app.getMoney() - GetMoney
+                # cursor2.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
+                #                 (session['id'], today, Description, float(GetMoney), float(Money)))
+                # having crisis
+
                 cursor2.execute('UPDATE trading_Profile SET amount_Money = amount_Money + %s '
                                 'WHERE trading_ID = %s',
                                 ((int(shareToSold) * currentPrice), session['id'],))
@@ -101,8 +119,8 @@ def sellStock_Page():
                 cursor3.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
                 data = cursor3.fetchall()
                 mysql.connection.commit()
-
-                return render_template('Home_page.html', len=len(data), data=data)
+                Money = app.getMoney()
+                return render_template('Home_page.html', len=len(data), data=data, Money = Money)
 
 
 def gotToPortfolio():

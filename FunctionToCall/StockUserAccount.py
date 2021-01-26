@@ -49,23 +49,20 @@ def portfolio_Page():
     totalGain = 0.0
     number = 0.0
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
-                   (session['id'],))
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s', (session['id'],))
+
     if request.method == 'GET':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute(
-            'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
+        cursor.execute('SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
             (session['id'],))
         account = cursor.fetchall()
-        if account:
+        if account: # if there is data in here
             for i in range(0, len(account)):
                 msg = si.get_live_price(account[i]['symbol_Of_Stock'])
                 msg = format(msg, ".2f")
                 account[i]['sellSharePrice'] = msg
                 sellOrNot = float(account[i]['numberOfShareAtBuying']) - float(account[i]['numberOfShareSold'])
-                account[i]['Gain'] = format((sellOrNot * float(msg) -
-                                             sellOrNot * float(
-                            account[i]['priceOfShareAtBuying'])), ".2f")
+                account[i]['Gain'] = format((sellOrNot * float(msg) - sellOrNot * float(account[i]['priceOfShareAtBuying'])), ".2f")
                 totalGain = totalGain + float(account[i]['Gain'])
 
             totalGain = format(totalGain, ".2f")
