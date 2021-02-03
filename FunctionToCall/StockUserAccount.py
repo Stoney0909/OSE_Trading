@@ -5,6 +5,7 @@ import MySQLdb
 from flask import request, session, render_template, flash
 from app import mysql
 from flask import Blueprint
+from Python import stockPage
 
 stock_Account_api = Blueprint('stock_Account_api', __name__)
 currentDT = datetime.datetime.now()
@@ -13,32 +14,51 @@ today = currentDT.strftime("%Y-%m-%d")
 
 @stock_Account_api.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    stockid = 'MSFT'
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    stockid =""
+    legend = ''
+    labels = []
     if request.method == 'POST' and 'stockID' in request.form:
-        legend = "Daily"
-        stockid = request.form['stockID']
-        if stockid == "":
-            stockid = "MSFT"
-        session['IdOfSearch'] = stockid
-        stockData = yf.Ticker(stockid)
-        history = stockData.history(period="1d", interval="1m")
-        time = list()
-        for row in history.index:
-            if (row.hour > 12):
-                date = "{}:{}".format(row.hour - 12, row.minute)
-            else:
-                date = "{}:{}".format(row.hour, row.minute)
 
-            time.append(date)
-        currentPrice = history['Open'].iloc[-1]
+        if request.form.get("Day"):
+            history, stockid, time, legend = stockPage.loadDay()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("Week"):
+            history, stockid, time, legend = stockPage.loadWeek()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("Month"):
+            history, stockid, time, legend = stockPage.loadMonth()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("3_Month"):
+            history, stockid, time, legend = stockPage.load3Month()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("6_Month"):
+            history, stockid, time, legend = stockPage.load6Month()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("Year"):
+            history, stockid, time, legend = stockPage.loadYear()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("5_year"):
+            history, stockid, time, legend = stockPage.load5Year()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        elif request.form.get("All_Time"):
+            history, stockid, time, legend = stockPage.loadAllTime()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
+        else:
+            history, stockid, time, legend = stockPage.loadDay()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                labels=time, legend=legend)
 
-        return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                               labels=time, legend=legend)
 
     session['IdOfSearch'] = stockid
-    values = [20, 21, 263, 10, 10, 10, 10, 10]
+    values = []
     return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
 
 
