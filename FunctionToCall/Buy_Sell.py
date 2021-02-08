@@ -19,15 +19,19 @@ def buy_Stock():
     legend = 'Monthly Data'
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
     stockData = yf.Ticker(session['IdOfSearch'])
+    stockID = session['IdOfSearch']
     history = stockData.history(period="1d", interval="1m")
     time = list()
-    priceOfStock = format(si.get_live_price(session['IdOfSearch']), ".2f")
+    priceOfStock = format(history['Open'].iloc[-1], ".2f")
+
     for row in history.index:
         if (row.hour > 12):
             date = "{}:{}".format(row.hour - 12, row.minute)
         else:
             date = "{}:{}".format(row.hour, row.minute)
         time.append(date)
+
+
     company_name = stockData.info['longName']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT amount_Money FROM trading_Profile WHERE trading_ID = %s',
@@ -37,6 +41,8 @@ def buy_Stock():
     if request.method == 'GET':
         return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
                                labels=time, legend=legend, msg=priceOfStock, company_name=company_name)
+
+
     elif request.method == 'POST' and 'stockPrice' in request.form:
         numberOfShare = request.form.get('stockPrice', type=int)
         symbol = session['IdOfSearch']
