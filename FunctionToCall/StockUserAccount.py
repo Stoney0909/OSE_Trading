@@ -14,45 +14,54 @@ today = currentDT.strftime("%Y-%m-%d")
 
 @stock_Account_api.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    stockid =""
+    stockid =''
     legend = ''
     labels = []
     if request.method == 'POST' and 'stockID' in request.form:
         session['IdOfSearch'] = request.form['stockID']
         if request.form.get("Day"):
             history, stockid, time, legend = stockPage.loadDay()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("Week"):
             history, stockid, time, legend = stockPage.loadWeek()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("Month"):
             history, stockid, time, legend = stockPage.loadMonth()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("3_Month"):
             history, stockid, time, legend = stockPage.load3Month()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("6_Month"):
             history, stockid, time, legend = stockPage.load6Month()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("Year"):
             history, stockid, time, legend = stockPage.loadYear()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("5_year"):
             history, stockid, time, legend = stockPage.load5Year()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         elif request.form.get("All_Time"):
             history, stockid, time, legend = stockPage.loadAllTime()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                                    labels=time, legend=legend)
         else:
             history, stockid, time, legend = stockPage.loadDay()
+            session['IdOfSearch'] = stockid
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
                 labels=time, legend=legend)
 
