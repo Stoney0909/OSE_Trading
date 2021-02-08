@@ -18,7 +18,7 @@ def stock_page():
     legend = ''
     labels = []
     if request.method == 'POST' and 'stockID' in request.form:
-
+        session['IdOfSearch'] = request.form['stockID']
         if request.form.get("Day"):
             history, stockid, time, legend = stockPage.loadDay()
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
