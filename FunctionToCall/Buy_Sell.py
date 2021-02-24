@@ -55,7 +55,8 @@ def buy_Stock():
 
             SpendMoney = float(numberOfShare) * float(priceOfStock)
             amountOfMoneyAfterSpend = float(moneyAvalaible) - float(SpendMoney)
-            Description = 'Spend $'+ str(round(float(SpendMoney), 2)) + ' to buy ' + str(round(float(numberOfShare), 2)) + ' share of ' + company_name + '\'s stock'
+            Description = 'Spend $' + str(round(float(SpendMoney), 2)) + ' to buy ' + str(
+                round(float(numberOfShare), 2)) + ' share of ' + company_name + '\'s stock'
 
             cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
                            (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend)))
@@ -72,7 +73,6 @@ def buy_Stock():
                            labels=time, legend=legend, msg=msg, company_name=company_name)
 
 
-
 @Buy_Sell_api.route('/SellStock', methods=['GET', 'POST'])
 def sellStock_Page():
     error = None
@@ -83,6 +83,7 @@ def sellStock_Page():
                        (session['Transaction_ID'],))
         account = cursor.fetchall()
         currentPrice = 0.0
+        GetMoney = 0.0
         number, shareYouOwn, profitOrLoss, stockID = gotToPortfolio()
         stockid, values, labels, legend, msg, company_name = getGraph(stockID)
         if account:
@@ -101,16 +102,18 @@ def sellStock_Page():
             else:
                 cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-                cursor2.execute('UPDATE transactions_Table SET numberOfShareSold = numberOfShareSold + %s, sellSharePrice = %s '
-                                ', sellShare = %s WHERE transactions_ID = %s',
-                                (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
+                cursor2.execute(
+                    'UPDATE transactions_Table SET numberOfShareSold = numberOfShareSold + %s, sellSharePrice = %s '
+                    ', sellShare = %s WHERE transactions_ID = %s',
+                    (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
 
-                # Description = 'Sold ' + shareToSold + ' share of ' + company_name + '\'s stock'
-                # GetMoney = float(currentPrice * shareToSold)
-                # Money = app.getMoney() - GetMoney
-                # cursor2.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
-                #                 (session['id'], today, Description, float(GetMoney), float(Money)))
-                # having crisis
+                Description = 'Sold ' + shareToSold + ' share of ' + company_name + '\'s stock'
+                GetMoney = float(currentPrice * float(shareToSold))
+                AmountOfMoney = app.getMoney()
+                Money = float(amount_Left()) - GetMoney
+
+                cursor2.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
+                                (session['id'], today, Description, float(GetMoney), float(Money)))
 
                 cursor2.execute('UPDATE trading_Profile SET amount_Money = amount_Money + %s '
                                 'WHERE trading_ID = %s',
@@ -120,7 +123,7 @@ def sellStock_Page():
                 data = cursor3.fetchall()
                 mysql.connection.commit()
                 Money = app.getMoney()
-                return render_template('Home_page.html', len=len(data), data=data, Money = Money)
+                return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
 
 def gotToPortfolio():
@@ -141,3 +144,12 @@ def gotToPortfolio():
             profitOrLoss = format(float(account[i]['Gain']), ".2f")
             shareBought = account[i]['numberOfShareAtBuying']
     return number, shareBought, profitOrLoss, stockID
+
+
+def amount_Left():
+    cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor3.execute('SELECT amount_Money FROM trading_Profile where username = %s', (session['username'],))
+    Money = cursor3.fetchone()
+    amount = 0.0
+    amount = float(Money['amount_Money'])
+    return amount

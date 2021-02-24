@@ -4,6 +4,7 @@ from flask_mail import Mail, Message
 from flask import Flask
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
@@ -41,12 +42,14 @@ app.register_blueprint(account_api, url_prefix='/ForgetPassword')
 
 # Calling the function for StockMarketPage and Portfolio
 from FunctionToCall.StockUserAccount import stock_Account_api
+
 app.register_blueprint(stock_Account_api, url_prefix='/StockMarket')
 
 app.register_blueprint(stock_Account_api, url_prefix='/Portfolio')
 
 # Calling the function for buy and Sell stock
 from FunctionToCall.Buy_Sell import Buy_Sell_api
+
 app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
@@ -77,7 +80,7 @@ def login_page():
             cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor3.execute('SELECT * FROM trading_Profile where username = %s', (account['username'],))
             Money = cursor3.fetchall()
-            return render_template('Home_page.html', len=len(data), data=data, Money= Money)
+            return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
             msg = 'Incorrect username / password!'
     return render_template('Login_page.html', msg=msg)
@@ -93,7 +96,7 @@ def home_page():
     cursor2.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor2.fetchall()
     # return render_template("example.html", value=data)
-    return render_template('Home_page.html', len=len(data), data=data, Money = Money)
+    return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
 
 @app.route('/SuccessFullBought')
@@ -106,7 +109,13 @@ def transaction_history():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s', (session['id'],))
     account = cursor.fetchall()
-    return render_template('TransactionHistory.html', len=len(account), Account = account)
+    return render_template('TransactionHistory.html', len=len(account), Account=account)
+
+
+@app.route('/loan', methods=['GET', 'POST'])
+def Loan():
+    return render_template('loan.html')
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -124,17 +133,19 @@ def contact():
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
         data = cursor2.fetchall()
-        Money= getMoney()
-        return render_template('Home_page.html', len=len(data), data=data, Money = Money)
+        Money = getMoney()
+        return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
     else:
         return render_template('contact.html')
+
 
 def getMoney():
     cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor3.fetchall()
-    return  Money
+    return Money
+
 
 if __name__ == '__main__':
     app.run(debug=True)

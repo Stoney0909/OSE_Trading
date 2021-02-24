@@ -36,12 +36,13 @@
             <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
             <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
             <li><a href="{{ url_for('transaction_history') }}">Transaction History</a></li>
-            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li><a href="{{ url_for('Loan') }}">Loan</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
                     <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
                     <a href="{{ url_for('account_api.changePassword_page') }}" >Password</a>
+                         <a href="{{ url_for('contact') }}">Contact</a>
                     <a href="{{ url_for('login_page') }}">Sign out</a>
                     </div>
             </li>
