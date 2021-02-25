@@ -151,7 +151,7 @@ def getTable():
     account = cursor.fetchall()
     if account:
         for i in range(0, len(account)):
-            msg = si.get_live_price(account[i]['symbol_Of_Stock'])
+            msg = si.get_live_price(account[i]['symbol_Of_Stock']) #getting stock prices
             msg = format(msg, ".2f")
             account[i]['sellSharePrice'] = msg
             account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -

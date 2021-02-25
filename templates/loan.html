@@ -4,84 +4,130 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Loan.css') }}">
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/Leaderboard.css') }}">#}
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 
 <style>
-    header{
-        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/backgound_home.jpeg') }});
-        height: 110vh;
-        -webkit-background-size: cover;
-        background-size: cover;
-        background-position: center center;
-        position: relative;
-    }
-    .AccountMoneyDisplay
+    body
     {
-        font-size: large;
-        color: white;
-        position: absolute;
-        margin: 15% 5%;
+         background-image: url({{ url_for('static', filename='img/BackGroundImage.jpg') }});
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         background-size: 100% 100%;
     }
+
+   *
+   {
+         box-sizing: border-box;
+   }
+
+    input[type=text], textarea
+    {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: none;
+        background-color: #d5d5d5;
+    }
+
+  button
+  {
+      background-color: #51679c;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 50%;
+      border-radius: 25px;
+
+  }
+
+    button:hover
+    {
+        opacity: 0.8;
+    }
+
+.container {
+    position: absolute;
+    margin: 5% 30%;
+    background-color: #ffffff;
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#GetLoanDisplay
+{
+    position: relative;
+}
+
+#LoanPlayBack
+{
+    position: relative;
+    display: none;
+}
+
 </style>
 
+<script>
+    function displayLoanPage()
+    {
+        document.getElementById("GetLoanDisplay").style.display = "block";
+        document.getElementById("LoanPlayBack").style.display = "none";
+    }
+
+    function displayPayBackLoan()
+    {
+        document.getElementById("GetLoanDisplay").style.display = "none";
+        document.getElementById("LoanPlayBack").style.display = "block";
+    }
+</script>
+
 <body>
-<header>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='img/Logo2.png') }}">
-        </div>
-        <ul class="nav">
-            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
-            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
-            <li><a href="{{ url_for('transaction_history') }}">Transaction History</a></li>
-            <li><a href="{{ url_for('Loan') }}">Loan</a></li>
-            <li class="dropdown">
-                    <span class="user_name">{{ session['username']}}</span>
-                    <div class="dropdown-content">
-                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >Password</a>
-                         <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('login_page') }}">Sign out</a>
-                    </div>
-            </li>
-        </ul>
+
+<div class="container">
+    <div style="text-align:center">
+        <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo1.png') }}"></a>
+        <h2>Loan</h2>
     </div>
-{#<div class="Learderboard">#}
-{##}
-{#    <div class= "position">#}
-{#      <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>#}
-{#       <div class="Information">Your Score</div>#}
-{#    </div>#}
-{#        <div class="logo2">#}
-{#            <img src="{{ url_for('static', filename='img/leaderboard.png') }}">#}
-{#        </div>#}
-{#        <div class= "position2">#}
-{#             <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>#}
-{#              <div class="Information2">Your Rank</div>#}
-{#        </div>#}
-{#  <div style="width:700px;height:300px;border:1px solid #f8f8f8;position: absolute; left:30px; top: 250px;">#}
-{#    <div class="tablediv">#}
-{#       <table id="table1">#}
-{#                <tr>#}
-{#                    <th style="color: #f8f8f8"><i class='fas fa-star' style='font-size:20px;color:red'></i>Rank</th>#}
-{#                    <th style="color: #f8f8f8"> <i class='fas fa-user-circle' style='font-size:20px;color:red'></i> Name </th>#}
-{#                    <th style="color: #f8f8f8"><i class='fas fa-trophy' style='font-size:20px;color:red'></i>Score</th>#}
-{#                </tr>#}
-{##}
-{#                {%for i in range(0, len)%}#}
-{##}
-{#                    <tr id="tbody">#}
-{#                       <td style=" color: #f8f8f8;text-align: center; font-size: 15px">{{i + 1}}</td>#}
-{#                       <td style=" color: #f8f8f8;text-align: center ;font-size: 15px">{{data[i]['username']}}</td>#}
-{#                       <td style=" color: #f8f8f8;text-align: center; font-size: 15px">${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>#}
-{#                    </tr>#}
-{#                {%endfor%}#}
-{#       </table>#}
-{#    </div>#}
-{#  </div>#}
- </div>
-</header>
+
+
+    <button style="float: left" onclick="displayLoanPage()">Get loan</button>
+    <form action="" method="post">
+        <button name = "GetLoanData" onclick="displayPayBackLoan()">Pay loan</button>
+    </form>
+
+
+
+    <div id = "GetLoanDisplay">
+        <p>Enter amount of loan:</p>
+        <form method="post">
+            <input placeholder="Amount of money" type="number" name = "Loan_Amount">
+            <br>
+            <button type="submit"  name = "Loan_Amount_Submit">Submit</button>
+            <h1>{{ Confirm_Msg }}</h1>
+        </form>
+
+    </div>
+
+    <div id = "LoanPlayBack">
+
+        <form method="post">
+            <p>Next pay back day:</p>
+            <p>Amount of money Left: </p>
+            <p>Amount of money need to pay back:</p>
+
+            <input type="number" placeholder="Enter amount of Money for pay back:" name = "Pay_Back_Loan_Money">
+            <br>
+            <button type="submit"  name = "Pay_Back_Loan_Money_Submit">Submit</button>
+        </form>
+
+
+    </div>
+
+</div>
 </body>
 </html>

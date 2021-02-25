@@ -114,8 +114,38 @@ def transaction_history():
 
 @app.route('/loan', methods=['GET', 'POST'])
 def Loan():
-    return render_template('loan.html')
+    #Grabing data
+    Confirm_Msg = ''
+    UserID = 0
+    if request.method == 'POST' and 'Loan_Amount' in request.form:
 
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT trading_ID FROM trading_Profile where username = %s', (session['username'],))
+        User = cursor.fetchone()
+        UserID = int(User['trading_ID'])
+
+        Amount_OF_Loan = float(request.form['Loan_Amount'])  # this is getting the input for Amount of loan
+        Pay_Back_round = 5.0
+        Interest_Rate = 0.05
+        Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan) / Pay_Back_round, 2)  # How much money user have to pay back per period
+        Interest_Amount = float(Amount_OF_Loan) * Interest_Rate
+        Total_Pay_Back =  round(float(Interest_Rate) * float(Amount_OF_Loan), 2) + Pay_Back_Money_Per_Time
+        Loan_Date = today
+        Pay_BackDay_Period = 7 # user have to pay amount of money back in 7 day
+        Pay_Back_Day = today + str(datetime.timedelta(days= Pay_BackDay_Period))
+        # if Pay_Back_Day == today:
+        #     Pay_Back_Day = today + datetime.timedelta(days= Pay_BackDay_Period)
+
+        cursor.execute('INSERT INTO Loan VALUES (NULL, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s)',
+                       (UserID, Amount_OF_Loan, Interest_Amount, Total_Pay_Back, Interest_Rate, Pay_Back_round, Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Amount_OF_Loan, 1))
+        cursor.fetchall()
+
+        Confirm_Msg = 'You had loan $' + str(Amount_OF_Loan)  + \
+                      ', in next 7 days, you have to pay back $' \
+                      + str(Total_Pay_Back)  + ' include interest'
+        mysql.connection.commit()
+        return render_template('loan.html', Amount_OF_Loan = Amount_OF_Loan, Confirm_Msg = Confirm_Msg)
+    return render_template('loan.html', Confirm_Msg = Confirm_Msg)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
