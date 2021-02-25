@@ -11,11 +11,16 @@ def loadDay():
     time = list()
     for row in history.index:
         if (row.hour > 12):
-            date = "{}:{}".format(row.hour - 12, row.minute)
+            minute = format(row.minute, '02d')
+            date = "{}:{}".format(row.hour - 12, minute)
+            # history['Open'] =
         else:
-            date = "{}:{}".format(row.hour, row.minute)
+            minute = format(row.minute, '02d')
+            date = "{}:{}".format(row.hour, minute)
 
         time.append(date)
+
+    history['Open'] = history['Open'].round(2)
     currentPrice = history['Open'].iloc[-1]
 
     return history, stockid.upper(), time, legend
@@ -29,6 +34,7 @@ def loadWeek():
         date = "{}/{}" .format(row.month, row.day)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
+    history['Open'] = history['Open'].round(2)
 
     return history, stockid.upper(), time, legend
 
@@ -43,6 +49,7 @@ def loadMonth():
         date = "{}/{}/{}" .format(row.month, row.day, row.year)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
+    history['Open'] = history['Open'].round(2)
 
     return history, stockid.upper(), time, legend
 
@@ -57,6 +64,7 @@ def load3Month():
         date = "{}/{}/{}" .format(row.month, row.day, row.year)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
+    history['Open'] = history['Open'].round(2)
 
     return history, stockid.upper(), time, legend
 
@@ -71,7 +79,7 @@ def load6Month():
         date = "{}/{}/{}" .format(row.month, row.day, row.year)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
-
+    history['Open'] = history['Open'].round(2)
     return history, stockid.upper(), time, legend
 
 
@@ -85,7 +93,7 @@ def loadYear():
         date = "{}/{}/{}" .format(row.month, row.day, row.year)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
-
+    history['Open'] = history['Open'].round(2)
     return history, stockid.upper(), time, legend
 
 def load5Year():
@@ -93,12 +101,13 @@ def load5Year():
     stockid = (request.form['stockID'])
     stockData = yf.Ticker(stockid)
     history = stockData.history(period="5y")
+    history = history.iloc[::5]
     time = list()
     for row in history.index:
         date = "{}/{}/{}" .format(row.month, row.day, row.year)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
-
+    history['Open'] = history['Open'].round(2)
     return history, stockid.upper(), time, legend
 
 
@@ -107,10 +116,11 @@ def loadAllTime():
     stockid = (request.form['stockID'])
     stockData = yf.Ticker(stockid)
     history = stockData.history(period="max")
+    history = history.iloc[::25]
     time = list()
     for row in history.index:
         date = "{}/{}/{}" .format(row.month, row.day, row.year)
         time.append(date)
     currentPrice = history['Open'].iloc[-1]
-
+    history['Open'] = history['Open'].round(2)
     return history.iloc[:, :5], stockid.upper(), time, legend
