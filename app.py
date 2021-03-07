@@ -1,11 +1,14 @@
 import datetime
 import MySQLdb.cursors
 from flask_mail import Mail, Message
-from flask import Flask
+from flask import Flask, jsonify
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
+from flask_babelex import Babel, ngettext, lazy_gettext
+from flask import g, request
 
 app = Flask(__name__)
+app.config.from_pyfile('mysettings.cfg')
 
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'ose.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
@@ -24,6 +27,7 @@ app.config.update(
 )
 
 mail = Mail(app)
+babel = Babel(app)
 
 currentUser = ''
 currentDT = datetime.datetime.now()
@@ -82,7 +86,7 @@ def login_page():
             Money = cursor3.fetchall()
             return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
-            msg = 'Incorrect username / password!'
+            msg = lazy_gettext(u'Incorrect username / password!')
     return render_template('Login_page.html', msg=msg)
 
 
@@ -114,11 +118,10 @@ def transaction_history():
 
 @app.route('/loan', methods=['GET', 'POST'])
 def Loan():
-    #Grabing data
+    # Grabing data
     Confirm_Msg = ''
     UserID = 0
     if request.method == 'POST' and 'Loan_Amount' in request.form:
-
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT trading_ID FROM trading_Profile where username = %s', (session['username'],))
         User = cursor.fetchone()
@@ -127,25 +130,28 @@ def Loan():
         Amount_OF_Loan = float(request.form['Loan_Amount'])  # this is getting the input for Amount of loan
         Pay_Back_round = 5.0
         Interest_Rate = 0.05
-        Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan) / Pay_Back_round, 2)  # How much money user have to pay back per period
+        Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan) / Pay_Back_round,
+                                        2)  # How much money user have to pay back per period
         Interest_Amount = float(Amount_OF_Loan) * Interest_Rate
-        Total_Pay_Back =  round(float(Interest_Rate) * float(Amount_OF_Loan), 2) + Pay_Back_Money_Per_Time
+        Total_Pay_Back = round(float(Interest_Rate) * float(Amount_OF_Loan), 2) + Pay_Back_Money_Per_Time
         Loan_Date = today
-        Pay_BackDay_Period = 7 # user have to pay amount of money back in 7 day
-        Pay_Back_Day = today + str(datetime.timedelta(days= Pay_BackDay_Period))
+        Pay_BackDay_Period = 7  # user have to pay amount of money back in 7 day
+        Pay_Back_Day = today + str(datetime.timedelta(days=Pay_BackDay_Period))
         # if Pay_Back_Day == today:
         #     Pay_Back_Day = today + datetime.timedelta(days= Pay_BackDay_Period)
 
         cursor.execute('INSERT INTO Loan VALUES (NULL, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s)',
-                       (UserID, Amount_OF_Loan, Interest_Amount, Total_Pay_Back, Interest_Rate, Pay_Back_round, Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Amount_OF_Loan, 1))
+                       (UserID, Amount_OF_Loan, Interest_Amount, Total_Pay_Back, Interest_Rate, Pay_Back_round,
+                        Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Amount_OF_Loan, 1))
         cursor.fetchall()
 
-        Confirm_Msg = 'You had loan $' + str(Amount_OF_Loan)  + \
+        Confirm_Msg = 'You had loan $' + str(Amount_OF_Loan) + \
                       ', in next 7 days, you have to pay back $' \
-                      + str(Total_Pay_Back)  + ' include interest'
+                      + str(Total_Pay_Back) + ' include interest'
         mysql.connection.commit()
-        return render_template('loan.html', Amount_OF_Loan = Amount_OF_Loan, Confirm_Msg = Confirm_Msg)
-    return render_template('loan.html', Confirm_Msg = Confirm_Msg)
+        return render_template('loan.html', Amount_OF_Loan=Amount_OF_Loan, Confirm_Msg=Confirm_Msg)
+    return render_template('loan.html', Confirm_Msg=Confirm_Msg)
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -175,6 +181,28 @@ def getMoney():
     cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor3.fetchall()
     return Money
+
+
+
+
+
+@babel.localeselector
+def get_locale():
+    # if a user is logged in, use the locale from the user settings
+    user = getattr(g, 'user', None)
+    if user is not None:
+        return user.locale
+    # otherwise try to guess the language from the user accept
+    # header the browser transmits.  We support de/fr/en in this
+    # example.  The best match wins.
+    return request.accept_languages.best_match(['de', 'fr', 'en'])
+
+
+@babel.timezoneselector
+def get_timezone():
+    user = getattr(g, 'user', None)
+    if user is not None:
+        return user.timezone
 
 
 if __name__ == '__main__':

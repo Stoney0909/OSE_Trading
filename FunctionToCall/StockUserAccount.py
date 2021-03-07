@@ -7,6 +7,7 @@ from app import mysql
 from flask import Blueprint
 from Python import stockPage
 
+
 stock_Account_api = Blueprint('stock_Account_api', __name__)
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
