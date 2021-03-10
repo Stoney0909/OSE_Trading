@@ -7,11 +7,12 @@ from flask import render_template, request, session
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
 from flask import g, request
-from config import Config
+from babel.dates import format_datetime,format_date
 from babel.numbers import format_currency
 
+
 app = Flask(__name__)
-app.config['BABEL_DEFAULT_LOCALE'] = 'fr'
+app.config['BABEL_DEFAULT_LOCALE'] = 'zh'
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'ose.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
@@ -20,9 +21,15 @@ app.config['MYSQL_DB'] = 'OSE_Trading'
 
 babel = Babel(app)
 
-# @babel.localeselector
-# def get_locale():
-#     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+# add to your app.config or config.py file
+
+
+# add to you main app code
+@babel.localeselector
+def get_locale():
+    return 'zh'
+        # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
 mysql = MySQL(app)
@@ -33,6 +40,12 @@ app.config.update(
     MAIL_USE_SSL=True,
     MAIL_USERNAME='oumarcissevu@gmail.com',
     MAIL_PASSWORD='Ousmane1998@',
+    LANGUAGES={
+        'en': 'English',
+        'es': 'Spanish',
+        'fr': 'French',
+        'zh': 'Chinese'
+    }
 
 )
 
@@ -68,16 +81,14 @@ app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 app.register_blueprint(Buy_Sell_api)
 
 
-# @app.before_request
-# def before_request():
-#     # ...
-#     g.locale = str(get_locale())
+
 
 
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
-    name = app.config['BABEL_DEFAULT_LOCALE']
+    name = get_locale()
+    time = format_date()
     # g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
@@ -107,7 +118,7 @@ def login_page():
             # msg = format_currency(1099.98, 'USD', locale='en_US')
             # msg = format_currency(1099.98, 'EUR', locale='fr_FR')
     #         local for french is : fr_FR EUR and spanish es_MX MXN
-    return render_template('Login_page.html', msg=msg)
+    return render_template('Login_page.html', msg=time)
 
 
 @app.route('/Home', methods=['GET', 'POST'])
@@ -203,14 +214,14 @@ def getMoney():
     return Money
 
 
-@app.template_filter() # Convert the number to local variable
+@app.template_filter()  # Convert the number to local variable
 def ConvertNumberToEuros(number):
-    if app.config['BABEL_DEFAULT_LOCALE'] == 'fr': # convert to euros
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'fr':  # convert to euros
         return format_currency(float(number), 'EUR', locale='fr_FR')
-    if app.config['BABEL_DEFAULT_LOCALE'] == 'es': # convert to spanish
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'es':  # convert to spanish
         return format_currency(float(number), 'MXN', locale='es_MX')
-    if app.config['BABEL_DEFAULT_LOCALE'] == 'CH': # convert to chinese
-        return format_currency(float(number), '', locale='')
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'zh':  # convert to chinese
+        return format_currency(float(number)*6.5, 'CNY', locale='zh_CN')
     else:
         return format_currency(float(number), 'USD', locale='en_US')
 
