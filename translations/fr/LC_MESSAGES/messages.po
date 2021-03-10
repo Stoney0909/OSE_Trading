@@ -1,0 +1,408 @@
+# French translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-03-10 13:17-0500\n"
+"PO-Revision-Date: 2021-03-10 13:18-0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.1\n"
+
+#: app.py:106
+msgid "Incorrect username / password!"
+msgstr ""
+
+#: FunctionToCall/Account.py:30
+msgid "Account already exists!"
+msgstr ""
+
+#: FunctionToCall/Account.py:32
+msgid "Invalid email address !"
+msgstr ""
+
+#: FunctionToCall/Account.py:34
+msgid "name must contain only characters and numbers !"
+msgstr ""
+
+#: FunctionToCall/Account.py:36
+msgid "Password does not match"
+msgstr ""
+
+#: FunctionToCall/Account.py:38 FunctionToCall/Account.py:45
+#: FunctionToCall/Account.py:123
+msgid "Please fill out the form !"
+msgstr ""
+
+#: FunctionToCall/Account.py:43
+msgid "You have successfully registered!"
+msgstr ""
+
+#: FunctionToCall/Account.py:112
+msgid "New Password does not match"
+msgstr ""
+
+#: FunctionToCall/Account.py:120
+msgid "Old password does not match"
+msgstr ""
+
+#: FunctionToCall/Account.py:135
+msgid "This account does not exist"
+msgstr ""
+
+#: FunctionToCall/Account.py:150
+msgid "Check your email for the new password"
+msgstr ""
+
+#: templates/Home_page.html:5 templates/Portfolio_page.html:31
+#: templates/TransactionHistory.html:28
+#: templates/successfullyBoughtStock.html:38
+msgid "Home"
+msgstr ""
+
+#: templates/Home_page.html:36 templates/Portfolio_page.html:32
+#: templates/TransactionHistory.html:29
+msgid "Stock Market"
+msgstr ""
+
+#: templates/Home_page.html:37 templates/Portfolio_page.html:8
+#: templates/TransactionHistory.html:30
+#: templates/successfullyBoughtStock.html:39
+msgid "Portfolio"
+msgstr ""
+
+#: templates/Home_page.html:38 templates/Portfolio_page.html:33
+#: templates/TransactionHistory.html:5
+#: templates/successfullyBoughtStock.html:40
+msgid "Transaction History"
+msgstr ""
+
+#: templates/Home_page.html:42 templates/Portfolio_page.html:37
+#: templates/TransactionHistory.html:34
+#: templates/successfullyBoughtStock.html:44
+msgid "Profile"
+msgstr ""
+
+#: templates/Home_page.html:43 templates/Portfolio_page.html:38
+#: templates/TransactionHistory.html:35
+#: templates/successfullyBoughtStock.html:45
+msgid "Change Password"
+msgstr ""
+
+#: templates/Home_page.html:44 templates/Portfolio_page.html:39
+#: templates/TransactionHistory.html:36
+#: templates/successfullyBoughtStock.html:46
+msgid "Loan"
+msgstr ""
+
+#: templates/Home_page.html:45 templates/Portfolio_page.html:40
+#: templates/TransactionHistory.html:37
+#: templates/successfullyBoughtStock.html:47
+msgid "Contact"
+msgstr ""
+
+#: templates/Home_page.html:46 templates/Portfolio_page.html:41
+#: templates/TransactionHistory.html:38
+#: templates/successfullyBoughtStock.html:48
+msgid "Sign out"
+msgstr ""
+
+#: templates/Home_page.html:68
+msgid "Rank"
+msgstr ""
+
+#: templates/Home_page.html:69
+msgid "Name"
+msgstr ""
+
+#: templates/Home_page.html:70
+msgid "Score"
+msgstr ""
+
+#: templates/Login_page.html:24
+msgid "Member Login"
+msgstr ""
+
+#: templates/Login_page.html:26
+msgid "Username"
+msgstr ""
+
+#: templates/Login_page.html:27 templates/Signup_page.html:28
+msgid "Password"
+msgstr ""
+
+#: templates/Login_page.html:29
+msgid "Login"
+msgstr ""
+
+#: templates/Login_page.html:30
+msgid "Forgot"
+msgstr ""
+
+#: templates/Login_page.html:30
+msgid "Password?"
+msgstr ""
+
+#: templates/Login_page.html:31
+msgid "Create your account"
+msgstr ""
+
+#: templates/Portfolio_page.html:49
+msgid "Stock Name"
+msgstr ""
+
+#: templates/Portfolio_page.html:50
+msgid "Name Of Company"
+msgstr ""
+
+#: templates/Portfolio_page.html:51
+msgid "Number of Shares"
+msgstr ""
+
+#: templates/Portfolio_page.html:52
+msgid "Purchase Price"
+msgstr ""
+
+#: templates/Portfolio_page.html:53
+msgid "Purchase Date"
+msgstr ""
+
+#: templates/Portfolio_page.html:54
+msgid "Current Share Price"
+msgstr ""
+
+#: templates/Portfolio_page.html:55
+msgid "Current Gain"
+msgstr ""
+
+#: templates/Portfolio_page.html:66
+msgid "Sell"
+msgstr ""
+
+#: templates/Portfolio_page.html:75
+msgid "TOTAL VALUE"
+msgstr ""
+
+#: templates/Signup_page.html:24
+msgid "Sign Up"
+msgstr ""
+
+#: templates/Signup_page.html:26
+msgid "UserName"
+msgstr ""
+
+#: templates/Signup_page.html:27
+msgid "Email"
+msgstr ""
+
+#: templates/Signup_page.html:29
+msgid "Confirm Password"
+msgstr ""
+
+#: templates/Signup_page.html:31
+msgid "Submit"
+msgstr ""
+
+#: templates/TransactionHistory.html:47
+msgid "List"
+msgstr ""
+
+#: templates/TransactionHistory.html:48
+msgid "Transaction Date"
+msgstr ""
+
+#: templates/TransactionHistory.html:49
+msgid "Process"
+msgstr ""
+
+#: templates/TransactionHistory.html:50
+msgid "Price"
+msgstr ""
+
+#: templates/TransactionHistory.html:51
+msgid "Amount of Money"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/flask_wtf/file.py:50
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:203
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:243
+msgid "This field is required."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/flask_wtf/file.py:83
+msgid "File does not have an approved extension: {extensions}"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/flask_wtf/file.py:88
+msgid "File does not have an approved extension."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:56
+#, python-format
+msgid "Invalid field name '%s'."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:64
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:97
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:100
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:103
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:139
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:141
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:143
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:275
+msgid "Invalid input."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:301
+msgid "Invalid email address."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:335
+msgid "Invalid IP address."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:386
+msgid "Invalid Mac address."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:415
+msgid "Invalid URL."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:436
+msgid "Invalid UUID."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:464
+#, python-format
+msgid "Invalid value, must be one of: %(values)s."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:496
+#, python-format
+msgid "Invalid value, can't be any of: %(values)s."
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/csrf/core.py:98
+#: venv/lib/python3.7/site-packages/wtforms/ext/csrf/form.py:47
+msgid "Invalid CSRF Token"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/csrf/session.py:61
+#: venv/lib/python3.7/site-packages/wtforms/ext/csrf/session.py:58
+msgid "CSRF token missing"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/csrf/session.py:69
+#: venv/lib/python3.7/site-packages/wtforms/ext/csrf/session.py:66
+msgid "CSRF failed"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/csrf/session.py:74
+#: venv/lib/python3.7/site-packages/wtforms/ext/csrf/session.py:71
+msgid "CSRF token expired"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/ext/appengine/fields.py:87
+#: venv/lib/python3.7/site-packages/wtforms/ext/appengine/fields.py:164
+#: venv/lib/python3.7/site-packages/wtforms/ext/appengine/fields.py:166
+#: venv/lib/python3.7/site-packages/wtforms/ext/django/fields.py:95
+#: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:125
+#: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:127
+#: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:180
+#: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:185
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:472
+msgid "Not a valid choice"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/ext/appengine/fields.py:185
+msgid "Not a valid list"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/ext/appengine/fields.py:204
+msgid "Not a valid integer list"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/ext/dateutil/fields.py:63
+msgid "Please input a date/time value"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/ext/dateutil/fields.py:75
+#: venv/lib/python3.7/site-packages/wtforms/ext/dateutil/fields.py:83
+msgid "Invalid date/time input"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:465
+msgid "Invalid Choice: could not coerce"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:498
+msgid "Invalid choice(s): one or more data inputs could not be coerced"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:505
+#, python-format
+msgid "'%(value)s' is not a valid choice for this field"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:588
+msgid "Not a valid integer value"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:654
+msgid "Not a valid decimal value"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:681
+msgid "Not a valid float value"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:742
+msgid "Not a valid datetime value"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:759
+msgid "Not a valid date value"
+msgstr ""
+

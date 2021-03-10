@@ -14,108 +14,51 @@ today = currentDT.strftime("%Y-%m-%d")
 
 @stock_Account_api.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    stockid =''
+    stockid = ""
     legend = ''
     labels = []
     if request.method == 'POST' and 'stockID' in request.form:
         session['IdOfSearch'] = request.form['stockID']
         if request.form.get("Day"):
-            try:
-                history, stockid, time, legend = stockPage.loadDay()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
-
-
+            history, stockid, time, legend = stockPage.loadDay()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("Week"):
-            try:
-                history, stockid, time, legend = stockPage.loadWeek()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.loadWeek()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("Month"):
-            try:
-                history, stockid, time, legend = stockPage.loadMonth()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.loadMonth()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("3_Month"):
-            try:
-                history, stockid, time, legend = stockPage.load3Month()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.load3Month()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("6_Month"):
-            try:
-                history, stockid, time, legend = stockPage.load6Month()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.load6Month()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("Year"):
-            try:
-                history, stockid, time, legend = stockPage.loadYear()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.loadYear()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("5_year"):
-            try:
-                history, stockid, time, legend = stockPage.load5Year()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.load5Year()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         elif request.form.get("All_Time"):
-            try:
-                history, stockid, time, legend = stockPage.loadAllTime()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
+            history, stockid, time, legend = stockPage.loadAllTime()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
         else:
-            try:
-                history, stockid, time, legend = stockPage.loadDay()
-                session['IdOfSearch'] = stockid
-                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                       labels=time, legend=legend, message="")
-            except:
-                values = []
-                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
-                                       legend=legend, message="Stock does not exist!")
-
+            history, stockid, time, legend = stockPage.loadDay()
+            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend)
 
     session['IdOfSearch'] = stockid
     values = []
-    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend, message="")
+    return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend)
 
 
 @stock_Account_api.route('/Portfolio', methods=['GET', 'POST'])
@@ -129,16 +72,18 @@ def portfolio_Page():
 
     if request.method == 'GET':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
+        cursor.execute(
+            'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
             (session['id'],))
         account = cursor.fetchall()
-        if account: # if there is data in here
+        if account:  # if there is data in here
             for i in range(0, len(account)):
                 msg = si.get_live_price(account[i]['symbol_Of_Stock'])
                 msg = format(msg, ".2f")
                 account[i]['sellSharePrice'] = msg
                 sellOrNot = float(account[i]['numberOfShareAtBuying']) - float(account[i]['numberOfShareSold'])
-                account[i]['Gain'] = format((sellOrNot * float(msg) - sellOrNot * float(account[i]['priceOfShareAtBuying'])), ".2f")
+                account[i]['Gain'] = format(
+                    (sellOrNot * float(msg) - sellOrNot * float(account[i]['priceOfShareAtBuying'])), ".2f")
                 totalGain = totalGain + float(account[i]['Gain'])
 
             totalGain = format(totalGain, ".2f")
@@ -175,6 +120,7 @@ def portfolio_Page():
     return render_template('Portfolio_page.html', account=account, len=len2, msg=msg,
                            totalGain=totalGain)
 
+
 # getting the graph
 def getGraph(nameOfStock):
     legend = 'Monthly Data'
@@ -199,6 +145,7 @@ def getGraph(nameOfStock):
     company_name = company_name
     return stockid, values, labels, legend, msg, company_name
 
+
 # getting the Table
 def getTable():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -207,7 +154,7 @@ def getTable():
     account = cursor.fetchall()
     if account:
         for i in range(0, len(account)):
-            msg = si.get_live_price(account[i]['symbol_Of_Stock']) #getting stock prices
+            msg = si.get_live_price(account[i]['symbol_Of_Stock'])  # getting stock prices
             msg = format(msg, ".2f")
             account[i]['sellSharePrice'] = msg
             account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -

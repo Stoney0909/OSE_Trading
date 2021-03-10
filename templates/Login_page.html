@@ -21,17 +21,19 @@
     <img class="Logo" src="{{ url_for('static', filename='img/Logo2.png') }}">
     <form action="" method="post">
         <div class="container">
-            <h2>Member Login</h2>
+            <h2>{{ _('Member Login') }}</h2>
             <label for="">
-                <input type="text" placeholder="Username" name="username" required>
-                <input type="password" placeholder="Password" name="password" required>
+                <input type="text" placeholder={{ _('Username') }} name="username" required>
+                <input type="password" placeholder= {{ _('Password') }} name="password" required>
             </label>
-                <button class="login_btn" type="submit" style="outline: none">Login</button>
-                <p><span class="psw">Forgot <a href="{{ url_for('account_api.forgetPassword_page') }}">password?</a></span></p>
-                <p><a href="{{ url_for('account_api.signup_page') }}" class="Create_account" >Create your account</a></p>
+                <button class="login_btn" type="submit" style="outline: none">{{ _('Login') }}</button>
+                <p><span class="psw">{{ _('Forgot') }} <a href="{{ url_for('account_api.forgetPassword_page') }}">{{ _('Password?') }}</a></span></p>
+                <p><a href="{{ url_for('account_api.signup_page') }}" class="Create_account" >{{ _('Create your account') }}</a></p>
         </div>
     </form>
-    <div id="errorText">{{ msg }}</div>
+    <div id="errorText">{{ msg }} </div>
 </div>
 </body>
 </html>
+
+{# créer un compte , mot de passe oublié, connexion , Nom d'utilisateur, mot de passe, identifiant, #}

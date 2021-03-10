@@ -1,17 +1,29 @@
 import datetime
 import MySQLdb.cursors
+from babel import Locale
 from flask_mail import Mail, Message
-from flask import Flask
+from flask import Flask, jsonify
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
+from flask_babel import _, refresh, Babel
+from flask import g, request
+from config import Config
+from babel.numbers import format_currency
 
 app = Flask(__name__)
-
+app.config['BABEL_DEFAULT_LOCALE'] = 'fr'
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['MYSQL_HOST'] = 'ose-trading.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_HOST'] = 'ose.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
+
+babel = Babel(app)
+
+# @babel.localeselector
+# def get_locale():
+#     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 mysql = MySQL(app)
 
@@ -20,7 +32,8 @@ app.config.update(
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
     MAIL_USERNAME='oumarcissevu@gmail.com',
-    MAIL_PASSWORD='Ousmane1998@'
+    MAIL_PASSWORD='Ousmane1998@',
+
 )
 
 mail = Mail(app)
@@ -55,9 +68,17 @@ app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 app.register_blueprint(Buy_Sell_api)
 
 
+# @app.before_request
+# def before_request():
+#     # ...
+#     g.locale = str(get_locale())
+
+
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
+    name = app.config['BABEL_DEFAULT_LOCALE']
+    # g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -82,7 +103,10 @@ def login_page():
             Money = cursor3.fetchall()
             return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
-            msg = 'Incorrect username / password!'
+            msg = _('Incorrect username / password!')
+            # msg = format_currency(1099.98, 'USD', locale='en_US')
+            # msg = format_currency(1099.98, 'EUR', locale='fr_FR')
+    #         local for french is : fr_FR EUR and spanish es_MX MXN
     return render_template('Login_page.html', msg=msg)
 
 
@@ -114,11 +138,10 @@ def transaction_history():
 
 @app.route('/loan', methods=['GET', 'POST'])
 def Loan():
-    #Grabing data
+    # Grabing data
     Confirm_Msg = ''
     UserID = 0
     if request.method == 'POST' and 'Loan_Amount' in request.form:
-
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT trading_ID FROM trading_Profile where username = %s', (session['username'],))
         User = cursor.fetchone()
@@ -127,25 +150,28 @@ def Loan():
         Amount_OF_Loan = float(request.form['Loan_Amount'])  # this is getting the input for Amount of loan
         Pay_Back_round = 5.0
         Interest_Rate = 0.05
-        Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan) / Pay_Back_round, 2)  # How much money user have to pay back per period
+        Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan) / Pay_Back_round,
+                                        2)  # How much money user have to pay back per period
         Interest_Amount = float(Amount_OF_Loan) * Interest_Rate
-        Total_Pay_Back =  round(float(Interest_Rate) * float(Amount_OF_Loan), 2) + Pay_Back_Money_Per_Time
+        Total_Pay_Back = round(float(Interest_Rate) * float(Amount_OF_Loan), 2) + Pay_Back_Money_Per_Time
         Loan_Date = today
-        Pay_BackDay_Period = 7 # user have to pay amount of money back in 7 day
-        Pay_Back_Day = today + str(datetime.timedelta(days= Pay_BackDay_Period))
+        Pay_BackDay_Period = 7  # user have to pay amount of money back in 7 day
+        Pay_Back_Day = today + str(datetime.timedelta(days=Pay_BackDay_Period))
         # if Pay_Back_Day == today:
         #     Pay_Back_Day = today + datetime.timedelta(days= Pay_BackDay_Period)
 
         cursor.execute('INSERT INTO Loan VALUES (NULL, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s)',
-                       (UserID, Amount_OF_Loan, Interest_Amount, Total_Pay_Back, Interest_Rate, Pay_Back_round, Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Amount_OF_Loan, 1))
+                       (UserID, Amount_OF_Loan, Interest_Amount, Total_Pay_Back, Interest_Rate, Pay_Back_round,
+                        Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Amount_OF_Loan, 1))
         cursor.fetchall()
 
-        Confirm_Msg = 'You had loan $' + str(Amount_OF_Loan)  + \
+        Confirm_Msg = 'You had loan $' + str(Amount_OF_Loan) + \
                       ', in next 7 days, you have to pay back $' \
-                      + str(Total_Pay_Back)  + ' include interest'
+                      + str(Total_Pay_Back) + ' include interest'
         mysql.connection.commit()
-        return render_template('loan.html', Amount_OF_Loan = Amount_OF_Loan, Confirm_Msg = Confirm_Msg)
-    return render_template('loan.html', Confirm_Msg = Confirm_Msg)
+        return render_template('loan.html', Amount_OF_Loan=Amount_OF_Loan, Confirm_Msg=Confirm_Msg)
+    return render_template('loan.html', Confirm_Msg=Confirm_Msg)
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -175,6 +201,18 @@ def getMoney():
     cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor3.fetchall()
     return Money
+
+
+@app.template_filter() # Convert the number to local variable
+def ConvertNumberToEuros(number):
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'fr': # convert to euros
+        return format_currency(float(number), 'EUR', locale='fr_FR')
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'es': # convert to spanish
+        return format_currency(float(number), 'MXN', locale='es_MX')
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'CH': # convert to chinese
+        return format_currency(float(number), '', locale='')
+    else:
+        return format_currency(float(number), 'USD', locale='en_US')
 
 
 if __name__ == '__main__':

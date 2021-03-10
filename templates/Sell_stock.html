@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Sell_stock.css') }}">
-    <title>Stock Market</title>
+    <title>{{ _('Stock Market') }}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
@@ -29,17 +29,17 @@
             <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
-              <li><a href="{{ url_for('home_page') }}">Home</a></li>
+              <li><a href="{{ url_for('home_page') }}">{{ _('Home') }}</a></li>
             <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
-            <li><a href="{{ url_for('transaction_history') }}">Transaction History</a></li>
+            <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >Password</a>
-                    <a href="{{ url_for('Loan') }}">Loan</a>
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                    <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>
             </li>
         </ul>
@@ -47,18 +47,18 @@
 
     <div id="StockSearchSideBar" >
         <form action="/SellStock" method="post">
-            <p  class='description' for="sockID">The Stock: &nbsp;{{ company_name }}</p>
+            <p  class='description' for="sockID">{{ _('The Stock:') }} &nbsp;{{ company_name }}</p>
             <br>
-            <p  class='description' for="stockPriceID">Current Price/Share:&nbsp;${{ price}}</p>
+            <p  class='description' for="stockPriceID">{{ _('Current Price/Share:') }}&nbsp;{{ price | ConvertNumberToEuros }}</p>
             <br>
-            <p  class='description' for="Gain">Profit/Loss:&nbsp;${{ profitOrLoss}}</p>
+            <p  class='description' for="Gain">{{ _('Profit/Loss:') }}&nbsp;{{ profitOrLoss | ConvertNumberToEuros }}</p>
             <br>
             <p><input type="number"  value="{{ number }}" required name="shareToSold"></p>
             <br>
-            <button class="enter_btn" type="submit">Sell</button>
+            <button class="enter_btn" type="submit">{{ _('Sell') }}</button>
         </form>
         {% if error %}
-         <p style="color: #f8f8f8;"><strong>Error:</strong> {{ error }}
+         <p style="color: #f8f8f8;"><strong>{{ _('Error:') }}</strong> {{ error }}
       {% endif %}
     </div>
 

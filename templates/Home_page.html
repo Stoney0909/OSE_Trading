@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>{{ _('Home') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_Page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Leaderboard.css') }}">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -25,7 +25,7 @@
         margin: 15% 5%;
     }
 </style>
-
+{#accueil,marché financier, portefeuille, Historique des transactions, profil, mot de passe ,Déconnecter, prêt#}
 <body>
 <header>
     <div class="wrapper">
@@ -33,18 +33,17 @@
             <img src="{{ url_for('static', filename='img/Logo2.png') }}">
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
-            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
-            <li><a href="{{ url_for('transaction_history') }}">Transaction History</a></li>
+            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
+            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
+            <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >Password</a>
-{#                    <a href="{{ url_for('Game') }}">Game</a>#}
-                    <a href="{{ url_for('Loan') }}">Loan</a>
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                    <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>
             </li>
         </ul>
@@ -66,9 +65,9 @@
     <div class="tablediv">
        <table id="table1">
                 <tr>
-                    <th style="color: #f8f8f8"><i class='fas fa-star' style='font-size:20px;color:red'></i>Rank</th>
-                    <th style="color: #f8f8f8"> <i class='fas fa-user-circle' style='font-size:20px;color:red'></i> Name </th>
-                    <th style="color: #f8f8f8"><i class='fas fa-trophy' style='font-size:20px;color:red'></i>Score</th>
+                    <th style="color: #f8f8f8"><i class='fas fa-star' style='font-size:20px;color:red'></i>{{ _('Rank') }}</th>
+                    <th style="color: #f8f8f8"> <i class='fas fa-user-circle' style='font-size:20px;color:red'></i> {{ _('Name') }} </th>
+                    <th style="color: #f8f8f8"><i class='fas fa-trophy' style='font-size:20px;color:red'></i>{{ _('Score') }}</th>
                 </tr>
 
                 {%for i in range(0, len)%}
@@ -76,7 +75,7 @@
                     <tr id="tbody">
                        <td style=" color: #f8f8f8;text-align: center; font-size: 15px">{{i + 1}}</td>
                        <td style=" color: #f8f8f8;text-align: center ;font-size: 15px">{{data[i]['username']}}</td>
-                       <td style=" color: #f8f8f8;text-align: center; font-size: 15px">${{ '%0.2f'| format(data[i]['amount_Money']|float) }}</td>
+                       <td style=" color: #f8f8f8;text-align: center; font-size: 15px">{{ '%0.2f'| format(data[i]['amount_Money'])| ConvertNumberToEuros }} </td>
                     </tr>
                 {%endfor%}
        </table>
