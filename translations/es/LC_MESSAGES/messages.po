@@ -1,4 +1,4 @@
-# French translations for PROJECT.
+# Spanish translations for PROJECT.
 # Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
@@ -8,11 +8,11 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-03-10 14:24-0500\n"
-"PO-Revision-Date: 2021-03-10 14:25-0500\n"
+"PO-Revision-Date: 2021-03-10 14:26-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: fr\n"
-"Language-Team: fr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,60 +20,60 @@ msgstr ""
 
 #: app.py:106
 msgid "Incorrect username / password!"
-msgstr "Nom D'utilisateur / Mot de passe incorrect!"
+msgstr ""
 
 #: FunctionToCall/Account.py:30
 msgid "Account already exists!"
-msgstr "Le compte existe déjà!"
+msgstr ""
 
 #: FunctionToCall/Account.py:32
 msgid "Invalid email address !"
-msgstr "Adresse e-mail incorrect!"
+msgstr ""
 
 #: FunctionToCall/Account.py:34
 msgid "name must contain only characters and numbers !"
-msgstr "le nom ne doit contenir que des caractères et des chiffres!"
+msgstr ""
 
 #: FunctionToCall/Account.py:36
 msgid "Password does not match"
-msgstr "Le mot de passe ne correspond pas"
+msgstr ""
 
 #: FunctionToCall/Account.py:38 FunctionToCall/Account.py:45
 #: FunctionToCall/Account.py:123
 msgid "Please fill out the form !"
-msgstr "Veuillez remplir le formulaire!"
+msgstr ""
 
 #: FunctionToCall/Account.py:43
 msgid "You have successfully registered!"
-msgstr "Vous vous êtes inscrit avec succès!"
+msgstr ""
 
 #: FunctionToCall/Account.py:112
 msgid "New Password does not match"
-msgstr "Le nouveau mot de passe ne correspond pas"
+msgstr ""
 
 #: FunctionToCall/Account.py:120
 msgid "Old password does not match"
-msgstr "L'ancien mot de passe ne correspond pas"
+msgstr ""
 
 #: FunctionToCall/Account.py:135
 msgid "This account does not exist"
-msgstr "Ce compte n'existe pas"
+msgstr ""
 
 #: FunctionToCall/Account.py:150
 msgid "Check your email for the new password"
-msgstr "Vérifiez votre e-mail pour le nouveau mot de passe"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:45
 msgid "The number of share has to be positive!"
-msgstr "Le nombre de part doit être positif!"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:47
 msgid "You don't have enough fund to buy this stock"
-msgstr "Vous n'avez pas assez de fonds pour acheter cette action"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:58
 msgid "Spend"
-msgstr "Depenser"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:58
 msgid " $"
@@ -85,332 +85,332 @@ msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:93
 msgid "You Don't Own That amount of share"
-msgstr "Vous avez acheté le stock avec succès"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:98
 msgid "Please input positive number"
-msgstr "Veuillez mettre un nombre positif"
+msgstr ""
 
 #: templates/ChangePassword.html:5 templates/ChangePassword.html:23
 msgid "Change password"
-msgstr "Changer le mot the passe"
+msgstr ""
 
 #: templates/ChangePassword.html:24
 msgid "Old Password"
-msgstr "L'ancien mot de passe"
+msgstr ""
 
 #: templates/ChangePassword.html:25
 msgid "New Password"
-msgstr "Le nouveau mot de passe"
+msgstr ""
 
 #: templates/ChangePassword.html:26
 msgid "Confirm Password "
-msgstr "Confirmez le mot de passe"
+msgstr ""
 
 #: templates/ChangePassword.html:27 templates/Signup_page.html:31
 #: templates/contact.html:49
 msgid "Submit"
-msgstr "Soumettre"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:5
 msgid "Find Password"
-msgstr "Chercher le mot de passe"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:20
 msgid "Reset password"
-msgstr "Réinitialiser le mot de passe"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:24 templates/Signup_page.html:27
 #: templates/contact.html:33
 msgid "Email"
-msgstr "E-mail"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:25
 msgid "Enter email address"
-msgstr "Entrer l'adresse e-mail"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:26
 msgid "Send"
-msgstr "Envoyer"
+msgstr ""
 
 #: templates/Home_page.html:5 templates/Portfolio_page.html:31
 #: templates/Sell_stock.html:32 templates/StockMarket_page.html:33
 #: templates/TransactionHistory.html:28 templates/buying_stock.html:32
 #: templates/successfullyBoughtStock.html:38
 msgid "Home"
-msgstr "Accueil"
+msgstr ""
 
 #: templates/Home_page.html:36 templates/Portfolio_page.html:32
 #: templates/Sell_stock.html:10 templates/StockMarket_page.html:10
 #: templates/TransactionHistory.html:29
 #: templates/successfullyBoughtStock.html:10
 msgid "Stock Market"
-msgstr "Marché Financier"
+msgstr ""
 
 #: templates/Home_page.html:37 templates/Portfolio_page.html:8
 #: templates/StockMarket_page.html:34 templates/TransactionHistory.html:30
 #: templates/buying_stock.html:33 templates/successfullyBoughtStock.html:39
 msgid "Portfolio"
-msgstr "Portefeuille"
+msgstr ""
 
 #: templates/Home_page.html:38 templates/Portfolio_page.html:33
 #: templates/Sell_stock.html:34 templates/StockMarket_page.html:35
 #: templates/TransactionHistory.html:5 templates/buying_stock.html:34
 #: templates/successfullyBoughtStock.html:40
 msgid "Transaction History"
-msgstr "Historique des transactions"
+msgstr ""
 
 #: templates/Home_page.html:42 templates/Portfolio_page.html:37
 #: templates/Profile.html:5 templates/Sell_stock.html:38
 #: templates/StockMarket_page.html:40 templates/TransactionHistory.html:34
 #: templates/buying_stock.html:38 templates/successfullyBoughtStock.html:44
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: templates/Home_page.html:43 templates/Portfolio_page.html:38
 #: templates/Sell_stock.html:39 templates/StockMarket_page.html:41
 #: templates/TransactionHistory.html:35 templates/buying_stock.html:39
 #: templates/successfullyBoughtStock.html:45
 msgid "Change Password"
-msgstr "Changer le mot de passe"
+msgstr ""
 
 #: templates/Home_page.html:44 templates/Portfolio_page.html:39
 #: templates/Sell_stock.html:40 templates/StockMarket_page.html:42
 #: templates/TransactionHistory.html:36 templates/buying_stock.html:40
 #: templates/successfullyBoughtStock.html:46
 msgid "Loan"
-msgstr "Prêt"
+msgstr ""
 
 #: templates/Home_page.html:45 templates/Portfolio_page.html:40
 #: templates/Sell_stock.html:41 templates/StockMarket_page.html:43
 #: templates/TransactionHistory.html:37 templates/buying_stock.html:41
 #: templates/successfullyBoughtStock.html:47
 msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
 #: templates/Home_page.html:46 templates/Portfolio_page.html:41
 #: templates/Sell_stock.html:42 templates/StockMarket_page.html:44
 #: templates/TransactionHistory.html:38 templates/buying_stock.html:42
 #: templates/successfullyBoughtStock.html:48
 msgid "Sign out"
-msgstr "Deconnexion"
+msgstr ""
 
 #: templates/Home_page.html:68
 msgid "Rank"
-msgstr "Rang"
+msgstr ""
 
 #: templates/Home_page.html:69
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #: templates/Home_page.html:70
 msgid "Score"
-msgstr "Score"
+msgstr ""
 
 #: templates/Login_page.html:24
 msgid "Member Login"
-msgstr "Identifiant"
+msgstr ""
 
 #: templates/Login_page.html:26
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr ""
 
 #: templates/Login_page.html:27 templates/Signup_page.html:28
 msgid "Password"
-msgstr "Mot de Passe"
+msgstr ""
 
 #: templates/Login_page.html:29
 msgid "Login"
-msgstr "Connexion"
+msgstr ""
 
 #: templates/Login_page.html:30
 msgid "Forgot"
-msgstr "Oublier"
+msgstr ""
 
 #: templates/Login_page.html:30
 msgid "Password?"
-msgstr "Mot de Passe?"
+msgstr ""
 
 #: templates/Login_page.html:31
 msgid "Create your account"
-msgstr "Créez votre compte"
+msgstr ""
 
 #: templates/Portfolio_page.html:49
 msgid "Stock Name"
-msgstr "Nom du stock"
+msgstr ""
 
 #: templates/Portfolio_page.html:50
 msgid "Name Of Company"
-msgstr "Nom du Company"
+msgstr ""
 
 #: templates/Portfolio_page.html:51
 msgid "Number of Shares"
-msgstr "Nombre de partages"
+msgstr ""
 
 #: templates/Portfolio_page.html:52
 msgid "Purchase Price"
-msgstr "Prix d'achat"
+msgstr ""
 
 #: templates/Portfolio_page.html:53
 msgid "Purchase Date"
-msgstr "date d'achat"
+msgstr ""
 
 #: templates/Portfolio_page.html:54
 msgid "Current Share Price"
-msgstr "Prinx Actuel de L'action"
+msgstr ""
 
 #: templates/Portfolio_page.html:55
 msgid "Current Gain"
-msgstr "Gain actuel"
+msgstr ""
 
 #: templates/Portfolio_page.html:66 templates/Sell_stock.html:58
 msgid "Sell"
-msgstr "Vendre"
+msgstr ""
 
 #: templates/Portfolio_page.html:75
 msgid "TOTAL VALUE"
-msgstr "Valeur Totale"
+msgstr ""
 
 #: templates/Sell_stock.html:50 templates/buying_stock.html:50
 msgid "The Stock:"
-msgstr "Le Stock:"
+msgstr ""
 
 #: templates/Sell_stock.html:52
 msgid "Current Price/Share:"
-msgstr "Prinx Actuel de L'action:"
+msgstr ""
 
 #: templates/Sell_stock.html:54
 msgid "Profit/Loss:"
-msgstr "Perte/Profit:"
+msgstr ""
 
 #: templates/Sell_stock.html:61
 msgid "Error:"
-msgstr "Erreur:"
+msgstr ""
 
 #: templates/Signup_page.html:24
 msgid "Sign Up"
-msgstr "S'inscrire"
+msgstr ""
 
 #: templates/Signup_page.html:26
 msgid "UserName"
-msgstr "Nom D'utilisateur"
+msgstr ""
 
 #: templates/Signup_page.html:29
 msgid "Confirm Password"
-msgstr "Confirmez le mot de passe"
+msgstr ""
 
 #: templates/StockMarket_page.html:53
 msgid "Stock Search"
-msgstr "Chercher Stock"
+msgstr ""
 
 #: templates/StockMarket_page.html:56
 msgid "Search for a Stock"
-msgstr "Chercher un Stock"
+msgstr ""
 
 #: templates/StockMarket_page.html:58
 msgid "Day"
-msgstr "Jour"
+msgstr ""
 
 #: templates/StockMarket_page.html:59
 msgid "Week"
-msgstr "Semaine"
+msgstr ""
 
 #: templates/StockMarket_page.html:60
 msgid "Month"
-msgstr "Mois"
+msgstr ""
 
 #: templates/StockMarket_page.html:61
 msgid "3 Month"
-msgstr "3 mois"
+msgstr ""
 
 #: templates/StockMarket_page.html:62
 msgid "6 Month"
-msgstr "6 mois"
+msgstr ""
 
 #: templates/StockMarket_page.html:63
 msgid "1 Year"
-msgstr "1 année"
+msgstr ""
 
 #: templates/StockMarket_page.html:64
 msgid "5 Year"
-msgstr "5 années"
+msgstr ""
 
 #: templates/StockMarket_page.html:65
 msgid "All Time"
-msgstr "Tout le temps"
+msgstr ""
 
 #: templates/StockMarket_page.html:68
 msgid "Search"
-msgstr "Chercher"
+msgstr ""
 
 #: templates/StockMarket_page.html:75
 msgid "Buy this stock"
-msgstr "Acheter Ce Stock"
+msgstr ""
 
 #: templates/StockMarket_page.html:77 templates/buying_stock.html:59
 #: templates/successfullyBoughtStock.html:62
 msgid "Stock Name:"
-msgstr "Nom Du Stock"
+msgstr ""
 
 #: templates/TransactionHistory.html:47
 msgid "List"
-msgstr "Liste"
+msgstr ""
 
 #: templates/TransactionHistory.html:48
 msgid "Transaction Date"
-msgstr "Date de la transaction"
+msgstr ""
 
 #: templates/TransactionHistory.html:49
 msgid "Process"
-msgstr "Traitement"
+msgstr ""
 
 #: templates/TransactionHistory.html:50
 msgid "Price"
-msgstr "Prix"
+msgstr ""
 
 #: templates/TransactionHistory.html:51
 msgid "Amount of Money"
-msgstr "Somme d'argent"
+msgstr ""
 
 #: templates/buying_stock.html:51
 msgid "The Price:"
-msgstr "Le Prix:"
+msgstr ""
 
 #: templates/buying_stock.html:53
 msgid "Buy"
-msgstr "Payer"
+msgstr ""
 
 #: templates/contact.html:5 templates/contact.html:23
 msgid "Contact us"
-msgstr "Contactez-nous"
+msgstr ""
 
 #: templates/contact.html:29
 msgid "First Name:"
-msgstr "Prenom"
+msgstr ""
 
 #: templates/contact.html:30
 msgid "First Name"
-msgstr "Prenom"
+msgstr ""
 
 #: templates/contact.html:32
 msgid "Email:"
-msgstr "E-mail"
+msgstr ""
 
 #: templates/contact.html:37
 msgid "Last Name:"
-msgstr "Nom:"
+msgstr ""
 
 #: templates/contact.html:38
 msgid "Last Name"
-msgstr "Nom"
+msgstr ""
 
 #: templates/contact.html:40
 msgid "Country:"
-msgstr "Paays:"
+msgstr ""
 
 #: templates/contact.html:41
 msgid "Country"
-msgstr "Pays"
+msgstr ""
 
 #: templates/contact.html:45
 msgid "Comment"
