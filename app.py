@@ -1,20 +1,29 @@
 import datetime
 import MySQLdb.cursors
+from babel import Locale
 from flask_mail import Mail, Message
 from flask import Flask, jsonify
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
-from flask_babelex import Babel, ngettext, lazy_gettext
+from flask_babel import _, refresh, Babel
 from flask import g, request
+from config import Config
+from babel.numbers import format_currency
 
 app = Flask(__name__)
-app.config.from_pyfile('mysettings.cfg')
-
+app.config['BABEL_DEFAULT_LOCALE'] = 'fr'
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'ose.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'OSE_Trading'
+
+babel = Babel(app)
+
+# @babel.localeselector
+# def get_locale():
+#     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 mysql = MySQL(app)
 
@@ -23,11 +32,11 @@ app.config.update(
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
     MAIL_USERNAME='oumarcissevu@gmail.com',
-    MAIL_PASSWORD='Ousmane1998@'
+    MAIL_PASSWORD='Ousmane1998@',
+
 )
 
 mail = Mail(app)
-babel = Babel(app)
 
 currentUser = ''
 currentDT = datetime.datetime.now()
@@ -59,9 +68,17 @@ app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 app.register_blueprint(Buy_Sell_api)
 
 
+# @app.before_request
+# def before_request():
+#     # ...
+#     g.locale = str(get_locale())
+
+
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
+    name = app.config['BABEL_DEFAULT_LOCALE']
+    # g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -86,7 +103,10 @@ def login_page():
             Money = cursor3.fetchall()
             return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
-            msg = lazy_gettext(u'Incorrect username / password!')
+            msg = _('Incorrect username / password!')
+            # msg = format_currency(1099.98, 'USD', locale='en_US')
+            # msg = format_currency(1099.98, 'EUR', locale='fr_FR')
+    #         local for french is : fr_FR EUR and spanish es_MX MXN
     return render_template('Login_page.html', msg=msg)
 
 
@@ -183,26 +203,16 @@ def getMoney():
     return Money
 
 
-
-
-
-@babel.localeselector
-def get_locale():
-    # if a user is logged in, use the locale from the user settings
-    user = getattr(g, 'user', None)
-    if user is not None:
-        return user.locale
-    # otherwise try to guess the language from the user accept
-    # header the browser transmits.  We support de/fr/en in this
-    # example.  The best match wins.
-    return request.accept_languages.best_match(['de', 'fr', 'en'])
-
-
-@babel.timezoneselector
-def get_timezone():
-    user = getattr(g, 'user', None)
-    if user is not None:
-        return user.timezone
+@app.template_filter() # Convert the number to local variable
+def ConvertNumberToEuros(number):
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'fr': # convert to euros
+        return format_currency(float(number), 'EUR', locale='fr_FR')
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'es': # convert to spanish
+        return format_currency(float(number), 'MXN', locale='es_MX')
+    if app.config['BABEL_DEFAULT_LOCALE'] == 'CH': # convert to chinese
+        return format_currency(float(number), '', locale='')
+    else:
+        return format_currency(float(number), 'USD', locale='en_US')
 
 
 if __name__ == '__main__':

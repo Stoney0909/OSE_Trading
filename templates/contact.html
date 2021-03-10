@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact us</title>
+    <title>{{ _('Contact us') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/contactus.css') }}">
 </head>
 
@@ -20,33 +20,33 @@
 <div class="container">
       <div style="text-align:center">
         <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo1.png') }}"></a>
-        <h2>Contact Us</h2>
+        <h2>{{ _('Contact us') }}</h2>
       </div>
 
       <div class="row">
           <form action="" method="post">
               <div class="displayLeft">
-                    <label for="fname">First Name:</label>
-                    <input type="text" id="Fname" name="firstname" placeholder="First name" required style="outline: none">
+                    <label for="fname">{{ _('First Name:') }}</label>
+                    <input type="text" id="Fname" name="firstname" placeholder={{ _('First Name') }} required style="outline: none">
                       <br>
-                     <label for="email">Email:</label>
-                    <input type="text" id="Email" name="email" placeholder="Email" required style="outline: none">
+                     <label for="email">{{ _('Email:') }}</label>
+                    <input type="text" id="Email" name="email" placeholder={{ _('Email') }} required style="outline: none">
               </div>
 
               <div class="display_right">
-                   <label for="lname">Last Name:</label>
-                   <input type="text" id="Lname" name="lastname" placeholder="Last name" required style="outline: none">
+                   <label for="lname">{{ _('Last Name:') }}</label>
+                   <input type="text" id="Lname" name="lastname" placeholder={{ _('Last Name') }} required style="outline: none">
                    <br>
-                   <label for="country">Country:</label>
-                   <input type="text" id="Country" name="country" placeholder="Country" required style="outline: none">
+                   <label for="country">{{ _('Country:') }}</label>
+                   <input type="text" id="Country" name="country" placeholder={{ _('Country') }} required style="outline: none">
               </div>
 
               <div class="Comment">
-              <label for="subject">Comment</label>
-              <textarea id="Subject" name="feedback" placeholder="Write something.." style="outline: none; height:130px;" required></textarea>
+              <label for="subject">{{ _('Comment') }}</label>
+              <textarea id="Subject" name="feedback" placeholder={{ _('Write something..') }} style="outline: none; height:130px;" required></textarea>
               </div>
 
-               <p style="text-align: center"><button type="submit" style="outline: none">Submit</button></p>
+               <p style="text-align: center"><button type="submit" style="outline: none">{{ _('Submit') }}</button></p>
           </form>
       </div>
 </div>

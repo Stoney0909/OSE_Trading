@@ -7,6 +7,7 @@ from flask import request, session, render_template
 from app import mysql
 from flask import Blueprint
 from FunctionToCall.StockUserAccount import getGraph
+from flask_babel import _
 
 Buy_Sell_api = Blueprint('Buy_Sell_api', __name__)
 currentDT = datetime.datetime.now()
@@ -47,9 +48,9 @@ def buy_Stock():
         numberOfShare = request.form.get('stockPrice', type=int)
         symbol = session['IdOfSearch']
         if numberOfShare < 1:
-            msg = 'The number of share has to be positive!'
+            msg = _('The number of share has to be positive!')
         elif float(moneyAvalaible) < numberOfShare * float(priceOfStock):
-            msg = "You don't have enough fund to buy this stock"
+            msg = _("You don't have enough fund to buy this stock")
             return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
                                    labels=time, legend=legend, msg=msg, company_name=company_name)
         else:
@@ -60,8 +61,8 @@ def buy_Stock():
 
             SpendMoney = float(numberOfShare) * float(priceOfStock)
             amountOfMoneyAfterSpend = float(moneyAvalaible) - float(SpendMoney)
-            Description = 'Spend $' + str(round(float(SpendMoney), 2)) + ' to buy ' + str(
-                round(float(numberOfShare), 2)) + ' share of ' + company_name + '\'s stock'
+            Description = _('Spend')+_(' $') + str(round(float(SpendMoney), 2)) + ' to buy ' + str(
+                round(float(numberOfShare), 2)) + ' share of ' + company_name + '\'s stock'  # ethan you need to do work here
 
             cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
                            (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend)))
@@ -70,7 +71,7 @@ def buy_Stock():
                            'WHERE trading_ID = %s',
                            (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'],))
             mysql.connection.commit()
-            msg = 'You successfully bought the stock'
+            msg = _('You successfully bought the stock')
             return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],
                                    labels=time, legend=legend, msg=msg, company_name=company_name)
 
@@ -95,12 +96,12 @@ def sellStock_Page():
             for i in range(0, len(account)):
                 currentPrice = si.get_live_price(account[i]['symbol_Of_Stock'])
             if int(shareToSold) > int(number):
-                error = "You Don't Own That amount of share"
+                error = _("You Don't Own That amount of share")
                 return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
                                        legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
                                        company_name=company_name, error=error)
             elif float(shareToSold) < 1:
-                error = "Please input positive number"
+                error = _("Please input positive number")
                 return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
                                        legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
                                        company_name=company_name, error=error)
@@ -112,7 +113,7 @@ def sellStock_Page():
                     ', sellShare = %s WHERE transactions_ID = %s',
                     (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
 
-                Description = 'Sold ' + shareToSold + ' share of ' + company_name + '\'s stock'
+                Description = 'Sold ' + shareToSold + ' share of ' + company_name + '\'s stock' # Do a little ediditing
                 GetMoney = float(currentPrice * float(shareToSold))
                 AmountOfMoney = app.getMoney()
                 Money = float(amount_Left()) - GetMoney
