@@ -7,7 +7,6 @@ from app import mysql
 from flask import Blueprint
 from Python import stockPage
 
-
 stock_Account_api = Blueprint('stock_Account_api', __name__)
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
@@ -15,7 +14,7 @@ today = currentDT.strftime("%Y-%m-%d")
 
 @stock_Account_api.route('/StockMarket', methods=['GET', 'POST'])
 def stock_page():
-    stockid =""
+    stockid = ""
     legend = ''
     labels = []
     if request.method == 'POST' and 'stockID' in request.form:
@@ -55,8 +54,7 @@ def stock_page():
         else:
             history, stockid, time, legend = stockPage.loadDay()
             return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                labels=time, legend=legend)
-
+                                   labels=time, legend=legend)
 
     session['IdOfSearch'] = stockid
     values = []
@@ -74,16 +72,18 @@ def portfolio_Page():
 
     if request.method == 'GET':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
+        cursor.execute(
+            'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
             (session['id'],))
         account = cursor.fetchall()
-        if account: # if there is data in here
+        if account:  # if there is data in here
             for i in range(0, len(account)):
                 msg = si.get_live_price(account[i]['symbol_Of_Stock'])
                 msg = format(msg, ".2f")
                 account[i]['sellSharePrice'] = msg
                 sellOrNot = float(account[i]['numberOfShareAtBuying']) - float(account[i]['numberOfShareSold'])
-                account[i]['Gain'] = format((sellOrNot * float(msg) - sellOrNot * float(account[i]['priceOfShareAtBuying'])), ".2f")
+                account[i]['Gain'] = format(
+                    (sellOrNot * float(msg) - sellOrNot * float(account[i]['priceOfShareAtBuying'])), ".2f")
                 totalGain = totalGain + float(account[i]['Gain'])
 
             totalGain = format(totalGain, ".2f")
@@ -120,6 +120,7 @@ def portfolio_Page():
     return render_template('Portfolio_page.html', account=account, len=len2, msg=msg,
                            totalGain=totalGain)
 
+
 # getting the graph
 def getGraph(nameOfStock):
     legend = 'Monthly Data'
@@ -144,6 +145,7 @@ def getGraph(nameOfStock):
     company_name = company_name
     return stockid, values, labels, legend, msg, company_name
 
+
 # getting the Table
 def getTable():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -152,7 +154,7 @@ def getTable():
     account = cursor.fetchall()
     if account:
         for i in range(0, len(account)):
-            msg = si.get_live_price(account[i]['symbol_Of_Stock']) #getting stock prices
+            msg = si.get_live_price(account[i]['symbol_Of_Stock'])  # getting stock prices
             msg = format(msg, ".2f")
             account[i]['sellSharePrice'] = msg
             account[i]['Gain'] = format((float(account[i]['numberOfShareAtBuying']) * float(msg) -

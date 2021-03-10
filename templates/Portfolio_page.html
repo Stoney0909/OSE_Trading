@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
-{#    <meta name="description" content="">#}
-{#    <meta name="author" content="">#}
-    <title>Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{ _('Portfolio') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/protfolio.css') }}">
 </head>
 
@@ -28,17 +28,17 @@
             <li><a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a></li>
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
-            <li><a href="{{ url_for('transaction_history') }}">Transaction History</a></li>
+            <li><a href="{{ url_for('home_page') }}">{{ _('Home') }}</a></li>
+            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
+            <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                        <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
-                        <a href="{{ url_for('account_api.changePassword_page') }}">Password</a>
-                        <a href="{{ url_for('Loan') }}">Loan</a>
-                        <a href="{{ url_for('contact') }}">Contact</a>
-                        <a href="{{ url_for('login_page') }}">Sign out</a>
+                        <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                        <a href="{{ url_for('account_api.changePassword_page') }}">{{ _('Change Password') }}</a>
+                        <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                        <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                        <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>
             </li>
         </ul>
@@ -46,24 +46,24 @@
     <form action="" method="post">
     <table>
      <tr>
-         <th>Stock Name</th>
-         <th>Name Of Company</th>
-         <th>Number of Shares</th>
-         <th>Purchase Price</th>
-         <th>Purchase Date</th>
-         <th>Current Share Price</th>
-         <th>Current Gain</th>
+         <th>{{ _('Stock Name') }}</th>
+         <th>{{ _('Name Of Company') }}</th>
+         <th>{{ _('Number of Shares') }}</th>
+         <th>{{ _('Purchase Price') }}</th>
+         <th>{{ _('Purchase Date') }}</th>
+         <th>{{ _('Current Share Price') }}</th>
+         <th>{{ _('Current Gain') }}</th>
      </tr>
          {%for i in range(0, len)%}
              <tr>
-                 <td>{{account[i]['symbol_Of_Stock']}}</td>
-                 <td>{{account[i]['CompanyName']}}</td>
-                 <td>{{ account[i]['numberOfShareAtBuying'] - account[i]['numberOfShareSold']}}</td>
-                 <td>${{account[i]['priceOfShareAtBuying']}}</td>
-                 <td>{{account[i]['boughtShare']}}</td>
-                 <td>${{account[i]['sellSharePrice']}} </td>
-                 <td>${{account[i]['Gain']}} </td>
-                 <td><button class="enter_btn" name="Sell" value="{{account[i]['transactions_ID']}}" type="submit">Sell</button></td>
+                 <td>{{account[i]['symbol_Of_Stock']  }}</td>
+                 <td>{{account[i]['CompanyName'] }}</td>
+                 <td>{{ (account[i]['numberOfShareAtBuying'] - account[i]['numberOfShareSold']) | ConvertNumberToEuros }}</td>
+                 <td>{{account[i]['priceOfShareAtBuying'] | ConvertNumberToEuros }}</td>
+                 <td>{{account[i]['boughtShare'] }}</td>
+                 <td>{{account[i]['sellSharePrice'] | ConvertNumberToEuros }} </td>
+                 <td>{{account[i]['Gain'] | ConvertNumberToEuros }} </td>
+                 <td><button class="enter_btn" name="Sell" value="{{account[i]['transactions_ID']}}" type="submit">{{ _('Sell') }}</button></td>
             </tr>
          {% endfor %}
 
@@ -72,8 +72,8 @@
          <td></td>
          <td></td>
          <td></td>
-         <td><b>TOTAL VALUE</b></td>
-         <td><b>${{ totalGain }}</b></td>
+         <td><b>{{ _('TOTAL VALUE') }}</b></td>
+         <td><b>{{ totalGain | ConvertNumberToEuros }}</b></td>
      </table>
 </form>
 </header>

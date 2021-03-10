@@ -5,8 +5,9 @@ from flask import request, session, render_template, flash
 from flask import Blueprint
 import random
 import string
+from flask_babel import _
 from flask_mail import Mail, Message
-from app import mysql, mail
+from app import mysql, mail,babel
 from forms import EditProfileForm
 
 account_api = Blueprint('account_api', __name__)
@@ -26,22 +27,22 @@ def signup_page():
         cursor.execute('SELECT * FROM trading_Profile WHERE username = % s', (username,))
         account = cursor.fetchone()
         if account:
-            msg = 'Account already exists !'
+            msg = _('Account already exists!')
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            msg = 'Invalid email address !'
+            msg = _('Invalid email address !')
         elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'name must contain only characters and numbers !'
+            msg = _('name must contain only characters and numbers !')
         elif not password == password1:
-            msg = 'Password does not match'
+            msg = _('Password does not match')
         elif not username or not password or not email:
-            msg = 'Please fill out the form !'
+            msg = _('Please fill out the form !')
         else:
             cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
                            ('Null', 'Null', username, email, password, '1000', today, 'Null', 'Null'))
             mysql.connection.commit()
-            msg = 'You have successfully registered!'
+            msg = _('You have successfully registered!')
     elif request.method == 'POST':
-        msg = 'Please fill out the form !'
+        msg = _('Please fill out the form !')
     return render_template('Signup_page.html', msg=msg)
 
 
@@ -108,7 +109,7 @@ def changePassword_page():
         data = cursor2.fetchall()
         if account:
             if newPassword2 != newPassword:
-                msg = 'New Password does not match'
+                msg = _('New Password does not match')
             else:
                 cursor.execute('UPDATE trading_Profile SET password = %s '
                                'WHERE trading_ID = %s',
@@ -116,10 +117,10 @@ def changePassword_page():
                 mysql.connection.commit()
                 return render_template('Home_page.html', msg=msg, len=len(data), data=data)
         else:
-            msg = 'Old password does not match'
+            msg = _('Old password does not match')
             render_template('ChangePassword.html', msg=msg)
     elif request.method == 'POST':
-        msg = 'Please fill out the form !'
+        msg = _('Please fill out the form !')
     return render_template('ChangePassword.html', msg=msg)
 
 
@@ -131,7 +132,7 @@ def forgetPassword_page():
         cursor.execute('SELECT * FROM trading_Profile WHERE email = %s', (email,))
         account = cursor.fetchone()
         if account is None:
-            msg = 'This account does not exist'
+            msg = _('This account does not exist')
             return render_template('ForgetPassword_page.html', msg=msg)
         else:
             password = get_random_string(8)
@@ -146,7 +147,7 @@ def forgetPassword_page():
                            'WHERE email = %s',
                            (password, email,))
             mysql.connection.commit()
-            msg = "Check your email for the new password"
+            msg = _("Check your email for the new password")
             return render_template('ForgetPassword_page.html', msg=msg)
 
     return render_template('ForgetPassword_page.html')

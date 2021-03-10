@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Transaction History</title>
+    <title>{{ _('Transaction History') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/TransactionHistory.css') }}">
 </head>
 
@@ -25,17 +25,17 @@
            <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">Stock Market</a></li>
-            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
+            <li><a href="{{ url_for('home_page') }}">{{ _('Home') }}</a></li>
+            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
+            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >Password</a>
-                    <a href="{{ url_for('Loan') }}">Loan</a>
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                    <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>
             </li>
         </ul>
@@ -44,19 +44,19 @@
     <form action="" method="post">
     <table>
      <tr>
-         <th>List</th>
-         <th>Transaction Date</th>
-         <th>Process</th>
-         <th>Price</th>
-         <th>Amount of Money</th>
+         <th>{{ _('List') }}</th>
+         <th>{{ _('Transaction Date') }}</th>
+         <th>{{ _('Process') }}</th>
+         <th>{{ _('Price') }}</th>
+         <th>{{ _('Amount of Money') }}</th>
      </tr>
         {%for i in range(0, len)%}
             <tr>
-                <td>{{Account[i]['HistoryID']}}</td>
-                <td>{{Account[i]['Transaction_Date']}}</td>
+                <td>{{Account[i]['HistoryID'] }}</td>
+                <td>{{Account[i]['Transaction_Date'] }}</td>
                 <td>{{Account[i]['Process_Des'] }}</td>
-                <td>{{Account[i]['Price'] }}</td>
-                <td>{{Account[i]['Amount_of_Money'] }}</td>
+                <td>{{Account[i]['Price'] | ConvertNumberToEuros }}</td>
+                <td>{{Account[i]['Amount_of_Money'] | ConvertNumberToEuros }}</td>
             </tr>
         {% endfor %}
      </table>

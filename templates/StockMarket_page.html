@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/stock_page.css') }}">
-    <title>Stock Market</title>
+    <title>{{ _('Stock Market') }}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
@@ -30,18 +30,18 @@
             <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">Portfolio</a></li>
-            <li><a href="{{ url_for('transaction_history') }}">Transaction History</a></li>
+            <li><a href="{{ url_for('home_page') }}">{{ _('Home') }}</a></li>
+            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
+            <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
 
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                    <a href="{{ url_for('account_api.edit_profile') }}">Profile</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}">Password</a>
-                    <a href="{{ url_for('Loan') }}">Loan</a>
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('login_page') }}">Sign out</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}">{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                    <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>
             </li>
         </ul>
@@ -50,31 +50,31 @@
     <div id="StockSearchSideBar" >
         <form action="" method="POST">
             <div id="searchBar">
-                <p class="searchText">Stock Search</p>
+                <p class="searchText">{{ _('Stock Search') }}</p>
                 <div class="input-icons">
                      <i class="fa fa-search icon"></i>
-                    <input style="outline: none" type="text" placeholder="Search for a Stock" name="stockID" class="input-field " value="{{ stockid }}">
+                    <input style="outline: none" type="text" placeholder={{ _('Search for a Stock') }} name="stockID" class="input-field " value="{{ stockid }}">
 
-                    <button class="Graph_Buttons" type="submit" value="Day" name="Day">Day</button>
-                    <button class="Graph_Buttons" type="submit" value="Week" name="Week">Week</button>
-                    <button class="Graph_Buttons" type="submit" value="Month" name="Month">Month</button>
-                    <button class="Graph_Buttons" type="submit" value="3_Month" name="3_Month">3 Month</button>
-                    <button class="Graph_Buttons" type="submit" value="6_Month"  name="6_Month">6 Month</button>
-                    <button class="Graph_Buttons" type="submit" value="Year" name="Year">1 Year</button>
-                    <button class="Graph_Buttons" type="submit" value="5_year" name="5_year">5 Year</button>
-                    <button class="Graph_Buttons" type="submit" value="All_Time" name="All_Time">All Time</button>
+                    <button class="Graph_Buttons" type="submit" value="Day" name="Day">{{ _('Day') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="Week" name="Week">{{ _('Week') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="Month" name="Month">{{ _('Month') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="3_Month" name="3_Month">{{ _('3 Month') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="6_Month"  name="6_Month">{{ _('6 Month') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="Year" name="Year">{{ _('1 Year') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="5_year" name="5_year">{{ _('5 Year') }}</button>
+                    <button class="Graph_Buttons" type="submit" value="All_Time" name="All_Time">{{ _('All Time') }}</button>
                 </div>
             </div>
-            <button class="enter_btn" type="submit">Search</button>
+            <button class="enter_btn" type="submit">{{ _('Search') }}</button>
         </form>
     </div>
   >
 
     <div id="Stock_show">
     <div class="container">
-    <a class="Buy" href="{{ url_for('Buy_Sell_api.buy_Stock') }}">Buy this stock</a>
+    <a class="Buy" href="{{ url_for('Buy_Sell_api.buy_Stock') }}">{{ _('Buy this stock') }}</a>
         <br>
-        <h2 style="padding-top: 5px">Stock Name:&nbsp;{{ stockid }}</h2>
+        <h2 style="padding-top: 5px">{{ _('Stock Name:') }}&nbsp;{{ stockid }}</h2>
         <canvas id="myChart" width="400" height="400"></canvas>
         <script>
 Chart.defaults.global.responsive = false;
