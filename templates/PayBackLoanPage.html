@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Loan</title>
+    <title>Home</title>
 {#    <link rel="stylesheet" href="{{ url_for('static', filename='css/Loan.css') }}">#}
 </head>
 
@@ -59,11 +59,10 @@
     border-radius: 10px;
 }
 
-#GetLoanDisplay
+#LoanPlayBack
 {
     position: relative;
 }
-
 
 </style>
 
@@ -75,18 +74,19 @@
         <h2>Loan</h2>
     </div>
 
-
-
-    <div id = "GetLoanDisplay">
-        <p>Enter amount of loan:</p>
+    <div id = "LoanPlayBack">
         <form method="post">
-            <input placeholder="Range 1000 - 1000000" type="number" name = "Loan_Amount">
-            <br>
-            <button type="submit"  name = "Loan_Amount_Submit">Submit</button>
-            <h1>{{ Confirm_Msg }}</h1>
-        </form>
-    </div>
+            <p>Pay back day: {{ PaybackDay }}</p>
+            <p>Amount of money in acount: {{ AccountMoney }}</p>
+            <p>Amount of money need to pay back: {{ Amount_Of_Money_need_to_PayBack_Left }}</p>
 
+            <input type="number" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money">
+            <br>
+            <button type="submit"  name = "Pay_Back_Loan_Money_Submit">Submit</button>
+            <h1>{{ msg }}</h1>
+        </form>
+
+    </div>
 </div>
 </body>
 </html>
