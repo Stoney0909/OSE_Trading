@@ -202,11 +202,13 @@ def Loan():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     Confirm_Msg = ''
     UserID = 0
-    if request.method == 'POST' and 'Loan_Amount' in request.form:
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT trading_ID FROM trading_Profile where username = %s', (session['username'],))
-        User = cursor.fetchone()
-        UserID = int(User['trading_ID'])
+    Pay_BackDay_Period = 0
+    checkLoansucess = True
+    checkUserHasLoan = False
+
+    cursor.execute('SELECT trading_ID FROM trading_Profile where username = %s', (session['username'],))
+    User = cursor.fetchone()
+    UserID = int(User['trading_ID'])
 
     cursor.execute('SELECT * FROM Loan WHERE UserID = % s', (UserID,))
     CheckHasloan = cursor.fetchone()
