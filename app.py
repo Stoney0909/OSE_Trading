@@ -7,12 +7,12 @@ from flask import render_template, request, session
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
 from flask import g, request
-from babel.dates import format_datetime,format_date
+from babel.dates import format_datetime, format_date
 from babel.numbers import format_currency
-
+from forex_python.converter import CurrencyRates
 
 app = Flask(__name__)
-app.config['BABEL_DEFAULT_LOCALE'] = 'zh'
+
 app.config['SECRET_KEY'] = 'any secret string'
 app.config['MYSQL_HOST'] = 'ose.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
@@ -22,14 +22,11 @@ app.config['MYSQL_DB'] = 'OSE_Trading'
 babel = Babel(app)
 
 
-# add to your app.config or config.py file
-
-
 # add to you main app code
 @babel.localeselector
 def get_locale():
-    return 'zh'
-        # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
+    return 'fr'
+    # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
 mysql = MySQL(app)
@@ -46,7 +43,6 @@ app.config.update(
         'fr': 'French',
         'zh': 'Chinese'
     }
-
 )
 
 mail = Mail(app)
@@ -54,7 +50,10 @@ mail = Mail(app)
 currentUser = ''
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
-
+c = CurrencyRates()
+exchangeToEuros = c.get_rate('USD', 'EUR')
+exchangeToPesos = c.get_rate('USD', 'MXN')
+exchangeToYen = c.get_rate('USD', 'CNY')
 # Calling the function for Sign up , edit Profile and ChangePassword
 from FunctionToCall.Account import account_api
 
@@ -81,15 +80,9 @@ app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 app.register_blueprint(Buy_Sell_api)
 
 
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
-    name = get_locale()
-    time = format_date()
-    # g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -98,7 +91,6 @@ def login_page():
         account = cursor.fetchone()
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
-
         data = cursor2.fetchall()
         if account:
             session['loggedin'] = True
@@ -115,10 +107,7 @@ def login_page():
             return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
             msg = _('Incorrect username / password!')
-            # msg = format_currency(1099.98, 'USD', locale='en_US')
-            # msg = format_currency(1099.98, 'EUR', locale='fr_FR')
-    #         local for french is : fr_FR EUR and spanish es_MX MXN
-    return render_template('Login_page.html', msg=time)
+    return render_template('Login_page.html', msg=msg)
 
 
 @app.route('/Home', methods=['GET', 'POST'])
@@ -216,14 +205,26 @@ def getMoney():
 
 @app.template_filter()  # Convert the number to local variable
 def ConvertNumberToEuros(number):
-    if app.config['BABEL_DEFAULT_LOCALE'] == 'fr':  # convert to euros
-        return format_currency(float(number), 'EUR', locale='fr_FR')
-    if app.config['BABEL_DEFAULT_LOCALE'] == 'es':  # convert to spanish
-        return format_currency(float(number), 'MXN', locale='es_MX')
-    if app.config['BABEL_DEFAULT_LOCALE'] == 'zh':  # convert to chinese
-        return format_currency(float(number)*6.5, 'CNY', locale='zh_CN')
+    if get_locale() == 'fr':  # convert to euros
+        return format_currency(float(number) * exchangeToEuros, 'EUR', locale='fr_FR')
+    if get_locale() == 'es':  # convert to spanish
+        return format_currency(float(number) * exchangeToPesos, 'MXN', locale='es_MX')
+    if get_locale() == 'zh':  # convert to chinese
+        return format_currency(float(number) * exchangeToYen, 'CNY', locale='zh_CN')
     else:
         return format_currency(float(number), 'USD', locale='en_US')
+
+
+@app.template_filter()
+def getAppropriate_Date(date):
+    if get_locale() == 'fr':
+        return datetime.datetime.strftime(date, '%d-%m-%Y')
+    if get_locale() == 'es':
+        return datetime.datetime.strftime(date, '%d-%m-%Y')
+    if get_locale() == 'zh':
+        return datetime.datetime.strftime(date, '%Y-%m-%d')
+    else:
+        return datetime.datetime.strftime(date, '%Y-%m-%d')
 
 
 if __name__ == '__main__':

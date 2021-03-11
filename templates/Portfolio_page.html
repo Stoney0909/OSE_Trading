@@ -60,7 +60,7 @@
                  <td>{{account[i]['CompanyName'] }}</td>
                  <td>{{ (account[i]['numberOfShareAtBuying'] - account[i]['numberOfShareSold']) }}</td>
                  <td>{{account[i]['priceOfShareAtBuying'] | ConvertNumberToEuros }}</td>
-                 <td>{{account[i]['boughtShare'] }}</td>
+                 <td>{{account[i]['boughtShare'] | getAppropriate_Date }}</td>
                  <td>{{account[i]['sellSharePrice'] | ConvertNumberToEuros }} </td>
                  <td>{{account[i]['Gain'] | ConvertNumberToEuros }} </td>
                  <td><button class="enter_btn" name="Sell" value="{{account[i]['transactions_ID']}}" type="submit">{{ _('Sell') }}</button></td>
