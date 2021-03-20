@@ -31,7 +31,6 @@
         border: none;
         background-color: #d5d5d5;
     }
-
   button
   {
       background-color: #51679c;
@@ -49,6 +48,16 @@
     {
         opacity: 0.8;
     }
+    .information,
+    .placeholdermoney
+    {
+        margin-left: 40%;
+    }
+    .buttonSubmit
+    {
+        margin-left: 30%;
+    }
+
 
 .container {
     position: absolute;
@@ -77,12 +86,12 @@
 
 
 
-    <div id = "GetLoanDisplay">
-        <p>Enter amount of loan:</p>
+    <div class = "GetLoanDisplay">
+        <p class="information">Enter amount of loan:</p>
         <form method="post">
-            <input placeholder="Range 1000 - 1000000" type="number" name = "Loan_Amount">
+            <input class="placeholdermoney" placeholder="Range 1000 - 1000000" type="number" name = "Loan_Amount" required>
             <br>
-            <button type="submit"  name = "Loan_Amount_Submit">Submit</button>
+            <button class="buttonSubmit" type="submit"  name = "Loan_Amount_Submit">Submit</button>
             <h1>{{ Confirm_Msg }}</h1>
         </form>
     </div>

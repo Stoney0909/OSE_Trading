@@ -5,6 +5,8 @@ import MySQLdb
 import app
 from flask import request, session, render_template
 from app import mysql
+from app import *
+
 from flask import Blueprint
 from FunctionToCall.StockUserAccount import getGraph
 from flask_babel import _
@@ -61,8 +63,8 @@ def buy_Stock():
 
             SpendMoney = float(numberOfShare) * float(priceOfStock)
             amountOfMoneyAfterSpend = float(moneyAvalaible) - float(SpendMoney)
-            Description = _('Spend')+_(' $') + str(round(float(SpendMoney), 2)) + ' to buy ' + str(
-                round(float(numberOfShare), 2)) + ' share of ' + company_name + '\'s stock'  # ethan you need to do work here
+            Description = _('Spend ') + str(ConvertNumber(round(float(SpendMoney), 2))) + _(' to buy ') + str(
+                round(float(numberOfShare), 2)) + _(' share of ') + company_name + _('\'s stock')
 
             cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
                            (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend)))
@@ -113,9 +115,10 @@ def sellStock_Page():
                     ', sellShare = %s WHERE transactions_ID = %s',
                     (shareToSold, format(currentPrice, ".2f"), today, session['Transaction_ID'],))
 
-                Description = 'Sold ' + shareToSold + ' share of ' + company_name + '\'s stock' # Do a little ediditing
+                Description = _('Sold ') + shareToSold + _(' share of ') + company_name + _(
+                    '\'s stock')  # Do a little ediditing
                 GetMoney = float(currentPrice * float(shareToSold))
-                AmountOfMoney = app.getMoney()
+                # AmountOfMoney = app.getMoney()
                 Money = float(amount_Left()) - GetMoney
 
                 cursor2.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
@@ -128,7 +131,7 @@ def sellStock_Page():
                 cursor3.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
                 data = cursor3.fetchall()
                 mysql.connection.commit()
-                Money = app.getMoney()
+                Money = getMoney()
                 return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
 
@@ -159,3 +162,21 @@ def amount_Left():
     amount = 0.0
     amount = float(Money['amount_Money'])
     return amount
+
+
+def ConvertNumber(number):
+    if get_locale() == 'fr':  # convert to euros
+        return format_currency(float(number) * exchangeToEuros, 'EUR', locale='fr_FR')
+    if get_locale() == 'es':  # convert to spanish
+        return format_currency(float(number) * exchangeToPesos, 'MXN', locale='es_MX')
+    if get_locale() == 'zh':  # convert to chinese
+        return format_currency(float(number) * exchangeToYen, 'CNY', locale='zh_CN')
+    else:
+        return format_currency(float(number), 'USD', locale='en_US')
+
+
+def getMoney():
+    cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
+    Money = cursor3.fetchall()
+    return Money

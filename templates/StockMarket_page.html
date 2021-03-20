@@ -21,6 +21,11 @@
         background-position: center center;
         position: relative;
     }
+   .fa-search
+   {
+       position:center;
+
+   }
 
 </style>
 <body>
@@ -52,7 +57,7 @@
             <div id="searchBar">
                 <p class="searchText">{{ _('Stock Search') }}</p>
                 <div class="input-icons">
-                     <i class="fa fa-search icon"></i>
+
                     <input style="outline: none" type="text" placeholder={{ _('Search for a Stock') }} name="stockID" class="input-field " value="{{ stockid }}">
 
                     <button class="Graph_Buttons" type="submit" value="Day" name="Day">{{ _('Day') }}</button>
