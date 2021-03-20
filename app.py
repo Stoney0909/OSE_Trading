@@ -22,13 +22,9 @@ app.config['MYSQL_DB'] = 'OSE_Trading'
 babel = Babel(app)
 
 
-# add to your app.config or config.py file
-
-
-# add to you main app code
 @babel.localeselector
 def get_locale():
-    return 'zh'
+    return 'fr'
     # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
@@ -46,7 +42,6 @@ app.config.update(
         'fr': 'French',
         'zh': 'Chinese'
     }
-
 )
 
 mail = Mail(app)
@@ -82,9 +77,6 @@ from FunctionToCall.Buy_Sell import Buy_Sell_api
 app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
-
-
-
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -143,6 +135,7 @@ def transaction_history():
     account = cursor.fetchall()
     return render_template('TransactionHistory.html', len=len(account), Account=account)
 
+
 @app.route('/PayBackLoanPage', methods=['GET', 'POST'])
 def PayBack():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -162,18 +155,19 @@ def PayBack():
         PlayBackMoney = float(request.form['Pay_Back_Loan_Money'])
 
         if PlayBackMoney < 1:
-            msg = 'Please enter a positive number'
+            msg = _('Please enter a positive number')
         elif PlayBackMoney > Amount_Of_Money_need_to_PayBack_Left:
-            msg = 'You only have to play back ' + str(Amount_Of_Money_need_to_PayBack_Left)
+            msg = _('You only have to play back ') + str(Amount_Of_Money_need_to_PayBack_Left)
         elif PlayBackMoney > AccountMoney:
-            msg = 'You don\'t have that much money in your account'
+            msg = _('You don\'t have that much money in your account')
         else:
             AccountMoney -= PlayBackMoney
             Amount_Of_Money_need_to_PayBack_Left -= PlayBackMoney
             if Amount_Of_Money_need_to_PayBack_Left == 0:
-                msg = 'You have paid off all the loans'
+                msg = _('You have paid off all the loans')
             else:
-                msg = 'You still need to pay back ' + str(Amount_Of_Money_need_to_PayBack_Left) + " by " + str(PaybackDay)
+                msg = _('You still need to pay back ') + str(Amount_Of_Money_need_to_PayBack_Left) + _(" by ") + str(
+                    PaybackDay)
 
         cursor.execute('UPDATE trading_Profile SET amount_Money = %s WHERE trading_ID = %s',
                        (AccountMoney, session['id'],))
@@ -186,15 +180,16 @@ def PayBack():
         mysql.connection.commit()
 
         return render_template('PayBackLoanPage.html',
-                                Amount_Of_Money_need_to_PayBack_Left = Amount_Of_Money_need_to_PayBack_Left,
-                                PaybackDay = PaybackDay,
-                                AccountMoney = AccountMoney,
-                                msg = msg)
+                               Amount_Of_Money_need_to_PayBack_Left=Amount_Of_Money_need_to_PayBack_Left,
+                               PaybackDay=PaybackDay,
+                               AccountMoney=AccountMoney,
+                               msg=msg)
 
     return render_template('PayBackLoanPage.html',
-                           Amount_Of_Money_need_to_PayBack_Left = Amount_Of_Money_need_to_PayBack_Left,
-                           PaybackDay = PaybackDay,
-                           AccountMoney = AccountMoney)
+                           Amount_Of_Money_need_to_PayBack_Left=Amount_Of_Money_need_to_PayBack_Left,
+                           PaybackDay=PaybackDay,
+                           AccountMoney=AccountMoney)
+
 
 @app.route('/loan', methods=['GET', 'POST'])
 def Loan():
@@ -229,26 +224,26 @@ def Loan():
             Total_Pay_Back = round(Interest_Amount, 2) + Pay_Back_Money_Per_Time
             Loan_Date = today
 
-            #Check how many days user have to pay back the loan based on the price
+            # Check how many days user have to pay back the loan based on the price
             if Amount_OF_Loan > 1000000 or Amount_OF_Loan < 1000:
                 checkLoansucess = False
-            elif Amount_OF_Loan >= 800000 and Amount_OF_Loan <= 1000000:
+            elif 800000 <= Amount_OF_Loan <= 1000000:
                 Pay_BackDay_Period = 730
-            elif Amount_OF_Loan >= 650000 and Amount_OF_Loan <= 800000:
+            elif 650000 <= Amount_OF_Loan <= 800000:
                 Pay_BackDay_Period = 600
-            elif Amount_OF_Loan > 500000 and Amount_OF_Loan <= 650000:
+            elif 500000 < Amount_OF_Loan <= 650000:
                 Pay_BackDay_Period = 500
-            elif Amount_OF_Loan > 300000 and Amount_OF_Loan <= 500000:
+            elif 300000 < Amount_OF_Loan <= 500000:
                 Pay_BackDay_Period = 400
-            elif Amount_OF_Loan > 100000 and Amount_OF_Loan <= 300000:
+            elif 100000 < Amount_OF_Loan <= 300000:
                 Pay_BackDay_Period = 365
-            elif Amount_OF_Loan > 50000 and Amount_OF_Loan <= 100000:
+            elif 50000 < Amount_OF_Loan <= 100000:
                 Pay_BackDay_Period = 300
-            elif Amount_OF_Loan > 10000 and Amount_OF_Loan <= 50000:
+            elif 10000 < Amount_OF_Loan <= 50000:
                 Pay_BackDay_Period = 180
-            elif Amount_OF_Loan > 5000 and Amount_OF_Loan <= 10000:
+            elif 5000 < Amount_OF_Loan <= 10000:
                 Pay_BackDay_Period = 90
-            elif Amount_OF_Loan >= 1000 and Amount_OF_Loan <= 5000:
+            elif 1000 <= Amount_OF_Loan <= 5000:
                 Pay_BackDay_Period = 60
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -257,9 +252,7 @@ def Loan():
             account = cursor.fetchone()
             moneyAvalaible = account['amount_Money']
 
-
-
-            Pay_Back_Day = datetime.datetime.now() + datetime.timedelta(days = Pay_BackDay_Period)
+            Pay_Back_Day = datetime.datetime.now() + datetime.timedelta(days=Pay_BackDay_Period)
 
             if checkLoansucess:
                 cursor.execute('INSERT INTO Loan VALUES (NULL, %s,%s,%s,%s,%s, %s, %s, %s, %s)',
@@ -268,18 +261,20 @@ def Loan():
                 cursor.fetchall()
 
                 NewAmountOfMoney = moneyAvalaible + Amount_OF_Loan
-                cursor.execute('UPDATE trading_Profile SET amount_Money = %s WHERE trading_ID = %s',(NewAmountOfMoney, session['id'],))
+                cursor.execute('UPDATE trading_Profile SET amount_Money = %s WHERE trading_ID = %s',
+                               (NewAmountOfMoney, session['id'],))
                 cursor.fetchall()
 
-                Confirm_Msg = 'You had loan $' + str(Amount_OF_Loan) + \
-                              ', in next ' + str(Pay_BackDay_Period) + ' days, you have to pay back $' \
-                              + str(Total_Pay_Back) + ' include interest'
+                Confirm_Msg = _('You had loan $') + str(Amount_OF_Loan) + \
+                              _(', in next ') + str(Pay_BackDay_Period) + _(' days, you have to pay back $') \
+                              + str(Total_Pay_Back) + _(' include interest')
                 mysql.connection.commit()
             else:
-                Confirm_Msg = 'Amount of loan range is 1000 - 1000000'
+                Confirm_Msg = _('Amount of loan range is 1000 - 1000000')
 
-            return render_template('loan.html', Amount_OF_Loan=Amount_OF_Loan, Confirm_Msg=Confirm_Msg, checkUserHasLoan = checkUserHasLoan)
-        return render_template('loan.html', Confirm_Msg=Confirm_Msg, checkUserHasLoan = checkUserHasLoan)
+            return render_template('loan.html', Amount_OF_Loan=Amount_OF_Loan, Confirm_Msg=Confirm_Msg,
+                                   checkUserHasLoan=checkUserHasLoan)
+        return render_template('loan.html', Confirm_Msg=Confirm_Msg, checkUserHasLoan=checkUserHasLoan)
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -293,7 +288,7 @@ def contact():
         feedback = request.form['feedback']
         email = request.form['email']
         msg = Message("Feedback", sender=email, recipients=['oumarcisseju@gmail.com'])
-        msg.body = "You have received a new feedback from {} <{}>. Comment {}.".format(lastname, email, feedback)
+        msg.body = _("You have received a new feedback from {} <{}>. Comment {}.").format(lastname, email, feedback)
         mail.send(msg)
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')

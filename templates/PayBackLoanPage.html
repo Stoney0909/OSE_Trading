@@ -49,7 +49,14 @@
     {
         opacity: 0.8;
     }
-
+    .InformationAmount,
+    .InformationPayBack,
+    .InformationPayBAck,
+    .loanAmount,
+    .InformationButton
+    {
+        margin-left: 30%;
+    }
 .container {
     position: absolute;
     margin: 5% 30%;
@@ -76,13 +83,13 @@
 
     <div id = "LoanPlayBack">
         <form method="post">
-            <p>Pay back day: {{ PaybackDay }}</p>
-            <p>Amount of money in acount: {{ AccountMoney }}</p>
-            <p>Amount of money need to pay back: {{ Amount_Of_Money_need_to_PayBack_Left }}</p>
+            <p class="InformationPayBack">Pay back day: {{ PaybackDay | getAppropriate_Date}}</p>
+            <p class="InformationAmount">Amount of money in account: {{ AccountMoney | ConvertNumberToEuros}}</p>
+            <p class="InformationPayBAck">Amount of money need to pay back: {{ Amount_Of_Money_need_to_PayBack_Left | ConvertNumberToEuros }}</p>
 
-            <input type="number" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money">
+            <input class="loanAmount" type="number" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money" required>
             <br>
-            <button type="submit"  name = "Pay_Back_Loan_Money_Submit">Submit</button>
+            <button class="InformationButton" type="submit"  name = "Pay_Back_Loan_Money_Submit">Submit</button>
             <h1>{{ msg }}</h1>
         </form>
 

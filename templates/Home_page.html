@@ -25,7 +25,6 @@
         margin: 15% 5%;
     }
 </style>
-{#accueil, marché financier, portefeuille, Historique des transactions, profil, mot de passe ,Déconnecter, prêt#}
 <body>
 <header>
     <div class="wrapper">
@@ -52,14 +51,14 @@
 
     <div class= "position">
       <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
-       <div class="Information">Your Score</div>
+       <div class="Information">{{ _('Your Score') }}</div>
     </div>
         <div class="logo2">
             <img src="{{ url_for('static', filename='img/leaderboard.png') }}">
         </div>
         <div class= "position2">
              <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
-              <div class="Information2">Your Rank</div>
+              <div class="Information2">{{_('Your Rank')}}</div>
         </div>
   <div style="width:700px;height:300px;border:1px solid #f8f8f8;position: absolute; left:30px; top: 250px;">
     <div class="tablediv">
