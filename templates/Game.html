@@ -5,6 +5,21 @@
     <title>Game</title>
 </head>
 <body>
-<h1>Hello</h1>
+<a>Current Game:</a>
+<a>{{ game }}</a>
+
+ <form action="" method="POST">
+     <div id="searchBar">
+        <input style="outline: none" type="text" placeholder='Search For Game' name="gameName" class="input-field " value="{{ gameName }}">
+     </div>
+     <button class="enter_btn" type="submit">{{ _('Search') }}</button>
+ </form>
+  {% for games in gameData %}
+      <form action="" method="POST">
+        <a> {{ games['GameName'] }} </a>
+        <button class="enter_btn" type="submit">{{ _('Join') }}</button>
+        <p></p>
+      </form>
+  {% endfor %}
 </body>
 </html>

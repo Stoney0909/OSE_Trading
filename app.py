@@ -41,6 +41,7 @@ mail = Mail(app)
 currentUser = ''
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
+CurrentGame = 'Public'
 
 # Calling the function for Sign up , edit Profile and ChangePassword
 from FunctionToCall.Account import account_api
@@ -127,6 +128,17 @@ def home_page():
 def successBought():
     return render_template('successfullyBoughtStock.html')
 
+@app.route('/Game', methods=['GET', 'POST'])
+def gamePage():
+
+    if request.method == 'POST' and 'gameName' in request.form:
+        gameNameFromSearch = request.form.get('gameName')
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Game where GameName = % s', (gameNameFromSearch,))
+        gameData = cursor.fetchall()
+        return render_template('Game.html', gameData=gameData, game=CurrentGame)
+
+    return render_template('Game.html', gameData='', game=CurrentGame)
 
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
 def transaction_history():
