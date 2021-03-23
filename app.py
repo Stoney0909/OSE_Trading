@@ -1,8 +1,7 @@
 import datetime
 import MySQLdb.cursors
-import time
 from flask_mail import Mail, Message
-from flask import Flask, jsonify
+from flask import Flask
 from flask import render_template, request, session
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
@@ -123,6 +122,7 @@ def home_page():
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor2.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor2.fetchall()
+    # return render_template("example.html", value=data)
     return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
 
