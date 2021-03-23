@@ -1,5 +1,6 @@
 import datetime
 import MySQLdb.cursors
+from babel import Locale
 from flask_mail import Mail, Message
 from flask import Flask
 from flask import render_template, request, session
@@ -53,6 +54,9 @@ c = CurrencyRates()
 exchangeToEuros = c.get_rate('USD', 'EUR')
 exchangeToPesos = c.get_rate('USD', 'MXN')
 exchangeToYen = c.get_rate('USD', 'CNY')
+global CurrentGame
+CurrentGame = 'Public'
+
 # Calling the function for Sign up , edit Profile and ChangePassword
 from FunctionToCall.Account import account_api
 
@@ -85,6 +89,8 @@ app.register_blueprint(Buy_Sell_api)
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
+    name = app.config['BABEL_DEFAULT_LOCALE']
+    # g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -110,6 +116,9 @@ def login_page():
             return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
             msg = _('Incorrect username / password!')
+            # msg = format_currency(1099.98, 'USD', locale='en_US')
+            # msg = format_currency(1099.98, 'EUR', locale='fr_FR')
+    #         local for french is : fr_FR EUR and spanish es_MX MXN
     return render_template('Login_page.html', msg=msg)
 
 
@@ -129,6 +138,29 @@ def home_page():
 @app.route('/SuccessFullBought')
 def successBought():
     return render_template('successfullyBoughtStock.html')
+
+@app.route('/Game', methods=['GET', 'POST'])
+def gamePage():
+
+    if request.method == 'POST' and 'gameName' in request.form:
+        gameNameFromSearch = request.form.get('gameName')
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Game where GameName = % s', (gameNameFromSearch,))
+        gameData = cursor.fetchall()
+        return render_template('Game.html', gameData=gameData, game=CurrentGame, gameName=gameNameFromSearch)
+    elif request.method == 'POST' in request.form:
+        password = session['password']
+        return render_template('Game.html', gameData='', game=password, gameName='')
+
+    return render_template('Game.html', gameData='', game=CurrentGame)
+
+@app.route('/Game', methods=['GET', 'POST'])
+def gamePassword():
+
+    return render_template('Password.html', gameName=session['GameName'])
+
+
+
 
 
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
