@@ -20,41 +20,95 @@ def stock_page():
     if request.method == 'POST' and 'stockID' in request.form:
         session['IdOfSearch'] = request.form['stockID']
         if request.form.get("Day"):
-            history, stockid, time, legend = stockPage.loadDay()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.loadDay()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                   legend=legend, message="Stock does not exist!")
         elif request.form.get("Week"):
-            history, stockid, time, legend = stockPage.loadWeek()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.loadWeek()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                       labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                   legend=legend, message="Stock does not exist!")
         elif request.form.get("Month"):
-            history, stockid, time, legend = stockPage.loadMonth()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.loadMonth()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                       labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                       legend=legend, message="Stock does not exist!")
         elif request.form.get("3_Month"):
-            history, stockid, time, legend = stockPage.load3Month()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.load3Month()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                     labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                       legend=legend, message="Stock does not exist!")
         elif request.form.get("6_Month"):
-            history, stockid, time, legend = stockPage.load6Month()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.load6Month()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                       labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                       legend=legend, message="Stock does not exist!")
         elif request.form.get("Year"):
-            history, stockid, time, legend = stockPage.loadYear()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.loadYear()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                   legend=legend, message="Stock does not exist!")
         elif request.form.get("5_year"):
-            history, stockid, time, legend = stockPage.load5Year()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.load5Year()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                   legend=legend, message="Stock does not exist!")
         elif request.form.get("All_Time"):
-            history, stockid, time, legend = stockPage.loadAllTime()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.loadAllTime()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                   labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                    legend=legend, message="Stock does not exist!")
         else:
-            history, stockid, time, legend = stockPage.loadDay()
-            return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
-                                   labels=time, legend=legend)
+            try:
+                history, stockid, time, legend = stockPage.loadDay()
+                session['IdOfSearch'] = stockid
+                return render_template('StockMarket_page.html', stockid=stockid, values=history['Open'],
+                                    labels=time, legend=legend, message="")
+            except:
+                values = []
+                return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels,
+                                   legend=legend, message="Stock does not exist!")
 
     session['IdOfSearch'] = stockid
     values = []

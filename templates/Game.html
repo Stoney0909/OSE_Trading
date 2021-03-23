@@ -15,11 +15,18 @@
      <button class="enter_btn" type="submit">{{ _('Search') }}</button>
  </form>
   {% for games in gameData %}
-      <form action="" method="POST">
-        <a> {{ games['GameName'] }} </a>
-        <button class="enter_btn" type="submit">{{ _('Join') }}</button>
+      <form onsubmit="myFunction()"  action="" method="POST">
+          <a> {{ games['GameName'] }} </a>
+          <button class="enter_btn" type="submit" >{{ _('Join') }}</button>
         <p></p>
       </form>
   {% endfor %}
+
+<script>
+function myFunction() {
+  var password = prompt("Please enter the Password", "Password");
+  sessionStorage['password'] = password
+}
+</script>
 </body>
 </html>

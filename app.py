@@ -41,6 +41,7 @@ mail = Mail(app)
 currentUser = ''
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
+global CurrentGame
 CurrentGame = 'Public'
 
 # Calling the function for Sign up , edit Profile and ChangePassword
@@ -136,9 +137,21 @@ def gamePage():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Game where GameName = % s', (gameNameFromSearch,))
         gameData = cursor.fetchall()
-        return render_template('Game.html', gameData=gameData, game=CurrentGame)
+        return render_template('Game.html', gameData=gameData, game=CurrentGame, gameName=gameNameFromSearch)
+    elif request.method == 'POST' in request.form:
+        password = session['password']
+        return render_template('Game.html', gameData='', game=password, gameName='')
 
     return render_template('Game.html', gameData='', game=CurrentGame)
+
+@app.route('/Game', methods=['GET', 'POST'])
+def gamePassword():
+
+    return render_template('Password.html', gameName=session['GameName'])
+
+
+
+
 
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
 def transaction_history():
