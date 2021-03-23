@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-10 14:24-0500\n"
-"PO-Revision-Date: 2021-03-10 14:26-0500\n"
+"POT-Creation-Date: 2021-03-22 18:55-0400\n"
+"PO-Revision-Date: 2021-03-22 18:56-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -16,11 +16,59 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.1\n"
+"Generated-By: Babel 2.9.0\n"
 
-#: app.py:106
+#: app.py:109
 msgid "Incorrect username / password!"
 msgstr "¡Nombre de usuario / contraseña incorrectos!"
+
+#: app.py:158
+msgid "Please enter a positive number"
+msgstr "¡La cuenta ya existe!"
+
+#: app.py:160
+msgid "You only have to play back "
+msgstr "Solo tienes que reproducir "
+
+#: app.py:162
+msgid "You don't have that much money in your account"
+msgstr "No tienes tanto dinero en tu cuenta"
+
+#: app.py:167
+msgid "You have paid off all the loans"
+msgstr "Has cancelado todos los préstamos."
+
+#: app.py:171
+msgid "You still need to pay back "
+msgstr "Todavía necesitas pagar "
+
+#: app.py:171
+msgid " by "
+msgstr " por "
+
+#: app.py:275
+msgid "You had loan $"
+msgstr "Tuviste un préstamo $"
+
+#: app.py:276
+msgid ", in next "
+msgstr ", en el siguiente"
+
+#: app.py:276
+msgid " days, you have to pay back $"
+msgstr " días, tienes que devolver $"
+
+#: app.py:277
+msgid " include interest"
+msgstr " incluir interés"
+
+#: app.py:280
+msgid "Amount of loan range is 1000 - 1000000"
+msgstr "La cantidad del rango de préstamo es 1000 - 1000000"
+
+#: app.py:298
+msgid "You have received a new feedback from {} <{}>. Comment {}."
+msgstr "Ha recibido un nuevo comentario de {} <{}>. Comentar {}."
 
 #: FunctionToCall/Account.py:30
 msgid "Account already exists!"
@@ -41,7 +89,7 @@ msgstr "Las contraseñas no coinciden"
 #: FunctionToCall/Account.py:38 FunctionToCall/Account.py:45
 #: FunctionToCall/Account.py:123
 msgid "Please fill out the form !"
-msgstr "Por favor rellena el formulario !"
+msgstr "Por favor rellena el formulario!"
 
 #: FunctionToCall/Account.py:43
 msgid "You have successfully registered!"
@@ -63,33 +111,45 @@ msgstr "Esta cuenta no existe"
 msgid "Check your email for the new password"
 msgstr "Consulta tu correo electrónico para ver la nueva contraseña"
 
-#: FunctionToCall/Buy_Sell.py:45
+#: FunctionToCall/Buy_Sell.py:47
 msgid "The number of share has to be positive!"
 msgstr "El número de acciones tiene que ser positivo!"
 
-#: FunctionToCall/Buy_Sell.py:47
+#: FunctionToCall/Buy_Sell.py:49
 msgid "You don't have enough fund to buy this stock"
 msgstr "No tienes fondos suficientes para comprar estas acciones"
 
-#: FunctionToCall/Buy_Sell.py:58
-msgid "Spend"
+#: FunctionToCall/Buy_Sell.py:60
+msgid "Spend "
 msgstr "Gastar"
 
-#: FunctionToCall/Buy_Sell.py:58
-msgid " $"
-msgstr ""
+#: FunctionToCall/Buy_Sell.py:60
+msgid " to buy "
+msgstr " comprar "
 
-#: FunctionToCall/Buy_Sell.py:68
+#: FunctionToCall/Buy_Sell.py:61 FunctionToCall/Buy_Sell.py:112
+msgid " share of "
+msgstr " parte de "
+
+#: FunctionToCall/Buy_Sell.py:61 FunctionToCall/Buy_Sell.py:112
+msgid "'s stock"
+msgstr "Valores"
+
+#: FunctionToCall/Buy_Sell.py:70
 msgid "You successfully bought the stock"
 msgstr "Compraste las acciones con éxito"
 
-#: FunctionToCall/Buy_Sell.py:93
+#: FunctionToCall/Buy_Sell.py:95
 msgid "You Don't Own That amount of share"
 msgstr "No eres dueño de esa cantidad de acciones"
 
-#: FunctionToCall/Buy_Sell.py:98
+#: FunctionToCall/Buy_Sell.py:100
 msgid "Please input positive number"
 msgstr "Ingrese un número positivo"
+
+#: FunctionToCall/Buy_Sell.py:112
+msgid "Sold "
+msgstr ""
 
 #: templates/ChangePassword.html:5 templates/ChangePassword.html:23
 msgid "Change password"
@@ -97,7 +157,7 @@ msgstr "Cambiar la contraseña"
 
 #: templates/ChangePassword.html:24
 msgid "Old Password"
-msgstr ""
+msgstr "Contraseña anterior"
 
 #: templates/ChangePassword.html:25
 msgid "New Password"
@@ -110,7 +170,7 @@ msgstr "confirmar Contraseña"
 #: templates/ChangePassword.html:27 templates/Signup_page.html:31
 #: templates/contact.html:49
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/ForgetPassword_page.html:5
 msgid "Find Password"
@@ -134,104 +194,112 @@ msgid "Send"
 msgstr "Enviar"
 
 #: templates/Home_page.html:5 templates/Portfolio_page.html:31
-#: templates/Sell_stock.html:32 templates/StockMarket_page.html:33
+#: templates/Sell_stock.html:32 templates/StockMarket_page.html:38
 #: templates/TransactionHistory.html:28 templates/buying_stock.html:32
 #: templates/successfullyBoughtStock.html:38
 msgid "Home"
 msgstr "Hogar"
 
-#: templates/Home_page.html:36 templates/Portfolio_page.html:32
+#: templates/Home_page.html:35 templates/Portfolio_page.html:32
 #: templates/Sell_stock.html:10 templates/StockMarket_page.html:10
 #: templates/TransactionHistory.html:29
 #: templates/successfullyBoughtStock.html:10
 msgid "Stock Market"
 msgstr "Bolsa de Valores"
 
-#: templates/Home_page.html:37 templates/Portfolio_page.html:8
-#: templates/StockMarket_page.html:34 templates/TransactionHistory.html:30
+#: templates/Home_page.html:36 templates/Portfolio_page.html:8
+#: templates/StockMarket_page.html:39 templates/TransactionHistory.html:30
 #: templates/buying_stock.html:33 templates/successfullyBoughtStock.html:39
 msgid "Portfolio"
 msgstr "Portafolio"
 
-#: templates/Home_page.html:38 templates/Portfolio_page.html:33
-#: templates/Sell_stock.html:34 templates/StockMarket_page.html:35
+#: templates/Home_page.html:37 templates/Portfolio_page.html:33
+#: templates/Sell_stock.html:34 templates/StockMarket_page.html:40
 #: templates/TransactionHistory.html:5 templates/buying_stock.html:34
 #: templates/successfullyBoughtStock.html:40
 msgid "Transaction History"
 msgstr "Historial de Transacciones"
 
-#: templates/Home_page.html:42 templates/Portfolio_page.html:37
+#: templates/Home_page.html:41 templates/Portfolio_page.html:37
 #: templates/Profile.html:5 templates/Sell_stock.html:38
-#: templates/StockMarket_page.html:40 templates/TransactionHistory.html:34
+#: templates/StockMarket_page.html:45 templates/TransactionHistory.html:34
 #: templates/buying_stock.html:38 templates/successfullyBoughtStock.html:44
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/Home_page.html:43 templates/Portfolio_page.html:38
-#: templates/Sell_stock.html:39 templates/StockMarket_page.html:41
+#: templates/Home_page.html:42 templates/Portfolio_page.html:38
+#: templates/Sell_stock.html:39 templates/StockMarket_page.html:46
 #: templates/TransactionHistory.html:35 templates/buying_stock.html:39
 #: templates/successfullyBoughtStock.html:45
 msgid "Change Password"
 msgstr "Cambiar la Contraseña"
 
-#: templates/Home_page.html:44 templates/Portfolio_page.html:39
-#: templates/Sell_stock.html:40 templates/StockMarket_page.html:42
+#: templates/Home_page.html:43 templates/Portfolio_page.html:39
+#: templates/Sell_stock.html:40 templates/StockMarket_page.html:47
 #: templates/TransactionHistory.html:36 templates/buying_stock.html:40
 #: templates/successfullyBoughtStock.html:46
 msgid "Loan"
 msgstr "Préstamo"
 
-#: templates/Home_page.html:45 templates/Portfolio_page.html:40
-#: templates/Sell_stock.html:41 templates/StockMarket_page.html:43
+#: templates/Home_page.html:44 templates/Portfolio_page.html:40
+#: templates/Sell_stock.html:41 templates/StockMarket_page.html:48
 #: templates/TransactionHistory.html:37 templates/buying_stock.html:41
 #: templates/successfullyBoughtStock.html:47
 msgid "Contact"
 msgstr "Contacto"
 
-#: templates/Home_page.html:46 templates/Portfolio_page.html:41
-#: templates/Sell_stock.html:42 templates/StockMarket_page.html:44
+#: templates/Home_page.html:45 templates/Portfolio_page.html:41
+#: templates/Sell_stock.html:42 templates/StockMarket_page.html:49
 #: templates/TransactionHistory.html:38 templates/buying_stock.html:42
 #: templates/successfullyBoughtStock.html:48
 msgid "Sign out"
 msgstr "desconectar"
 
-#: templates/Home_page.html:68
+#: templates/Home_page.html:54
+msgid "Your Score"
+msgstr "Tu puntuación"
+
+#: templates/Home_page.html:61
+msgid "Your Rank"
+msgstr "Su rango"
+
+#: templates/Home_page.html:67
 msgid "Rank"
 msgstr "Rango"
 
-#: templates/Home_page.html:69
+#: templates/Home_page.html:68
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/Home_page.html:70
+#: templates/Home_page.html:69
 msgid "Score"
 msgstr "Puntaje"
 
-#: templates/Login_page.html:24
+#: templates/Login_page.html:26
 msgid "Member Login"
 msgstr "Inicio de sesión de miembro"
 
-#: templates/Login_page.html:26
+#: templates/Login_page.html:28
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: templates/Login_page.html:27 templates/Signup_page.html:28
+#: templates/Login_page.html:29 templates/Signup_page.html:28
 msgid "Password"
 msgstr "Contraseña"
 
-#: templates/Login_page.html:29
+#: templates/Login_page.html:31
 msgid "Login"
 msgstr "Acceso"
 
-#: templates/Login_page.html:30
+#: templates/Login_page.html:32
 msgid "Forgot"
 msgstr "Olvidó"
 
-#: templates/Login_page.html:30
+#: templates/Login_page.html:32
 msgid "Password?"
 msgstr "¿Contraseña?"
 
-#: templates/Login_page.html:31
+#: templates/Login_page.html:33
 msgid "Create your account"
 msgstr "Crea tu cuenta"
 
@@ -299,55 +367,55 @@ msgstr "Nombre de usuario"
 msgid "Confirm Password"
 msgstr "Confirmar Contraseña"
 
-#: templates/StockMarket_page.html:53
+#: templates/StockMarket_page.html:58
 msgid "Stock Search"
 msgstr "Búsqueda de Stock"
 
-#: templates/StockMarket_page.html:56
+#: templates/StockMarket_page.html:61
 msgid "Search for a Stock"
 msgstr "Buscar Una Acción"
 
-#: templates/StockMarket_page.html:58
+#: templates/StockMarket_page.html:63
 msgid "Day"
 msgstr "Día"
 
-#: templates/StockMarket_page.html:59
+#: templates/StockMarket_page.html:64
 msgid "Week"
 msgstr "Semana"
 
-#: templates/StockMarket_page.html:60
+#: templates/StockMarket_page.html:65
 msgid "Month"
 msgstr "Mes"
 
-#: templates/StockMarket_page.html:61
+#: templates/StockMarket_page.html:66
 msgid "3 Month"
 msgstr "3 Meses"
 
-#: templates/StockMarket_page.html:62
+#: templates/StockMarket_page.html:67
 msgid "6 Month"
 msgstr "6 Meses"
 
-#: templates/StockMarket_page.html:63
+#: templates/StockMarket_page.html:68
 msgid "1 Year"
 msgstr "1 año"
 
-#: templates/StockMarket_page.html:64
+#: templates/StockMarket_page.html:69
 msgid "5 Year"
 msgstr "5 años"
 
-#: templates/StockMarket_page.html:65
+#: templates/StockMarket_page.html:70
 msgid "All Time"
 msgstr "Todo el tiempo"
 
-#: templates/StockMarket_page.html:68
+#: templates/StockMarket_page.html:73
 msgid "Search"
 msgstr "Buscar"
 
-#: templates/StockMarket_page.html:75
+#: templates/StockMarket_page.html:80
 msgid "Buy this stock"
 msgstr "Comprar Esta Acción"
 
-#: templates/StockMarket_page.html:77 templates/buying_stock.html:59
+#: templates/StockMarket_page.html:82 templates/buying_stock.html:59
 #: templates/successfullyBoughtStock.html:62
 msgid "Stock Name:"
 msgstr "Nombre común:"
@@ -384,33 +452,21 @@ msgstr "Comprar"
 msgid "Contact us"
 msgstr "Contacta Con Nosotros"
 
-#: templates/contact.html:29
-msgid "First Name:"
-msgstr "Nombre de Pila:"
-
-#: templates/contact.html:30
+#: templates/contact.html:29 templates/contact.html:30
 msgid "First Name"
-msgstr "Nombre de pila"
+msgstr "Nombre de Pila"
 
 #: templates/contact.html:32
 msgid "Email:"
-msgstr "Correo Electrónico:"
+msgstr "Correo Electrónico"
 
-#: templates/contact.html:37
-msgid "Last Name:"
-msgstr "Apellido:"
-
-#: templates/contact.html:38
+#: templates/contact.html:37 templates/contact.html:38
 msgid "Last Name"
 msgstr "Apellido"
 
-#: templates/contact.html:40
-msgid "Country:"
-msgstr "País:"
-
-#: templates/contact.html:41
+#: templates/contact.html:40 templates/contact.html:41
 msgid "Country"
-msgstr "Pais"
+msgstr "País"
 
 #: templates/contact.html:45
 msgid "Comment"
@@ -421,8 +477,8 @@ msgid "Write something.."
 msgstr "Escribe algo.."
 
 #: venv/lib/python3.7/site-packages/flask_wtf/file.py:50
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:203
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:243
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:218
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:258
 msgid "This field is required."
 msgstr ""
 
@@ -434,80 +490,87 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:56
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:68
 #, python-format
 msgid "Invalid field name '%s'."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:64
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:76
 #, python-format
 msgid "Field must be equal to %(other_name)s."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:97
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:109
 #, python-format
 msgid "Field must be at least %(min)d character long."
 msgid_plural "Field must be at least %(min)d characters long."
 msgstr[0] ""
 msgstr[1] ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:100
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:112
 #, python-format
 msgid "Field cannot be longer than %(max)d character."
 msgid_plural "Field cannot be longer than %(max)d characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:103
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:115
+#, python-format
+msgid "Field must be exactly %(max)d character long."
+msgid_plural "Field must be exactly %(max)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:118
 #, python-format
 msgid "Field must be between %(min)d and %(max)d characters long."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:139
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:154
 #, python-format
 msgid "Number must be at least %(min)s."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:141
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:156
 #, python-format
 msgid "Number must be at most %(max)s."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:143
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:158
 #, python-format
 msgid "Number must be between %(min)s and %(max)s."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:275
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:290
 msgid "Invalid input."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:301
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:355
 msgid "Invalid email address."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:335
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:388
 msgid "Invalid IP address."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:386
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:430
 msgid "Invalid Mac address."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:415
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:465
 msgid "Invalid URL."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:436
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:485
 msgid "Invalid UUID."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:464
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:515
 #, python-format
 msgid "Invalid value, must be one of: %(values)s."
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/validators.py:496
+#: venv/lib/python3.7/site-packages/wtforms/validators.py:547
 #, python-format
 msgid "Invalid value, can't be any of: %(values)s."
 msgstr ""
@@ -540,7 +603,7 @@ msgstr ""
 #: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:127
 #: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:180
 #: venv/lib/python3.7/site-packages/wtforms/ext/sqlalchemy/fields.py:185
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:472
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:513
 msgid "Not a valid choice"
 msgstr ""
 
@@ -561,36 +624,41 @@ msgstr ""
 msgid "Invalid date/time input"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:465
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:505
 msgid "Invalid Choice: could not coerce"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:498
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:539
 msgid "Invalid choice(s): one or more data inputs could not be coerced"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:505
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:546
 #, python-format
 msgid "'%(value)s' is not a valid choice for this field"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:588
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:629
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:639
 msgid "Not a valid integer value"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:654
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:705
 msgid "Not a valid decimal value"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:681
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:732
 msgid "Not a valid float value"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:742
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:793
 msgid "Not a valid datetime value"
 msgstr ""
 
-#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:759
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:810
 msgid "Not a valid date value"
+msgstr ""
+
+#: venv/lib/python3.7/site-packages/wtforms/fields/core.py:827
+msgid "Not a valid time value"
 msgstr ""
 
