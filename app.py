@@ -1,6 +1,6 @@
 import datetime
 import MySQLdb.cursors
-from babel import Locale
+import time
 from flask_mail import Mail, Message
 from flask import Flask, jsonify
 from flask import render_template, request, session
@@ -24,7 +24,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    return 'fr'
+    return 'es'
     # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
@@ -119,7 +119,6 @@ def home_page():
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor2.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor2.fetchall()
-    # return render_template("example.html", value=data)
     return render_template('Home_page.html', len=len(data), data=data, Money=Money)
 
 
@@ -165,6 +164,8 @@ def PayBack():
             Amount_Of_Money_need_to_PayBack_Left -= PlayBackMoney
             if Amount_Of_Money_need_to_PayBack_Left == 0:
                 msg = _('You have paid off all the loans')
+                # time.sleep(3)
+
             else:
                 msg = _('You still need to pay back ') + str(Amount_Of_Money_need_to_PayBack_Left) + _(" by ") + str(
                     PaybackDay)
@@ -217,7 +218,12 @@ def Loan():
     else:
         if request.method == 'POST' and 'Loan_Amount' in request.form:
 
-            Amount_OF_Loan = float(request.form['Loan_Amount'])  # this is getting the input for Amount of loan
+            Amount_OF_Loan = float(request.form['Loan_Amount'])
+            if get_locale != "en":
+                Amount_OF_Loan = checkingNumber(Amount_OF_Loan)
+            Amount_OF_Loan = Amount_OF_Loan[:-2].split(',')
+            Amount_OF_Loan = float('.'.join([Amount_OF_Loan[0].replace('.', ''), Amount_OF_Loan[1]]))
+
             Interest_Rate = 0.05
             Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan), 2)  # How much money user have to pay back
             Interest_Amount = float(Amount_OF_Loan) * Interest_Rate
@@ -265,9 +271,9 @@ def Loan():
                                (NewAmountOfMoney, session['id'],))
                 cursor.fetchall()
 
-                Confirm_Msg = _('You had loan $') + str(Amount_OF_Loan) + \
+                Confirm_Msg = _('You had loan $') + str(ConvertNumberToEuros(Amount_OF_Loan)) + \
                               _(', in next ') + str(Pay_BackDay_Period) + _(' days, you have to pay back $') \
-                              + str(Total_Pay_Back) + _(' include interest')
+                              + str(ConvertNumberToEuros(Total_Pay_Back)) + _(' include interest')
                 mysql.connection.commit()
             else:
                 Confirm_Msg = _('Amount of loan range is 1000 - 1000000')
@@ -317,6 +323,12 @@ def ConvertNumberToEuros(number):
         return format_currency(float(number) * exchangeToYen, 'CNY', locale='zh_CN')
     else:
         return format_currency(float(number), 'USD', locale='en_US')
+
+
+def checkingNumber(number):
+    number = number[:-2].split(',')
+    number = float('.'.join([number[0].replace('.', ''), number[1]]))
+    return 12
 
 
 @app.template_filter()
