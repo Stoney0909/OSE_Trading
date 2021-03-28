@@ -1,9 +1,11 @@
 import datetime
+import json
+
 import MySQLdb.cursors
 from babel import Locale
 from flask_mail import Mail, Message
 from flask import Flask
-from flask import render_template, request, session
+from flask import render_template, request, session, render_template, jsonify
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
 from flask import g, request
@@ -24,7 +26,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    return 'fr'
+    return 'es'
     # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
@@ -42,7 +44,6 @@ app.config.update(
         'fr': 'French',
         'zh': 'Chinese'
     }
-
 )
 
 mail = Mail(app)
@@ -54,9 +55,14 @@ c = CurrencyRates()
 exchangeToEuros = c.get_rate('USD', 'EUR')
 exchangeToPesos = c.get_rate('USD', 'MXN')
 exchangeToYen = c.get_rate('USD', 'CNY')
+
+exchangeUS_From_Euros = c.get_rate('EUR', 'USD')
+exchangeUS_From_Pesos = c.get_rate('MXN', 'USD')
+exchangeUS_From_Yen = c.get_rate('CNY', 'USD')
+
 global CurrentGame
 CurrentGame = 'Public'
-
+Password = 'password'
 # Calling the function for Sign up , edit Profile and ChangePassword
 from FunctionToCall.Account import account_api
 
@@ -81,7 +87,6 @@ from FunctionToCall.Buy_Sell import Buy_Sell_api
 app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
-
 
 
 
@@ -139,28 +144,52 @@ def home_page():
 def successBought():
     return render_template('successfullyBoughtStock.html')
 
+
 @app.route('/Game', methods=['GET', 'POST'])
 def gamePage():
-
     if request.method == 'POST' and 'gameName' in request.form:
         gameNameFromSearch = request.form.get('gameName')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Game where GameName = % s', (gameNameFromSearch,))
         gameData = cursor.fetchall()
-        return render_template('Game.html', gameData=gameData, game=CurrentGame, gameName=gameNameFromSearch)
-    elif request.method == 'POST' in request.form:
-        password = session['password']
-        return render_template('Game.html', gameData='', game=password, gameName='')
-
+        if gameData:
+            session['GameName'] = gameNameFromSearch
+            return render_template('Game.html', gameData=gameData, game=CurrentGame, gameName=gameNameFromSearch)
+        else:
+            error = _('This Game does not exist')
+            return render_template('Game.html', gameData='', game=CurrentGame, error=error)
+    if request.method == 'POST':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+        data = cursor.fetchall()
+        cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
+        Money = cursor3.fetchall()
+        return render_template('Home_page.html', len=len(data), data=data, Money=Money)
     return render_template('Game.html', gameData='', game=CurrentGame)
 
-@app.route('/Game', methods=['GET', 'POST'])
+
+@app.route('/post_game', methods=['POST'])
 def gamePassword():
-
-    return render_template('Password.html', gameName=session['GameName'])
-
-
-
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+    data = cursor.fetchall()
+    PasswordGame = request.form['javascript_data']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # cursor.execute('SELECT * FROM Game where GameName = % s', (session['GameName'],))
+    cursor.execute('SELECT * FROM Game WHERE GameName = % s AND Password = % s', (session['GameName'], PasswordGame,))
+    gameData = cursor.fetchall()
+    session['Correct_Password'] = PasswordGame
+    print(PasswordGame)
+    if gameData:
+        message = _('You successfully join the Game')
+        session['Correct_Password'] = PasswordGame
+        Password = PasswordGame
+        return render_template('Game.html', gameData='', game=CurrentGame)
+    else:
+        session['Correct_Password'] = 'wrong'
+        return render_template('Home_page.html', len=len(data), data=data)
+    return render_template('Home_page.html', len=len(data), data=data)
 
 
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
@@ -255,10 +284,10 @@ def Loan():
         if request.method == 'POST' and 'Loan_Amount' in request.form:
 
             Amount_OF_Loan = float(request.form['Loan_Amount'])
-            if get_locale != "en":
-                Amount_OF_Loan = checkingNumber(Amount_OF_Loan)
-            Amount_OF_Loan = Amount_OF_Loan[:-2].split(',')
-            Amount_OF_Loan = float('.'.join([Amount_OF_Loan[0].replace('.', ''), Amount_OF_Loan[1]]))
+            # if get_locale != "en":
+            #     Amount_OF_Loan = checkingNumber(Amount_OF_Loan)
+            #     Amount_OF_Loan = Amount_OF_Loan[:-2].split(',')
+            #     Amount_OF_Loan = float('.'.join([Amount_OF_Loan[0].replace('.', ''), Amount_OF_Loan[1]]))
 
             Interest_Rate = 0.05
             Pay_Back_Money_Per_Time = round(float(Amount_OF_Loan), 2)  # How much money user have to pay back
@@ -307,7 +336,7 @@ def Loan():
                                (NewAmountOfMoney, session['id'],))
                 cursor.fetchall()
 
-                Confirm_Msg = _('You had loan $') + str(ConvertNumberToEuros(Amount_OF_Loan)) + \
+                Confirm_Msg = _('You had loan ') + str(ConvertNumberToEuros(Amount_OF_Loan)) + \
                               _(', in next ') + str(Pay_BackDay_Period) + _(' days, you have to pay back $') \
                               + str(ConvertNumberToEuros(Total_Pay_Back)) + _(' include interest')
                 mysql.connection.commit()
@@ -357,6 +386,17 @@ def ConvertNumberToEuros(number):
         return format_currency(float(number) * exchangeToPesos, 'MXN', locale='es_MX')
     if get_locale() == 'zh':  # convert to chinese
         return format_currency(float(number) * exchangeToYen, 'CNY', locale='zh_CN')
+    else:
+        return format_currency(float(number), 'USD', locale='en_US')
+
+
+def ConvertBackToUSMoney(number):
+    if get_locale() == 'fr':  # convert to euros
+        return float(number) * exchangeUS_From_Euros
+    if get_locale() == 'es':  # convert to spanish
+        return float(number) * exchangeUS_From_Pesos
+    if get_locale() == 'zh':  # convert to chinese
+        return float(number) * exchangeUS_From_Yen
     else:
         return format_currency(float(number), 'USD', locale='en_US')
 

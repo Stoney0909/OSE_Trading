@@ -34,7 +34,6 @@ def buy_Stock():
             date = "{}:{}".format(row.hour, row.minute)
         time.append(date)
 
-
     company_name = stockData.info['longName']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT amount_Money FROM trading_Profile WHERE trading_ID = %s',
