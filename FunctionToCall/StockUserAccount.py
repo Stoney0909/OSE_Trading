@@ -194,13 +194,12 @@ def getGraph(nameOfStock):
             minute = format(row.minute, '02d')
             date = "{}:{}".format(row.hour, minute)
         time.append(date)
-    history['Open'] = history['Open'].apply(lambda x: x * ConvertNumber())
-    history['Open'] = history['Open'].round(2)
-    company_name = stockData.info['longName']
 
+    company_name = stockData.info['longName']
+    currentPrice = history['Open'].iloc[-1]
     stockid = company_name
     history['Open'] = history['Open'].apply(lambda x: x * ConvertNumber())
-    currentPrice = history['Open'].iloc[-1]
+
     history['Open'] = history['Open'].round(2)
     values = history['Open']
     msg = currentPrice

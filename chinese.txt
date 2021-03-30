@@ -52,7 +52,7 @@ msgstr "你贷款了 ￥"
 
 #: app.py:276
 msgid ", in next "
-msgstr "，下次"
+msgstr "，下次 "
 
 #: app.py:276
 msgid " days, you have to pay back $"

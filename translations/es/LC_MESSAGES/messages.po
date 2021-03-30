@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-28 19:49-0400\n"
-"PO-Revision-Date: 2021-03-28 19:51-0400\n"
+"POT-Creation-Date: 2021-03-29 21:29-0400\n"
+"PO-Revision-Date: 2021-03-29 21:30-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -18,216 +18,253 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app.py:123
+#: app.py:120
 msgid "Incorrect username / password!"
-msgstr "¡Nombre de usuario / contraseña incorrectos!"
+msgstr ""
 
-#: app.py:159
+#: app.py:156
 msgid "This Game does not exist"
-msgstr "¡La cuenta ya existe!"
+msgstr ""
 
-#: app.py:185
+#: app.py:182
 msgid "You successfully join the Game"
-msgstr "Te unes al juego con éxito"
+msgstr ""
 
-#: app.py:222
+#: app.py:219
 msgid "Please enter a positive number"
-msgstr "¡La cuenta ya existe!"
+msgstr ""
 
-#: app.py:224
+#: app.py:221
 msgid "You only have to play back "
-msgstr "Solo tienes que reproducir "
+msgstr ""
 
-#: app.py:226
+#: app.py:223
 msgid "You don't have that much money in your account"
-msgstr "No tienes tanto dinero en tu cuenta"
+msgstr ""
 
-#: app.py:231
+#: app.py:228
 msgid "You have paid off all the loans"
-msgstr "Has cancelado todos los préstamos."
+msgstr ""
 
-#: app.py:235
+#: app.py:232
 msgid "You still need to pay back "
-msgstr "Todavía necesitas pagar "
+msgstr ""
 
-#: app.py:235
+#: app.py:232
 msgid " by "
-msgstr " por "
+msgstr ""
 
-#: app.py:339
+#: app.py:336
 msgid "You had loan "
-msgstr "Tuviste un préstamo "
+msgstr ""
 
-#: app.py:340
+#: app.py:337
 msgid ", in next "
-msgstr ", en el siguiente "
+msgstr ""
 
-#: app.py:340
+#: app.py:337
 msgid " days, you have to pay back $"
-msgstr " días, tienes que devolver $"
+msgstr ""
+
+#: app.py:338
+msgid " include interest"
+msgstr ""
 
 #: app.py:341
-msgid " include interest"
-msgstr " incluir interés"
-
-#: app.py:344
 msgid "Amount of loan range is 1000 - 1000000"
-msgstr "La cantidad del rango de préstamo es 1000 - 1000000"
+msgstr ""
 
-#: app.py:362
+#: app.py:359
 msgid "You have received a new feedback from {} <{}>. Comment {}."
-msgstr "Ha recibido un nuevo comentario de {} <{}>. Comentar {}."
+msgstr ""
 
 #: FunctionToCall/Account.py:30
 msgid "Account already exists!"
-msgstr "¡La cuenta ya existe!"
+msgstr ""
 
 #: FunctionToCall/Account.py:32
 msgid "Invalid email address !"
-msgstr "Dirección de correo electrónico inválida."
+msgstr ""
 
 #: FunctionToCall/Account.py:34
 msgid "name must contain only characters and numbers !"
-msgstr "¡El nombre debe contener solo caracteres y números!"
+msgstr ""
 
 #: FunctionToCall/Account.py:36
 msgid "Password does not match"
-msgstr "Las contraseñas no coinciden"
+msgstr ""
 
 #: FunctionToCall/Account.py:38 FunctionToCall/Account.py:45
 #: FunctionToCall/Account.py:123
 msgid "Please fill out the form !"
-msgstr "Por favor rellena el formulario!"
+msgstr ""
 
 #: FunctionToCall/Account.py:43
 msgid "You have successfully registered!"
-msgstr "¡Se ha registrado exitosamente!"
+msgstr ""
 
 #: FunctionToCall/Account.py:112
 msgid "New Password does not match"
-msgstr "La nueva contraseña no coincide"
+msgstr ""
 
 #: FunctionToCall/Account.py:120
 msgid "Old password does not match"
-msgstr "La contraseña antigua no coincide"
+msgstr ""
 
 #: FunctionToCall/Account.py:135
 msgid "This account does not exist"
-msgstr "Esta cuenta no existe"
+msgstr ""
 
 #: FunctionToCall/Account.py:150
 msgid "Check your email for the new password"
-msgstr "Consulta tu correo electrónico para ver la nueva contraseña"
+msgstr ""
+
+#: FunctionToCall/Buy_Sell.py:22
+msgid "Monthly Data"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:52
 msgid "The number of share has to be positive!"
-msgstr "El número de acciones tiene que ser positivo!"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:54
 msgid "You don't have enough fund to buy this stock"
-msgstr "No tienes fondos suficientes para comprar estas acciones"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:65
 msgid "Spend "
-msgstr "Gastar"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:65
 msgid " to buy "
-msgstr " comprar "
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:66 FunctionToCall/Buy_Sell.py:117
 msgid " share of "
-msgstr " parte de "
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:66 FunctionToCall/Buy_Sell.py:117
 msgid "'s stock"
-msgstr "Valores"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:75
 msgid "You successfully bought the stock"
-msgstr "Compraste las acciones con éxito"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:100
 msgid "You Don't Own That amount of share"
-msgstr "No eres dueño de esa cantidad de acciones"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:105
 msgid "Please input positive number"
-msgstr "Ingrese un número positivo"
+msgstr ""
 
 #: FunctionToCall/Buy_Sell.py:117
 msgid "Sold "
-msgstr "Vendido "
+msgstr ""
+
+#: Python/stockPage.py:12 templates/StockMarket_page.html:63
+msgid "Day"
+msgstr ""
+
+#: Python/stockPage.py:35 templates/StockMarket_page.html:64
+msgid "Week"
+msgstr ""
+
+#: Python/stockPage.py:51 templates/StockMarket_page.html:65
+msgid "Month"
+msgstr ""
+
+#: Python/stockPage.py:67
+msgid "3 Months"
+msgstr ""
+
+#: Python/stockPage.py:83
+msgid "6 Months"
+msgstr ""
+
+#: Python/stockPage.py:98
+msgid "Year"
+msgstr ""
+
+#: Python/stockPage.py:113
+msgid "5 Years"
+msgstr ""
+
+#: Python/stockPage.py:129 templates/StockMarket_page.html:70
+msgid "All Time"
+msgstr ""
 
 #: templates/ChangePassword.html:5 templates/ChangePassword.html:23
 msgid "Change password"
-msgstr "Cambiar la contraseña"
+msgstr ""
 
 #: templates/ChangePassword.html:24
 msgid "Old Password"
-msgstr "Contraseña anterior"
+msgstr ""
 
 #: templates/ChangePassword.html:25
 msgid "New Password"
-msgstr "Nueva contraseña"
+msgstr ""
 
 #: templates/ChangePassword.html:26
 msgid "Confirm Password "
-msgstr "confirmar Contraseña"
+msgstr ""
 
-#: templates/ChangePassword.html:27 templates/Signup_page.html:31
-#: templates/contact.html:49
+#: templates/ChangePassword.html:27 templates/PayBackLoanPage.html:92
+#: templates/Signup_page.html:31 templates/contact.html:49
+#: templates/loan.html:94
 msgid "Submit"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:5
 msgid "Find Password"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:20
 msgid "Reset password"
-msgstr "Restablecer la contraseña"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:24 templates/Signup_page.html:27
 #: templates/contact.html:33
 msgid "Email"
-msgstr "Correo electrónico"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:25
 msgid "Enter email address"
-msgstr "Introducir la dirección de correo electrónico"
+msgstr ""
 
 #: templates/ForgetPassword_page.html:26
 msgid "Send"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/Game.html:5 templates/Home_page.html:5
 #: templates/Portfolio_page.html:31 templates/Sell_stock.html:32
 #: templates/StockMarket_page.html:38 templates/TransactionHistory.html:28
 #: templates/buying_stock.html:32 templates/successfullyBoughtStock.html:38
 msgid "Home"
-msgstr "Hogar"
+msgstr ""
 
 #: templates/Game.html:63 templates/Home_page.html:35
 #: templates/Portfolio_page.html:32 templates/Sell_stock.html:10
 #: templates/StockMarket_page.html:10 templates/TransactionHistory.html:29
 #: templates/successfullyBoughtStock.html:10
 msgid "Stock Market"
-msgstr "Bolsa de Valores"
+msgstr ""
 
 #: templates/Game.html:64 templates/Home_page.html:36
-#: templates/Portfolio_page.html:8 templates/StockMarket_page.html:39
-#: templates/TransactionHistory.html:30 templates/buying_stock.html:33
-#: templates/successfullyBoughtStock.html:39
+#: templates/Portfolio_page.html:8 templates/Sell_stock.html:33
+#: templates/StockMarket_page.html:39 templates/TransactionHistory.html:30
+#: templates/buying_stock.html:33 templates/successfullyBoughtStock.html:39
 msgid "Portfolio"
-msgstr "Portafolio"
+msgstr ""
 
 #: templates/Game.html:65 templates/Home_page.html:37
 #: templates/Portfolio_page.html:33 templates/Sell_stock.html:34
 #: templates/StockMarket_page.html:40 templates/TransactionHistory.html:5
 #: templates/buying_stock.html:34 templates/successfullyBoughtStock.html:40
 msgid "Transaction History"
-msgstr "Historial de Transacciones"
+msgstr ""
 
 #: templates/Game.html:69 templates/Home_page.html:41
 #: templates/Portfolio_page.html:37 templates/Profile.html:5
@@ -235,272 +272,272 @@ msgstr "Historial de Transacciones"
 #: templates/TransactionHistory.html:34 templates/buying_stock.html:38
 #: templates/successfullyBoughtStock.html:44
 msgid "Profile"
-msgstr "Perfil"
+msgstr ""
 
 #: templates/Game.html:70 templates/Home_page.html:42
 #: templates/Portfolio_page.html:38 templates/Sell_stock.html:39
 #: templates/StockMarket_page.html:46 templates/TransactionHistory.html:35
 #: templates/buying_stock.html:39 templates/successfullyBoughtStock.html:45
 msgid "Change Password"
-msgstr "Cambiar la Contraseña"
+msgstr ""
 
 #: templates/Game.html:71 templates/Home_page.html:43
 #: templates/Portfolio_page.html:39 templates/Sell_stock.html:40
 #: templates/StockMarket_page.html:47 templates/TransactionHistory.html:36
 #: templates/buying_stock.html:40 templates/successfullyBoughtStock.html:46
 msgid "Loan"
-msgstr "Préstamo"
+msgstr ""
 
 #: templates/Game.html:72 templates/Home_page.html:44
 msgid "Game"
-msgstr "Juego"
+msgstr ""
 
 #: templates/Game.html:73 templates/Home_page.html:45
 #: templates/Portfolio_page.html:40 templates/Sell_stock.html:41
 #: templates/StockMarket_page.html:48 templates/TransactionHistory.html:37
 #: templates/buying_stock.html:41 templates/successfullyBoughtStock.html:47
 msgid "Contact"
-msgstr "Contacto"
+msgstr ""
 
 #: templates/Game.html:74 templates/Home_page.html:46
 #: templates/Portfolio_page.html:41 templates/Sell_stock.html:42
 #: templates/StockMarket_page.html:49 templates/TransactionHistory.html:38
 #: templates/buying_stock.html:42 templates/successfullyBoughtStock.html:48
 msgid "Sign out"
-msgstr "desconectar"
+msgstr ""
 
 #: templates/Game.html:81
 msgid "Current Game:"
-msgstr "Juego Actual"
+msgstr ""
 
 #: templates/Game.html:86
 msgid "Search For Game"
-msgstr "Buscar juego"
+msgstr ""
 
 #: templates/Game.html:88 templates/StockMarket_page.html:73
 msgid "Search"
-msgstr "Búsqueda"
+msgstr ""
 
 #: templates/Game.html:94
 msgid "Join"
-msgstr "Unirse"
+msgstr ""
 
 #: templates/Home_page.html:55
 msgid "Your Score"
-msgstr "Tu puntuación"
+msgstr ""
 
 #: templates/Home_page.html:62
 msgid "Your Rank"
-msgstr "Su rango"
+msgstr ""
 
 #: templates/Home_page.html:68
 msgid "Rank"
-msgstr "Rango"
+msgstr ""
 
 #: templates/Home_page.html:69
 msgid "Name"
-msgstr "Nombre"
+msgstr ""
 
 #: templates/Home_page.html:70
 msgid "Score"
-msgstr "Puntaje"
+msgstr ""
 
 #: templates/Login_page.html:26
 msgid "Member Login"
-msgstr "Inicio de sesión de miembro"
+msgstr ""
 
 #: templates/Login_page.html:28
 msgid "Username"
-msgstr "Nombre de usuario"
+msgstr ""
 
 #: templates/Login_page.html:29 templates/Signup_page.html:28
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: templates/Login_page.html:31
 msgid "Login"
-msgstr "Acceso"
+msgstr ""
 
 #: templates/Login_page.html:32
 msgid "Forgot"
-msgstr "Olvidó"
+msgstr ""
 
 #: templates/Login_page.html:32
 msgid "Password?"
-msgstr "¿Contraseña?"
+msgstr ""
 
 #: templates/Login_page.html:33
 msgid "Create your account"
-msgstr "Crea tu cuenta"
+msgstr ""
+
+#: templates/PayBackLoanPage.html:86
+msgid "Pay back day: "
+msgstr ""
+
+#: templates/PayBackLoanPage.html:87
+msgid "Amount of money in account: "
+msgstr ""
+
+#: templates/PayBackLoanPage.html:88
+msgid "Amount of money need to pay back: "
+msgstr ""
 
 #: templates/Portfolio_page.html:49
 msgid "Stock Name"
-msgstr "Nombre de Stock"
+msgstr ""
 
 #: templates/Portfolio_page.html:50
 msgid "Name Of Company"
-msgstr "Nombre de la Compañía"
+msgstr ""
 
 #: templates/Portfolio_page.html:51
 msgid "Number of Shares"
-msgstr "Numero de Veces Compartido"
+msgstr ""
 
 #: templates/Portfolio_page.html:52
 msgid "Purchase Price"
-msgstr "Precio de Compra"
+msgstr ""
 
 #: templates/Portfolio_page.html:53
 msgid "Purchase Date"
-msgstr "Fecha de Compra"
+msgstr ""
 
 #: templates/Portfolio_page.html:54
 msgid "Current Share Price"
-msgstr "Precio Actual de la Acción"
+msgstr ""
 
 #: templates/Portfolio_page.html:55
 msgid "Current Gain"
-msgstr "Ganancia de Corriente"
+msgstr ""
 
 #: templates/Portfolio_page.html:66 templates/Sell_stock.html:58
 msgid "Sell"
-msgstr "Vender"
+msgstr ""
 
 #: templates/Portfolio_page.html:75
 msgid "TOTAL VALUE"
-msgstr "VALOR TOTAL"
+msgstr ""
 
 #: templates/Sell_stock.html:50 templates/buying_stock.html:50
 msgid "The Stock:"
-msgstr "La Acción:"
+msgstr ""
 
 #: templates/Sell_stock.html:52
 msgid "Current Price/Share:"
-msgstr "Precio / Acción Actual:"
+msgstr ""
 
 #: templates/Sell_stock.html:54
 msgid "Profit/Loss:"
-msgstr "Pérdida de Beneficios:"
+msgstr ""
 
 #: templates/Sell_stock.html:61
 msgid "Error:"
-msgstr "Error:"
+msgstr ""
 
 #: templates/Signup_page.html:24
 msgid "Sign Up"
-msgstr "Inscribirse"
+msgstr ""
 
 #: templates/Signup_page.html:26
 msgid "UserName"
-msgstr "Nombre de usuario"
+msgstr ""
 
 #: templates/Signup_page.html:29
 msgid "Confirm Password"
-msgstr "Confirmar Contraseña"
+msgstr ""
 
 #: templates/StockMarket_page.html:58
 msgid "Stock Search"
-msgstr "Búsqueda de Stock"
+msgstr ""
 
 #: templates/StockMarket_page.html:61
 msgid "Search for a Stock"
-msgstr "Buscar Una Acción"
-
-#: templates/StockMarket_page.html:63
-msgid "Day"
-msgstr "Día"
-
-#: templates/StockMarket_page.html:64
-msgid "Week"
-msgstr "Semana"
-
-#: templates/StockMarket_page.html:65
-msgid "Month"
-msgstr "Mes"
+msgstr ""
 
 #: templates/StockMarket_page.html:66
 msgid "3 Month"
-msgstr "3 Meses"
+msgstr ""
 
 #: templates/StockMarket_page.html:67
 msgid "6 Month"
-msgstr "6 Meses"
+msgstr ""
 
 #: templates/StockMarket_page.html:68
 msgid "1 Year"
-msgstr "1 año"
+msgstr ""
 
 #: templates/StockMarket_page.html:69
 msgid "5 Year"
-msgstr "5 años"
-
-#: templates/StockMarket_page.html:70
-msgid "All Time"
-msgstr "Todo el tiempo"
+msgstr ""
 
 #: templates/StockMarket_page.html:80
 msgid "Buy this stock"
-msgstr "Comprar Esta Acción"
+msgstr ""
 
 #: templates/StockMarket_page.html:82 templates/buying_stock.html:59
 #: templates/successfullyBoughtStock.html:62
 msgid "Stock Name:"
-msgstr "Nombre común:"
+msgstr ""
 
 #: templates/TransactionHistory.html:47
 msgid "List"
-msgstr "Lista"
+msgstr ""
 
 #: templates/TransactionHistory.html:48
 msgid "Transaction Date"
-msgstr "Fecha de Transacción"
+msgstr ""
 
 #: templates/TransactionHistory.html:49
 msgid "Process"
-msgstr "Proceso"
+msgstr ""
 
 #: templates/TransactionHistory.html:50
 msgid "Price"
-msgstr "Precio"
+msgstr ""
 
 #: templates/TransactionHistory.html:51
 msgid "Amount of Money"
-msgstr "Cantidad de Dinero"
+msgstr ""
 
 #: templates/buying_stock.html:51
 msgid "The Price:"
-msgstr "El Precio:"
+msgstr ""
 
 #: templates/buying_stock.html:53
 msgid "Buy"
-msgstr "Comprar"
+msgstr ""
 
 #: templates/contact.html:5 templates/contact.html:23
 msgid "Contact us"
-msgstr "Contacta Con Nosotros"
+msgstr ""
 
 #: templates/contact.html:29 templates/contact.html:30
 msgid "First Name"
-msgstr "Nombre de Pila"
+msgstr ""
 
 #: templates/contact.html:32
 msgid "Email:"
-msgstr "Correo Electrónico"
+msgstr ""
 
 #: templates/contact.html:37 templates/contact.html:38
 msgid "Last Name"
-msgstr "Apellido"
+msgstr ""
 
 #: templates/contact.html:40 templates/contact.html:41
 msgid "Country"
-msgstr "País"
+msgstr ""
 
 #: templates/contact.html:45
 msgid "Comment"
-msgstr "Comentario"
+msgstr ""
 
 #: templates/contact.html:46
 msgid "Write something.."
-msgstr "Escribe algo.."
+msgstr ""
+
+#: templates/loan.html:90
+msgid "Enter amount of loan:"
+msgstr ""
 
 #: venv/lib/python3.7/site-packages/flask_wtf/file.py:50
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:218
