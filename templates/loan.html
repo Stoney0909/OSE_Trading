@@ -87,11 +87,11 @@
 
 
     <div class = "GetLoanDisplay">
-        <p class="information">Enter amount of loan:</p>
+        <p class="information">{{ _('Enter amount of loan:') }}</p>
         <form method="post">
             <input class="placeholdermoney" placeholder="Range 1000 - 1000000" type="text" name = "Loan_Amount" required>
             <br>
-            <button class="buttonSubmit" type="submit"  name = "Loan_Amount_Submit">Submit</button>
+            <button class="buttonSubmit" type="submit"  name = "Loan_Amount_Submit">{{ _('Submit') }}</button>
             <h1>{{ Confirm_Msg }}</h1>
         </form>
     </div>

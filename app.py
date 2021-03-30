@@ -1,6 +1,5 @@
 import datetime
 import json
-
 import MySQLdb.cursors
 from babel import Locale
 from flask_mail import Mail, Message
@@ -26,7 +25,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    return 'es'
+    return 'zh'
     # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
@@ -87,8 +86,6 @@ from FunctionToCall.Buy_Sell import Buy_Sell_api
 app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
-
-
 
 
 @app.route('/', methods=['GET', 'POST'])

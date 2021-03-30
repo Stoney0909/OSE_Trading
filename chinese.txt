@@ -1,4 +1,4 @@
-# French translations for PROJECT.
+# Chinese translations for PROJECT.
 # Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
@@ -7,555 +7,526 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-28 19:49-0400\n"
-"PO-Revision-Date: 2021-03-29 19:15-0400\n"
+"POT-Creation-Date: 2021-03-22 18:55-0400\n"
+"PO-Revision-Date: 2021-03-22 18:56-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: fr\n"
-"Language-Team: fr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app.py:123
+#: app.py:109
 msgid "Incorrect username / password!"
-msgstr ""
+msgstr "用户/密码错误！"
 
-#: app.py:159
-msgid "This Game does not exist"
-msgstr ""
-
-#: app.py:185
-msgid "You successfully join the Game"
-msgstr ""
-
-#: app.py:222
+#: app.py:158
 msgid "Please enter a positive number"
-msgstr ""
+msgstr "请填写正数"
 
-#: app.py:224
+#: app.py:160
 msgid "You only have to play back "
-msgstr ""
+msgstr "你需要要支付"
 
-#: app.py:226
+#: app.py:162
 msgid "You don't have that much money in your account"
-msgstr ""
+msgstr "你的余额不足"
 
-#: app.py:231
+#: app.py:167
 msgid "You have paid off all the loans"
-msgstr ""
+msgstr "你已经还完了贷款"
 
-#: app.py:235
+#: app.py:171
 msgid "You still need to pay back "
-msgstr ""
+msgstr "你还需要支付"
 
-#: app.py:235
+#: app.py:171
 msgid " by "
-msgstr ""
+msgstr "通过"
 
-#: app.py:339
-msgid "You had loan "
-msgstr ""
+#: app.py:275
+msgid "You had loan $"
+msgstr "你贷款了 ￥"
 
-#: app.py:340
+#: app.py:276
 msgid ", in next "
-msgstr ""
+msgstr "，下次"
 
-#: app.py:340
+#: app.py:276
 msgid " days, you have to pay back $"
-msgstr ""
+msgstr "天，你还需要支付￥"
 
-#: app.py:341
+#: app.py:277
 msgid " include interest"
-msgstr ""
+msgstr "包括利息"
 
-#: app.py:344
+#: app.py:280
 msgid "Amount of loan range is 1000 - 1000000"
-msgstr ""
+msgstr "贷款范围在1000-1000000"
 
-#: app.py:362
+#: app.py:298
 msgid "You have received a new feedback from {} <{}>. Comment {}."
-msgstr ""
+msgstr "您收到了来自 {} <{}>. Comment {}.的新的反馈"
 
 #: FunctionToCall/Account.py:30
 msgid "Account already exists!"
-msgstr ""
+msgstr "账户已经存在!"
 
 #: FunctionToCall/Account.py:32
 msgid "Invalid email address !"
-msgstr ""
+msgstr "无效的电子邮件地址!"
 
 #: FunctionToCall/Account.py:34
 msgid "name must contain only characters and numbers !"
-msgstr ""
+msgstr "名称必须包含字符和数字!"
 
 #: FunctionToCall/Account.py:36
 msgid "Password does not match"
-msgstr ""
+msgstr "密码不匹配"
 
 #: FunctionToCall/Account.py:38 FunctionToCall/Account.py:45
 #: FunctionToCall/Account.py:123
 msgid "Please fill out the form !"
-msgstr ""
+msgstr "请填写这张表格!"
 
 #: FunctionToCall/Account.py:43
 msgid "You have successfully registered!"
-msgstr ""
+msgstr "您已成功注册!"
 
 #: FunctionToCall/Account.py:112
 msgid "New Password does not match"
-msgstr ""
+msgstr "新密码不匹配"
 
 #: FunctionToCall/Account.py:120
 msgid "Old password does not match"
-msgstr ""
+msgstr "旧密码不匹配"
 
 #: FunctionToCall/Account.py:135
 msgid "This account does not exist"
-msgstr ""
+msgstr "该帐户不存在"
 
 #: FunctionToCall/Account.py:150
 msgid "Check your email for the new password"
-msgstr ""
+msgstr "请检查您的电子邮件以获取新密码"
 
-#: FunctionToCall/Buy_Sell.py:52
+#: FunctionToCall/Buy_Sell.py:47
 msgid "The number of share has to be positive!"
-msgstr ""
+msgstr "分享的数量必须是正的!"
 
-#: FunctionToCall/Buy_Sell.py:54
+#: FunctionToCall/Buy_Sell.py:49
 msgid "You don't have enough fund to buy this stock"
-msgstr ""
+msgstr "你没有足够的资金买这支股票"
 
-#: FunctionToCall/Buy_Sell.py:65
+#: FunctionToCall/Buy_Sell.py:60
 msgid "Spend "
-msgstr ""
+msgstr "花"
 
-#: FunctionToCall/Buy_Sell.py:65
+#: FunctionToCall/Buy_Sell.py:60
 msgid " to buy "
-msgstr ""
+msgstr "购买"
 
-#: FunctionToCall/Buy_Sell.py:66 FunctionToCall/Buy_Sell.py:117
+#: FunctionToCall/Buy_Sell.py:61 FunctionToCall/Buy_Sell.py:112
 msgid " share of "
-msgstr ""
+msgstr "份额"
 
-#: FunctionToCall/Buy_Sell.py:66 FunctionToCall/Buy_Sell.py:117
+#: FunctionToCall/Buy_Sell.py:61 FunctionToCall/Buy_Sell.py:112
 msgid "'s stock"
-msgstr ""
+msgstr "的股票"
 
-#: FunctionToCall/Buy_Sell.py:75
+#: FunctionToCall/Buy_Sell.py:70
 msgid "You successfully bought the stock"
-msgstr ""
+msgstr "他说，你成功地买入了股票"
+
+#: FunctionToCall/Buy_Sell.py:95
+msgid "You Don't Own That amount of share"
+msgstr "你没有那么多股份"
 
 #: FunctionToCall/Buy_Sell.py:100
-msgid "You Don't Own That amount of share"
-msgstr ""
-
-#: FunctionToCall/Buy_Sell.py:105
 msgid "Please input positive number"
-msgstr ""
+msgstr "请输入正数"
 
-#: FunctionToCall/Buy_Sell.py:117
+#: FunctionToCall/Buy_Sell.py:112
 msgid "Sold "
-msgstr ""
+msgstr "卖"
 
 #: templates/ChangePassword.html:5 templates/ChangePassword.html:23
 msgid "Change password"
-msgstr ""
+msgstr "更改密码"
 
 #: templates/ChangePassword.html:24
 msgid "Old Password"
-msgstr ""
+msgstr "旧密码"
 
 #: templates/ChangePassword.html:25
 msgid "New Password"
-msgstr ""
+msgstr "新密码"
 
 #: templates/ChangePassword.html:26
 msgid "Confirm Password "
-msgstr ""
+msgstr "确认密码"
 
 #: templates/ChangePassword.html:27 templates/Signup_page.html:31
 #: templates/contact.html:49
 msgid "Submit"
-msgstr ""
+msgstr "提交"
 
 #: templates/ForgetPassword_page.html:5
 msgid "Find Password"
-msgstr ""
+msgstr "找到密码"
 
 #: templates/ForgetPassword_page.html:20
 msgid "Reset password"
-msgstr ""
+msgstr "重置密码"
 
 #: templates/ForgetPassword_page.html:24 templates/Signup_page.html:27
 #: templates/contact.html:33
 msgid "Email"
-msgstr ""
+msgstr "电子邮件"
 
 #: templates/ForgetPassword_page.html:25
 msgid "Enter email address"
-msgstr ""
+msgstr "输入电子邮件地址"
 
 #: templates/ForgetPassword_page.html:26
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
-#: templates/Game.html:5 templates/Home_page.html:5
-#: templates/Portfolio_page.html:31 templates/Sell_stock.html:32
-#: templates/StockMarket_page.html:38 templates/TransactionHistory.html:28
-#: templates/buying_stock.html:32 templates/successfullyBoughtStock.html:38
+#: templates/Home_page.html:5 templates/Portfolio_page.html:31
+#: templates/Sell_stock.html:32 templates/StockMarket_page.html:38
+#: templates/TransactionHistory.html:28 templates/buying_stock.html:32
+#: templates/successfullyBoughtStock.html:38
 msgid "Home"
-msgstr ""
+msgstr "首页"
 
-#: templates/Game.html:63 templates/Home_page.html:35
-#: templates/Portfolio_page.html:32 templates/Sell_stock.html:10
-#: templates/StockMarket_page.html:10 templates/TransactionHistory.html:29
+#: templates/Home_page.html:35 templates/Portfolio_page.html:32
+#: templates/Sell_stock.html:10 templates/StockMarket_page.html:10
+#: templates/TransactionHistory.html:29
 #: templates/successfullyBoughtStock.html:10
 msgid "Stock Market"
-msgstr ""
+msgstr "股票市场"
 
-#: templates/Game.html:64 templates/Home_page.html:36
-#: templates/Portfolio_page.html:8 templates/StockMarket_page.html:39
-#: templates/TransactionHistory.html:30 templates/buying_stock.html:33
-#: templates/successfullyBoughtStock.html:39
+#: templates/Home_page.html:36 templates/Portfolio_page.html:8
+#: templates/StockMarket_page.html:39 templates/TransactionHistory.html:30
+#: templates/buying_stock.html:33 templates/successfullyBoughtStock.html:39
 msgid "Portfolio"
-msgstr ""
+msgstr "投资组合"
 
-#: templates/Game.html:65 templates/Home_page.html:37
-#: templates/Portfolio_page.html:33 templates/Sell_stock.html:34
-#: templates/StockMarket_page.html:40 templates/TransactionHistory.html:5
-#: templates/buying_stock.html:34 templates/successfullyBoughtStock.html:40
+#: templates/Home_page.html:37 templates/Portfolio_page.html:33
+#: templates/Sell_stock.html:34 templates/StockMarket_page.html:40
+#: templates/TransactionHistory.html:5 templates/buying_stock.html:34
+#: templates/successfullyBoughtStock.html:40
 msgid "Transaction History"
-msgstr ""
+msgstr "交易历史记录"
 
-#: templates/Game.html:69 templates/Home_page.html:41
-#: templates/Portfolio_page.html:37 templates/Profile.html:5
-#: templates/Sell_stock.html:38 templates/StockMarket_page.html:45
-#: templates/TransactionHistory.html:34 templates/buying_stock.html:38
-#: templates/successfullyBoughtStock.html:44
+#: templates/Home_page.html:41 templates/Portfolio_page.html:37
+#: templates/Profile.html:5 templates/Sell_stock.html:38
+#: templates/StockMarket_page.html:45 templates/TransactionHistory.html:34
+#: templates/buying_stock.html:38 templates/successfullyBoughtStock.html:44
 msgid "Profile"
-msgstr ""
+msgstr "配置文件"
 
-#: templates/Game.html:70 templates/Home_page.html:42
-#: templates/Portfolio_page.html:38 templates/Sell_stock.html:39
-#: templates/StockMarket_page.html:46 templates/TransactionHistory.html:35
-#: templates/buying_stock.html:39 templates/successfullyBoughtStock.html:45
+#: templates/Home_page.html:42 templates/Portfolio_page.html:38
+#: templates/Sell_stock.html:39 templates/StockMarket_page.html:46
+#: templates/TransactionHistory.html:35 templates/buying_stock.html:39
+#: templates/successfullyBoughtStock.html:45
 msgid "Change Password"
-msgstr ""
+msgstr "更改密码"
 
-#: templates/Game.html:71 templates/Home_page.html:43
-#: templates/Portfolio_page.html:39 templates/Sell_stock.html:40
-#: templates/StockMarket_page.html:47 templates/TransactionHistory.html:36
-#: templates/buying_stock.html:40 templates/successfullyBoughtStock.html:46
+#: templates/Home_page.html:43 templates/Portfolio_page.html:39
+#: templates/Sell_stock.html:40 templates/StockMarket_page.html:47
+#: templates/TransactionHistory.html:36 templates/buying_stock.html:40
+#: templates/successfullyBoughtStock.html:46
 msgid "Loan"
-msgstr ""
+msgstr "贷款"
 
-#: templates/Game.html:72 templates/Home_page.html:44
-msgid "Game"
-msgstr ""
-
-#: templates/Game.html:73 templates/Home_page.html:45
-#: templates/Portfolio_page.html:40 templates/Sell_stock.html:41
-#: templates/StockMarket_page.html:48 templates/TransactionHistory.html:37
-#: templates/buying_stock.html:41 templates/successfullyBoughtStock.html:47
+#: templates/Home_page.html:44 templates/Portfolio_page.html:40
+#: templates/Sell_stock.html:41 templates/StockMarket_page.html:48
+#: templates/TransactionHistory.html:37 templates/buying_stock.html:41
+#: templates/successfullyBoughtStock.html:47
 msgid "Contact"
-msgstr ""
+msgstr "联系"
 
-#: templates/Game.html:74 templates/Home_page.html:46
-#: templates/Portfolio_page.html:41 templates/Sell_stock.html:42
-#: templates/StockMarket_page.html:49 templates/TransactionHistory.html:38
-#: templates/buying_stock.html:42 templates/successfullyBoughtStock.html:48
+#: templates/Home_page.html:45 templates/Portfolio_page.html:41
+#: templates/Sell_stock.html:42 templates/StockMarket_page.html:49
+#: templates/TransactionHistory.html:38 templates/buying_stock.html:42
+#: templates/successfullyBoughtStock.html:48
 msgid "Sign out"
-msgstr ""
+msgstr "签署了"
 
-#: templates/Game.html:81
-msgid "Current Game:"
-msgstr ""
-
-#: templates/Game.html:86
-msgid "Search For Game"
-msgstr ""
-
-#: templates/Game.html:88 templates/StockMarket_page.html:73
-msgid "Search"
-msgstr ""
-
-#: templates/Game.html:94
-msgid "Join"
-msgstr ""
-
-#: templates/Home_page.html:55
+#: templates/Home_page.html:54
 msgid "Your Score"
-msgstr ""
+msgstr "你的分数"
 
-#: templates/Home_page.html:62
+#: templates/Home_page.html:61
 msgid "Your Rank"
-msgstr ""
+msgstr "你的等级"
+
+#: templates/Home_page.html:67
+msgid "Rank"
+msgstr "排名"
 
 #: templates/Home_page.html:68
-msgid "Rank"
-msgstr ""
+msgid "Name"
+msgstr "名字"
 
 #: templates/Home_page.html:69
-msgid "Name"
-msgstr ""
-
-#: templates/Home_page.html:70
 msgid "Score"
-msgstr ""
+msgstr "分数"
 
 #: templates/Login_page.html:26
 msgid "Member Login"
-msgstr ""
+msgstr "会员登录"
 
 #: templates/Login_page.html:28
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: templates/Login_page.html:29 templates/Signup_page.html:28
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: templates/Login_page.html:31
 msgid "Login"
-msgstr ""
+msgstr "登录"
 
 #: templates/Login_page.html:32
 msgid "Forgot"
-msgstr ""
+msgstr "忘记"
 
 #: templates/Login_page.html:32
 msgid "Password?"
-msgstr ""
+msgstr "密码?"
 
 #: templates/Login_page.html:33
 msgid "Create your account"
-msgstr ""
+msgstr "创建您的帐户"
 
 #: templates/Portfolio_page.html:49
 msgid "Stock Name"
-msgstr ""
+msgstr "股票名称"
 
 #: templates/Portfolio_page.html:50
 msgid "Name Of Company"
-msgstr ""
+msgstr "公司的名字"
 
 #: templates/Portfolio_page.html:51
 msgid "Number of Shares"
-msgstr ""
+msgstr "数量的股票"
 
 #: templates/Portfolio_page.html:52
 msgid "Purchase Price"
-msgstr ""
+msgstr "购买价格"
 
 #: templates/Portfolio_page.html:53
 msgid "Purchase Date"
-msgstr ""
+msgstr "购买日期"
 
 #: templates/Portfolio_page.html:54
 msgid "Current Share Price"
-msgstr ""
+msgstr "目前的股价"
 
 #: templates/Portfolio_page.html:55
 msgid "Current Gain"
-msgstr ""
+msgstr "电流增益"
 
 #: templates/Portfolio_page.html:66 templates/Sell_stock.html:58
 msgid "Sell"
-msgstr ""
+msgstr "出售"
 
 #: templates/Portfolio_page.html:75
 msgid "TOTAL VALUE"
-msgstr ""
+msgstr "总价值"
 
 #: templates/Sell_stock.html:50 templates/buying_stock.html:50
 msgid "The Stock:"
-msgstr ""
+msgstr "股票:"
 
 #: templates/Sell_stock.html:52
 msgid "Current Price/Share:"
-msgstr ""
+msgstr "当前价格/分享:"
 
 #: templates/Sell_stock.html:54
 msgid "Profit/Loss:"
-msgstr ""
+msgstr "利润/损失:"
 
 #: templates/Sell_stock.html:61
 msgid "Error:"
-msgstr ""
+msgstr "错误:"
 
 #: templates/Signup_page.html:24
 msgid "Sign Up"
-msgstr ""
+msgstr "注册"
 
 #: templates/Signup_page.html:26
 msgid "UserName"
-msgstr ""
+msgstr "用户名"
 
 #: templates/Signup_page.html:29
 msgid "Confirm Password"
-msgstr ""
+msgstr "确认密码"
 
 #: templates/StockMarket_page.html:58
 msgid "Stock Search"
-msgstr ""
+msgstr "股票搜索"
 
 #: templates/StockMarket_page.html:61
 msgid "Search for a Stock"
-msgstr ""
+msgstr "寻找股票"
 
 #: templates/StockMarket_page.html:63
 msgid "Day"
-msgstr ""
+msgstr "天"
 
 #: templates/StockMarket_page.html:64
 msgid "Week"
-msgstr ""
+msgstr "周"
 
 #: templates/StockMarket_page.html:65
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 #: templates/StockMarket_page.html:66
 msgid "3 Month"
-msgstr ""
+msgstr "3个月"
 
 #: templates/StockMarket_page.html:67
 msgid "6 Month"
-msgstr ""
+msgstr "6个月"
 
 #: templates/StockMarket_page.html:68
 msgid "1 Year"
-msgstr ""
+msgstr "1年"
 
 #: templates/StockMarket_page.html:69
 msgid "5 Year"
-msgstr ""
+msgstr "5年"
 
 #: templates/StockMarket_page.html:70
 msgid "All Time"
-msgstr ""
+msgstr "所有时间"
+
+#: templates/StockMarket_page.html:73
+msgid "Search"
+msgstr "查找"
 
 #: templates/StockMarket_page.html:80
 msgid "Buy this stock"
-msgstr ""
+msgstr "买这支股票"
 
 #: templates/StockMarket_page.html:82 templates/buying_stock.html:59
 #: templates/successfullyBoughtStock.html:62
 msgid "Stock Name:"
-msgstr ""
+msgstr "股票名称:"
 
 #: templates/TransactionHistory.html:47
 msgid "List"
-msgstr ""
+msgstr "列表"
 
 #: templates/TransactionHistory.html:48
 msgid "Transaction Date"
-msgstr ""
+msgstr "交易日期"
 
 #: templates/TransactionHistory.html:49
 msgid "Process"
-msgstr ""
+msgstr "过程"
 
 #: templates/TransactionHistory.html:50
 msgid "Price"
-msgstr ""
+msgstr "价格"
 
 #: templates/TransactionHistory.html:51
 msgid "Amount of Money"
-msgstr ""
+msgstr "资金"
 
 #: templates/buying_stock.html:51
 msgid "The Price:"
-msgstr ""
+msgstr "金额"
 
 #: templates/buying_stock.html:53
 msgid "Buy"
-msgstr ""
+msgstr "买"
 
 #: templates/contact.html:5 templates/contact.html:23
 msgid "Contact us"
-msgstr ""
+msgstr "联系我们"
 
 #: templates/contact.html:29 templates/contact.html:30
 msgid "First Name"
-msgstr ""
+msgstr "名"
 
 #: templates/contact.html:32
 msgid "Email:"
-msgstr ""
+msgstr "邮件"
 
 #: templates/contact.html:37 templates/contact.html:38
 msgid "Last Name"
-msgstr ""
+msgstr "姓"
 
 #: templates/contact.html:40 templates/contact.html:41
 msgid "Country"
-msgstr ""
+msgstr "国家"
 
 #: templates/contact.html:45
 msgid "Comment"
-msgstr ""
+msgstr "意见"
 
 #: templates/contact.html:46
 msgid "Write something.."
-msgstr ""
+msgstr "说点什么"
 
 #: venv/lib/python3.7/site-packages/flask_wtf/file.py:50
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:218
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:258
 msgid "This field is required."
-msgstr ""
+msgstr "这里必填项。"
 
 #: venv/lib/python3.7/site-packages/flask_wtf/file.py:83
 msgid "File does not have an approved extension: {extensions}"
-msgstr ""
+msgstr "文件没有经过批准的扩展名:{extensions}"
 
 #: venv/lib/python3.7/site-packages/flask_wtf/file.py:88
 msgid "File does not have an approved extension."
-msgstr ""
+msgstr "文件没有经过批准的扩展名。"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:68
 #, python-format
 msgid "Invalid field name '%s'."
-msgstr ""
+msgstr "无效的字段名 '%s'."
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:76
 #, python-format
 msgid "Field must be equal to %(other_name)s."
-msgstr ""
+msgstr "错误字段 %(other_name)s."
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:109
 #, python-format
 msgid "Field must be at least %(min)d character long."
 msgid_plural "Field must be at least %(min)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "字段必须至少为%(min)d个字符"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:112
 #, python-format
 msgid "Field cannot be longer than %(max)d character."
 msgid_plural "Field cannot be longer than %(max)d characters."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "字段不能超过 %(max)d 个字符。"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:115
 #, python-format
 msgid "Field must be exactly %(max)d character long."
 msgid_plural "Field must be exactly %(max)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "字段必须精确为 %(max)d 个字符。"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:118
 #, python-format
 msgid "Field must be between %(min)d and %(max)d characters long."
-msgstr ""
+msgstr "字段的长度必须在%(最小)d和 %(max)d 之间"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:154
 #, python-format
 msgid "Number must be at least %(min)s."
-msgstr ""
+msgstr "数必须至少为 %(min)s"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:156
 #, python-format
@@ -565,18 +536,18 @@ msgstr ""
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:158
 #, python-format
 msgid "Number must be between %(min)s and %(max)s."
-msgstr ""
+msgstr "数必须在%(min)s 和%(max)s年代之间。"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:290
 msgid "Invalid input."
-msgstr ""
+msgstr "无效的输入。"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:355
 msgid "Invalid email address."
-msgstr ""
+msgstr "无效的电子邮件地址。"
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:388
-msgid "Invalid IP address."
+msgid "Invalid email address."
 msgstr ""
 
 #: venv/lib/python3.7/site-packages/wtforms/validators.py:430

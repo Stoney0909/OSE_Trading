@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-22 18:55-0400\n"
-"PO-Revision-Date: 2021-03-22 18:56-0400\n"
+"POT-Creation-Date: 2021-03-28 19:49-0400\n"
+"PO-Revision-Date: 2021-03-28 19:51-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -18,55 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app.py:109
+#: app.py:123
 msgid "Incorrect username / password!"
 msgstr "¡Nombre de usuario / contraseña incorrectos!"
 
-#: app.py:158
+#: app.py:159
+msgid "This Game does not exist"
+msgstr "¡La cuenta ya existe!"
+
+#: app.py:185
+msgid "You successfully join the Game"
+msgstr "Te unes al juego con éxito"
+
+#: app.py:222
 msgid "Please enter a positive number"
 msgstr "¡La cuenta ya existe!"
 
-#: app.py:160
+#: app.py:224
 msgid "You only have to play back "
 msgstr "Solo tienes que reproducir "
 
-#: app.py:162
+#: app.py:226
 msgid "You don't have that much money in your account"
 msgstr "No tienes tanto dinero en tu cuenta"
 
-#: app.py:167
+#: app.py:231
 msgid "You have paid off all the loans"
 msgstr "Has cancelado todos los préstamos."
 
-#: app.py:171
+#: app.py:235
 msgid "You still need to pay back "
 msgstr "Todavía necesitas pagar "
 
-#: app.py:171
+#: app.py:235
 msgid " by "
 msgstr " por "
 
-#: app.py:275
-msgid "You had loan $"
-msgstr "Tuviste un préstamo $"
+#: app.py:339
+msgid "You had loan "
+msgstr "Tuviste un préstamo "
 
-#: app.py:276
+#: app.py:340
 msgid ", in next "
-msgstr ", en el siguiente"
+msgstr ", en el siguiente "
 
-#: app.py:276
+#: app.py:340
 msgid " days, you have to pay back $"
 msgstr " días, tienes que devolver $"
 
-#: app.py:277
+#: app.py:341
 msgid " include interest"
 msgstr " incluir interés"
 
-#: app.py:280
+#: app.py:344
 msgid "Amount of loan range is 1000 - 1000000"
 msgstr "La cantidad del rango de préstamo es 1000 - 1000000"
 
-#: app.py:298
+#: app.py:362
 msgid "You have received a new feedback from {} <{}>. Comment {}."
 msgstr "Ha recibido un nuevo comentario de {} <{}>. Comentar {}."
 
@@ -111,45 +119,45 @@ msgstr "Esta cuenta no existe"
 msgid "Check your email for the new password"
 msgstr "Consulta tu correo electrónico para ver la nueva contraseña"
 
-#: FunctionToCall/Buy_Sell.py:47
+#: FunctionToCall/Buy_Sell.py:52
 msgid "The number of share has to be positive!"
 msgstr "El número de acciones tiene que ser positivo!"
 
-#: FunctionToCall/Buy_Sell.py:49
+#: FunctionToCall/Buy_Sell.py:54
 msgid "You don't have enough fund to buy this stock"
 msgstr "No tienes fondos suficientes para comprar estas acciones"
 
-#: FunctionToCall/Buy_Sell.py:60
+#: FunctionToCall/Buy_Sell.py:65
 msgid "Spend "
 msgstr "Gastar"
 
-#: FunctionToCall/Buy_Sell.py:60
+#: FunctionToCall/Buy_Sell.py:65
 msgid " to buy "
 msgstr " comprar "
 
-#: FunctionToCall/Buy_Sell.py:61 FunctionToCall/Buy_Sell.py:112
+#: FunctionToCall/Buy_Sell.py:66 FunctionToCall/Buy_Sell.py:117
 msgid " share of "
 msgstr " parte de "
 
-#: FunctionToCall/Buy_Sell.py:61 FunctionToCall/Buy_Sell.py:112
+#: FunctionToCall/Buy_Sell.py:66 FunctionToCall/Buy_Sell.py:117
 msgid "'s stock"
 msgstr "Valores"
 
-#: FunctionToCall/Buy_Sell.py:70
+#: FunctionToCall/Buy_Sell.py:75
 msgid "You successfully bought the stock"
 msgstr "Compraste las acciones con éxito"
 
-#: FunctionToCall/Buy_Sell.py:95
+#: FunctionToCall/Buy_Sell.py:100
 msgid "You Don't Own That amount of share"
 msgstr "No eres dueño de esa cantidad de acciones"
 
-#: FunctionToCall/Buy_Sell.py:100
+#: FunctionToCall/Buy_Sell.py:105
 msgid "Please input positive number"
 msgstr "Ingrese un número positivo"
 
-#: FunctionToCall/Buy_Sell.py:112
+#: FunctionToCall/Buy_Sell.py:117
 msgid "Sold "
-msgstr ""
+msgstr "Vendido "
 
 #: templates/ChangePassword.html:5 templates/ChangePassword.html:23
 msgid "Change password"
@@ -193,85 +201,107 @@ msgstr "Introducir la dirección de correo electrónico"
 msgid "Send"
 msgstr "Enviar"
 
-#: templates/Home_page.html:5 templates/Portfolio_page.html:31
-#: templates/Sell_stock.html:32 templates/StockMarket_page.html:38
-#: templates/TransactionHistory.html:28 templates/buying_stock.html:32
-#: templates/successfullyBoughtStock.html:38
+#: templates/Game.html:5 templates/Home_page.html:5
+#: templates/Portfolio_page.html:31 templates/Sell_stock.html:32
+#: templates/StockMarket_page.html:38 templates/TransactionHistory.html:28
+#: templates/buying_stock.html:32 templates/successfullyBoughtStock.html:38
 msgid "Home"
 msgstr "Hogar"
 
-#: templates/Home_page.html:35 templates/Portfolio_page.html:32
-#: templates/Sell_stock.html:10 templates/StockMarket_page.html:10
-#: templates/TransactionHistory.html:29
+#: templates/Game.html:63 templates/Home_page.html:35
+#: templates/Portfolio_page.html:32 templates/Sell_stock.html:10
+#: templates/StockMarket_page.html:10 templates/TransactionHistory.html:29
 #: templates/successfullyBoughtStock.html:10
 msgid "Stock Market"
 msgstr "Bolsa de Valores"
 
-#: templates/Home_page.html:36 templates/Portfolio_page.html:8
-#: templates/StockMarket_page.html:39 templates/TransactionHistory.html:30
-#: templates/buying_stock.html:33 templates/successfullyBoughtStock.html:39
+#: templates/Game.html:64 templates/Home_page.html:36
+#: templates/Portfolio_page.html:8 templates/StockMarket_page.html:39
+#: templates/TransactionHistory.html:30 templates/buying_stock.html:33
+#: templates/successfullyBoughtStock.html:39
 msgid "Portfolio"
 msgstr "Portafolio"
 
-#: templates/Home_page.html:37 templates/Portfolio_page.html:33
-#: templates/Sell_stock.html:34 templates/StockMarket_page.html:40
-#: templates/TransactionHistory.html:5 templates/buying_stock.html:34
-#: templates/successfullyBoughtStock.html:40
+#: templates/Game.html:65 templates/Home_page.html:37
+#: templates/Portfolio_page.html:33 templates/Sell_stock.html:34
+#: templates/StockMarket_page.html:40 templates/TransactionHistory.html:5
+#: templates/buying_stock.html:34 templates/successfullyBoughtStock.html:40
 msgid "Transaction History"
 msgstr "Historial de Transacciones"
 
-#: templates/Home_page.html:41 templates/Portfolio_page.html:37
-#: templates/Profile.html:5 templates/Sell_stock.html:38
-#: templates/StockMarket_page.html:45 templates/TransactionHistory.html:34
-#: templates/buying_stock.html:38 templates/successfullyBoughtStock.html:44
+#: templates/Game.html:69 templates/Home_page.html:41
+#: templates/Portfolio_page.html:37 templates/Profile.html:5
+#: templates/Sell_stock.html:38 templates/StockMarket_page.html:45
+#: templates/TransactionHistory.html:34 templates/buying_stock.html:38
+#: templates/successfullyBoughtStock.html:44
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/Home_page.html:42 templates/Portfolio_page.html:38
-#: templates/Sell_stock.html:39 templates/StockMarket_page.html:46
-#: templates/TransactionHistory.html:35 templates/buying_stock.html:39
-#: templates/successfullyBoughtStock.html:45
+#: templates/Game.html:70 templates/Home_page.html:42
+#: templates/Portfolio_page.html:38 templates/Sell_stock.html:39
+#: templates/StockMarket_page.html:46 templates/TransactionHistory.html:35
+#: templates/buying_stock.html:39 templates/successfullyBoughtStock.html:45
 msgid "Change Password"
 msgstr "Cambiar la Contraseña"
 
-#: templates/Home_page.html:43 templates/Portfolio_page.html:39
-#: templates/Sell_stock.html:40 templates/StockMarket_page.html:47
-#: templates/TransactionHistory.html:36 templates/buying_stock.html:40
-#: templates/successfullyBoughtStock.html:46
+#: templates/Game.html:71 templates/Home_page.html:43
+#: templates/Portfolio_page.html:39 templates/Sell_stock.html:40
+#: templates/StockMarket_page.html:47 templates/TransactionHistory.html:36
+#: templates/buying_stock.html:40 templates/successfullyBoughtStock.html:46
 msgid "Loan"
 msgstr "Préstamo"
 
-#: templates/Home_page.html:44 templates/Portfolio_page.html:40
-#: templates/Sell_stock.html:41 templates/StockMarket_page.html:48
-#: templates/TransactionHistory.html:37 templates/buying_stock.html:41
-#: templates/successfullyBoughtStock.html:47
+#: templates/Game.html:72 templates/Home_page.html:44
+msgid "Game"
+msgstr "Juego"
+
+#: templates/Game.html:73 templates/Home_page.html:45
+#: templates/Portfolio_page.html:40 templates/Sell_stock.html:41
+#: templates/StockMarket_page.html:48 templates/TransactionHistory.html:37
+#: templates/buying_stock.html:41 templates/successfullyBoughtStock.html:47
 msgid "Contact"
 msgstr "Contacto"
 
-#: templates/Home_page.html:45 templates/Portfolio_page.html:41
-#: templates/Sell_stock.html:42 templates/StockMarket_page.html:49
-#: templates/TransactionHistory.html:38 templates/buying_stock.html:42
-#: templates/successfullyBoughtStock.html:48
+#: templates/Game.html:74 templates/Home_page.html:46
+#: templates/Portfolio_page.html:41 templates/Sell_stock.html:42
+#: templates/StockMarket_page.html:49 templates/TransactionHistory.html:38
+#: templates/buying_stock.html:42 templates/successfullyBoughtStock.html:48
 msgid "Sign out"
 msgstr "desconectar"
 
-#: templates/Home_page.html:54
+#: templates/Game.html:81
+msgid "Current Game:"
+msgstr "Juego Actual"
+
+#: templates/Game.html:86
+msgid "Search For Game"
+msgstr "Buscar juego"
+
+#: templates/Game.html:88 templates/StockMarket_page.html:73
+msgid "Search"
+msgstr "Búsqueda"
+
+#: templates/Game.html:94
+msgid "Join"
+msgstr "Unirse"
+
+#: templates/Home_page.html:55
 msgid "Your Score"
 msgstr "Tu puntuación"
 
-#: templates/Home_page.html:61
+#: templates/Home_page.html:62
 msgid "Your Rank"
 msgstr "Su rango"
 
-#: templates/Home_page.html:67
+#: templates/Home_page.html:68
 msgid "Rank"
 msgstr "Rango"
 
-#: templates/Home_page.html:68
+#: templates/Home_page.html:69
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/Home_page.html:69
+#: templates/Home_page.html:70
 msgid "Score"
 msgstr "Puntaje"
 
@@ -406,10 +436,6 @@ msgstr "5 años"
 #: templates/StockMarket_page.html:70
 msgid "All Time"
 msgstr "Todo el tiempo"
-
-#: templates/StockMarket_page.html:73
-msgid "Search"
-msgstr "Buscar"
 
 #: templates/StockMarket_page.html:80
 msgid "Buy this stock"

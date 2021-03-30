@@ -19,21 +19,22 @@ today = currentDT.strftime("%Y-%m-%d")
 @Buy_Sell_api.route('/buyStock', methods=['GET', 'POST'])
 def buy_Stock():
     msg = ''
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    legend = _('Monthly Data')
     stockData = yf.Ticker(session['IdOfSearch'])
     stockID = session['IdOfSearch']
     history = stockData.history(period="1d", interval="1m")
     time = list()
     priceOfStock = format(history['Open'].iloc[-1], ".2f")
-
     for row in history.index:
         if (row.hour > 12):
-            date = "{}:{}".format(row.hour - 12, row.minute)
+            minute = format(row.minute, '02d')
+            date = "{}:{}".format(row.hour - 12, minute)
         else:
-            date = "{}:{}".format(row.hour, row.minute)
+            minute = format(row.minute, '02d')
+            date = "{}:{}".format(row.hour, minute)
         time.append(date)
-
+    history['Open'] = history['Open'].apply(lambda x: x * ConvertNumberToEuros())
+    history['Open'] = history['Open'].round(2)
     company_name = stockData.info['longName']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT amount_Money FROM trading_Profile WHERE trading_ID = %s',
@@ -43,7 +44,6 @@ def buy_Stock():
     if request.method == 'GET':
         return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
                                labels=time, legend=legend, msg=priceOfStock, company_name=company_name)
-
 
     elif request.method == 'POST' and 'stockPrice' in request.form:
         numberOfShare = request.form.get('stockPrice', type=int)
@@ -92,18 +92,18 @@ def sellStock_Page():
         currentPrice = 0.0
         GetMoney = 0.0
         number, shareYouOwn, profitOrLoss, stockID = gotToPortfolio()
-        stockid, values, labels, legend, msg, company_name = getGraph(stockID)
+        stockid, values,time, legend, msg, company_name = getGraph(stockID)
         if account:
             for i in range(0, len(account)):
                 currentPrice = si.get_live_price(account[i]['symbol_Of_Stock'])
             if int(shareToSold) > int(number):
                 error = _("You Don't Own That amount of share")
-                return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
+                return render_template('Sell_stock.html', stockid=stockid, values=values, labels=time,
                                        legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
                                        company_name=company_name, error=error)
             elif float(shareToSold) < 1:
                 error = _("Please input positive number")
-                return render_template('Sell_stock.html', stockid=stockid, values=values, labels=labels,
+                return render_template('Sell_stock.html', stockid=stockid, values=values, labels=time,
                                        legend=legend, price=msg, number=number, profitOrLoss=profitOrLoss,
                                        company_name=company_name, error=error)
             else:
@@ -179,3 +179,14 @@ def getMoney():
     cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
     Money = cursor3.fetchall()
     return Money
+
+
+def ConvertNumberToEuros():
+    if get_locale() == 'fr':  # convert to euros
+        return exchangeToEuros
+    if get_locale() == 'es':  # convert to spanish
+        return exchangeToPesos
+    if get_locale() == 'zh':  # convert to chinese
+        return exchangeToYen
+    else:
+        return 1

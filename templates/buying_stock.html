@@ -48,7 +48,7 @@
     <div id="StockSearchSideBar" >
         <form action="" method="POST">
             <p style="text-align: center" class='description' for="sockID">{{ _('The Stock:') }} &nbsp;{{ company_name }}</p>
-            <p style="text-align: center" class='description' for="stockPriceID"> {{ _('The Price:') }}&nbsp;{{ msg }}</p>
+            <p style="text-align: center" class='description' for="stockPriceID"> {{ _('The Price:') }}&nbsp;{{ msg | ConvertNumberToEuros }}</p>
             <p style="text-align: center" ><input type="number"  name="stockPrice" required></p>
             <p style="text-align: center" ><button class="enter_btn" type="submit">{{ _('Buy') }}</button></p>
         </form>
