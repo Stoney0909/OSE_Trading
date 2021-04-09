@@ -87,7 +87,7 @@
             <p class="InformationAmount">{{ _('Amount of money in account: ') }} {{ AccountMoney | ConvertNumberToEuros}}</p>
             <p class="InformationPayBAck">{{ _('Amount of money need to pay back: ') }} {{ Amount_Of_Money_need_to_PayBack_Left | ConvertNumberToEuros }}</p>
 
-            <input class="loanAmount" type="number" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money" required>
+            <input class="loanAmount" type="text" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money" required>
             <br>
             <button class="InformationButton" type="submit"  name = "Pay_Back_Loan_Money_Submit">{{ _('Submit') }}</button>
             <h1>{{ msg }}</h1>
