@@ -3,6 +3,7 @@ import yfinance as yf
 import datetime
 import MySQLdb
 from flask import request, session, render_template, flash
+import app
 from app import *
 from flask import Blueprint
 from Python import stockPage
@@ -117,6 +118,9 @@ def stock_page():
     return render_template('StockMarket_page.html', stockid=stockid, values=values, labels=labels, legend=legend,
                            message="")
 
+def GetGameID():
+     ID = 1 #app.GetGameID()
+     return ID
 
 @stock_Account_api.route('/Portfolio', methods=['GET', 'POST'])
 def portfolio_Page():
@@ -125,13 +129,13 @@ def portfolio_Page():
     totalGain = 0.0
     number = 0.0
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s', (session['id'],))
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s and GameID = %s', (session['id'], GetGameID()))
 
     if request.method == 'GET':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
-            'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s',
-            (session['id'],))
+            'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s and GameID = %s',
+            (session['id'], GetGameID()))
         account = cursor.fetchall()
         if account:  # if there is data in here
             for i in range(0, len(account)):
@@ -155,8 +159,8 @@ def portfolio_Page():
         post_id = request.form['Sell']
         session['Transaction_ID'] = post_id
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s',
-                       (post_id,))
+        cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s and GameID = %s',
+                       (post_id,GetGameID()))
         account = cursor.fetchall()
         if account:
             for i in range(0, len(account)):

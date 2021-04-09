@@ -6,7 +6,6 @@ import app
 from flask import request, session, render_template
 from app import mysql
 from app import *
-
 from flask import Blueprint
 from FunctionToCall.StockUserAccount import getGraph
 from flask_babel import _
@@ -15,6 +14,12 @@ Buy_Sell_api = Blueprint('Buy_Sell_api', __name__)
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
+
+
+def getGameID():
+    # app.GetGameID()
+    ID = 1#This need to change to app.GetGameID;
+    return ID
 
 @Buy_Sell_api.route('/buyStock', methods=['GET', 'POST'])
 def buy_Stock():
@@ -36,11 +41,12 @@ def buy_Stock():
     history['Open'] = history['Open'].apply(lambda x: x * ConvertNumberToEuros())
     history['Open'] = history['Open'].round(2)
     company_name = stockData.info['longName']
+    GameID = getGameID()
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT amount_Money FROM trading_Profile WHERE trading_ID = %s',
-                   (session['id'],))
+    cursor.execute('SELECT AmountOfMoney FROM PlayerGame WHERE UserID = %s and GameID = %s',
+                   (session['id'], int(GameID),))
     account = cursor.fetchone()
-    moneyAvalaible = account['amount_Money']
+    moneyAvalaible = account['AmountOfMoney']
     if request.method == 'GET':
         return render_template('buying_stock.html', stockid=company_name, values=history['Open'],
                                labels=time, legend=legend, msg=priceOfStock, company_name=company_name)
@@ -56,21 +62,21 @@ def buy_Stock():
                                    labels=time, legend=legend, msg=msg, company_name=company_name)
         else:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, %s, %s,% s,% s,% s,% s,% s,% s,%s,%s)',
+            cursor.execute('INSERT INTO transactions_Table VALUES (NULL, %s, %s,% s,% s,% s,% s,% s,% s,%s,%s, %s)',
                            (priceOfStock, numberOfShare, 'Null', 'Null', 'Null', today, 'Null',
-                            session['id'], company_name, symbol))
+                            session['id'], company_name,int(GameID), symbol))
 
             SpendMoney = float(numberOfShare) * float(priceOfStock)
             amountOfMoneyAfterSpend = float(moneyAvalaible) - float(SpendMoney)
             Description = _('Spend ') + str(ConvertNumber(round(float(SpendMoney), 2))) + _(' to buy ') + str(
                 round(float(numberOfShare), 2)) + _(' share of ') + company_name + _('\'s stock')
 
-            cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
-                           (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend)))
+            cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s,%s)',
+                           (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend), GameID))
 
-            cursor.execute('UPDATE trading_Profile SET amount_Money = %s '
-                           'WHERE trading_ID = %s',
-                           (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'],))
+            cursor.execute('UPDATE PlayerGame SET AmountOfMoney = %s '
+                           'WHERE UserID = %s and GameID = %s',
+                           (float(moneyAvalaible) - (numberOfShare * float(priceOfStock)), session['id'], GameID))
             mysql.connection.commit()
             msg = _('You successfully bought the stock')
             return render_template('successfullyBoughtStock.html', stockid=company_name, values=history['Open'],

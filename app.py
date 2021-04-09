@@ -136,9 +136,6 @@ def home_page():
     cursor.execute('SELECT * FROM PlayerGame where GameID = %s ORDER BY AmountOfMoney desc ',(GameID,))
     data = cursor.fetchall()  # data from database
 
-    for x in data:
-        print(data[x])
-
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor2.execute('SELECT * FROM PlayerGame where username = %s', (session['username'],))
     Money = cursor2.fetchall()
@@ -201,7 +198,7 @@ def gamePassword():
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
 def transaction_history():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s', (session['id'],))
+    cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s and GameID = %s', (session['id'], GetGameID()))
     account = cursor.fetchall()
     return render_template('TransactionHistory.html', len=len(account), Account=account)
 

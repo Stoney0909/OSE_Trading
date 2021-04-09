@@ -24,8 +24,8 @@ def SetMoney(Username):
         ID = x['trading_ID']
 
 
-    cursor.execute('INSERT INTO PlayerGame VALUES (%s, %s, %s)',
-                   (int(ID), 1, 10000))
+    cursor.execute('INSERT INTO PlayerGame VALUES (%s, %s, %s, %s)',
+                   (int(ID),Username , 1, 10000))
     mysql.connection.commit()
 
 @account_api.route('/Signup', methods=['GET', 'POST'])
