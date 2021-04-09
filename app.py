@@ -15,10 +15,10 @@ from forex_python.converter import CurrencyRates
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret string'
-app.config['MYSQL_HOST'] = 'ose.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
-app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_HOST'] = 'database.ck8xkz5g94jg.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
 app.config['MYSQL_PASSWORD'] = 'password'
-app.config['MYSQL_DB'] = 'OSE_Trading'
+app.config['MYSQL_DB'] = 'Ethan'
 
 babel = Babel(app)
 
@@ -87,6 +87,13 @@ app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
 
+GameID = 1
+
+def SetGameID(i):
+    GameID = i
+
+def GetGameID():
+    return GameID
 
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
@@ -100,8 +107,7 @@ def login_page():
         cursor.execute('SELECT * FROM trading_Profile WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
         cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
-
+        cursor2.execute('SELECT * FROM PlayerGame ORDER BY UserID desc')
         data = cursor2.fetchall()
         if account:
             session['loggedin'] = True
@@ -113,7 +119,7 @@ def login_page():
             session['phone'] = account['phone']
             session['gender'] = account['gender']
             cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor3.execute('SELECT * FROM trading_Profile where username = %s', (account['username'],))
+            cursor3.execute('SELECT * FROM PlayerGame where username = %s', (account['username'],))
             Money = cursor3.fetchall()
             return render_template('Home_page.html', len=len(data), data=data, Money=Money)
         else:
@@ -127,11 +133,14 @@ def login_page():
 @app.route('/Home', methods=['GET', 'POST'])
 def home_page():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+    cursor.execute('SELECT * FROM PlayerGame where GameID = %s ORDER BY AmountOfMoney desc ',(GameID,))
     data = cursor.fetchall()  # data from database
 
+    for x in data:
+        print(data[x])
+
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor2.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
+    cursor2.execute('SELECT * FROM PlayerGame where username = %s', (session['username'],))
     Money = cursor2.fetchall()
     # return render_template("example.html", value=data)
     return render_template('Home_page.html', len=len(data), data=data, Money=Money)
@@ -252,6 +261,7 @@ def PayBack():
                            Amount_Of_Money_need_to_PayBack_Left=Amount_Of_Money_need_to_PayBack_Left,
                            PaybackDay=PaybackDay,
                            AccountMoney=AccountMoney)
+
 
 
 @app.route('/loan', methods=['GET', 'POST'])

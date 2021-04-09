@@ -9,11 +9,24 @@ from flask_babel import _
 from flask_mail import Mail, Message
 from app import mysql, mail,babel
 from forms import EditProfileForm
+import app
 
 account_api = Blueprint('account_api', __name__)
 currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
+def SetMoney(Username):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM trading_Profile WHERE username = % s', (Username,))
+    NumberList = cursor.fetchall()
+
+    for x in NumberList:
+        ID = x['trading_ID']
+
+
+    cursor.execute('INSERT INTO PlayerGame VALUES (%s, %s, %s)',
+                   (int(ID), 1, 10000))
+    mysql.connection.commit()
 
 @account_api.route('/Signup', methods=['GET', 'POST'])
 def signup_page():
@@ -37,9 +50,10 @@ def signup_page():
         elif not username or not password or not email:
             msg = _('Please fill out the form !')
         else:
-            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, % s, % s,% s,% s,% s,% s,% s,%s,%s)',
-                           ('Null', 'Null', username, email, password, '1000', today, 'Null', 'Null'))
+            cursor.execute('INSERT INTO trading_Profile VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           ('Null', 'Null', username, email, password, today, 'Null', 'Null'))
             mysql.connection.commit()
+            SetMoney(username)
             msg = _('You have successfully registered!')
     elif request.method == 'POST':
         msg = _('Please fill out the form !')
