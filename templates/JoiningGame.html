@@ -78,36 +78,17 @@
     </div>
  <div class="info">
     <div class="search" >
-        <a >{{ _('Current Game:') }}</a>
+        <a >{{ _('Game To Join:') }}</a>
            <a>{{ game }}</a>
+           <form action="/JoiningGame" method="POST">
 
-           <form action="" method="POST">
-            <div id="searchBar">
-               <input style="outline: none;width: 60%; padding: 8px; text-align: center;" type="text" placeholder={{ _('Search For Game') }} name="gameName" class="input-field " value="{{ gameName }}">
-            </div>
-                <button class="enter_btn" type="submit">{{ _('Search') }}</button>
+               <input style="outline: none;width: 60%; padding: 8px; text-align: center;" type="text" placeholder={{ _('Password') }} name="GamePassword" class="input-field " value="{{ gameName }}">
+               <button class="enter_btn" type="submit">{{ _('Join') }}</button>
            </form>
        <p>{{ error }}</p>
-              {% for games in gameData %}
-                <form  action="" method="POST" onclick="myFunction()">
-                    <a> {{ games['GameName'] }} </a>
-                     <button class="enter_btn" type="submit" >{{ _('Join') }}</button>
-                </form>
-
-
-        {% endfor %}
     </div>
  </div>
-<script>
-function myFunction() {
-    const password = prompt("Please enter the Password", "Password");
-    $.post( "/post_game", {
-    javascript_data: password
-  });
-  {#return password;#}
 
-}
-</script>
 
 </header>
 </body>

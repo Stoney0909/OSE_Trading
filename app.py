@@ -4,7 +4,7 @@ import MySQLdb.cursors
 from babel import Locale
 from flask_mail import Mail, Message
 from flask import Flask
-from flask import render_template, request, session, render_template, jsonify
+from flask import render_template, request, session, render_template, jsonify,redirect
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
 from flask import g, request
@@ -161,7 +161,7 @@ def gamePage():
         gameData = cursor.fetchall()
         if gameData:
             session['GameName'] = gameNameFromSearch
-            return render_template('Game.html', gameData=gameData, game=CurrentGame, gameName=gameNameFromSearch)
+            return render_template('JoiningGame.html', game=gameNameFromSearch)
         else:
             error = _('This Game does not exist')
             return render_template('Game.html', gameData='', game=CurrentGame, error=error)
@@ -174,6 +174,22 @@ def gamePage():
         Money = cursor3.fetchall()
         return render_template('Home_page.html', len=len(data), data=data, Money=Money)
     return render_template('Game.html', gameData='', game=CurrentGame)
+
+
+@app.route('/JoiningGame', methods=['GET', 'POST'])
+def Join_Game():
+    if request.method == 'POST' and 'GamePassword' in request.form:
+        password = request.form.get('GamePassword')
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Game where GameName = % s AND Password = % s', (session['GameName'], password,))
+        account = cursor.fetchall()
+        if account:
+
+            return render_template('Home_page.html')
+        else:
+            error = _('Password Incorrect')
+            return render_template('JoiningGame.html' ,game=session['GameName'], error=error)
+    return render_template("JoiningGame.html")
 
 
 @app.route('/Create_Game', methods=['GET', 'POST'])
@@ -200,14 +216,14 @@ def Create_Game():
             gameID = int(''.join(map(str, gameData1[-1])))
             gameID = gameID + 1
 
-            cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s) ', (gameID, session['username'], gameName, dateofGameEnd, password,))
+            cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s) ',
+                           (gameID, session['username'], gameName, dateofGameEnd, password,))
             cursor.fetchall()
             return render_template('create_Game.html', game=CurrentGame, message="Game has been created",
                                    currentdate=currentdate)
 
     return render_template('create_Game.html', game=CurrentGame, message='',
-                               currentdate=currentdate)
-
+                           currentdate=currentdate)
 
 
 @app.route('/post_game', methods=['POST'])

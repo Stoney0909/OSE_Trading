@@ -15,11 +15,11 @@ currentDT = datetime.datetime.now()
 today = currentDT.strftime("%Y-%m-%d")
 
 
-
 def getGameID():
     # app.GetGameID()
-    ID = 1#This need to change to app.GetGameID;
+    ID = 1  # This need to change to app.GetGameID;
     return ID
+
 
 @Buy_Sell_api.route('/buyStock', methods=['GET', 'POST'])
 def buy_Stock():
@@ -64,7 +64,7 @@ def buy_Stock():
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO transactions_Table VALUES (NULL, %s, %s,% s,% s,% s,% s,% s,% s,%s,%s, %s)',
                            (priceOfStock, numberOfShare, 'Null', 'Null', 'Null', today, 'Null',
-                            session['id'], company_name,int(GameID), symbol))
+                            session['id'], company_name, int(GameID), symbol))
 
             SpendMoney = float(numberOfShare) * float(priceOfStock)
             amountOfMoneyAfterSpend = float(moneyAvalaible) - float(SpendMoney)
@@ -72,7 +72,8 @@ def buy_Stock():
                 round(float(numberOfShare), 2)) + _(' share of ') + company_name + _('\'s stock')
 
             cursor.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s,%s)',
-                           (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend), GameID))
+                           (session['id'], today, Description, float(SpendMoney), float(amountOfMoneyAfterSpend),
+                            GameID))
 
             cursor.execute('UPDATE PlayerGame SET AmountOfMoney = %s '
                            'WHERE UserID = %s and GameID = %s',
@@ -98,7 +99,7 @@ def sellStock_Page():
         currentPrice = 0.0
         GetMoney = 0.0
         number, shareYouOwn, profitOrLoss, stockID = gotToPortfolio()
-        stockid, values,time, legend, msg, company_name = getGraph(stockID)
+        stockid, values, time, legend, msg, company_name = getGraph(stockID)
         if account:
             for i in range(0, len(account)):
                 currentPrice = si.get_live_price(account[i]['symbol_Of_Stock'])
