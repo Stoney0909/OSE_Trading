@@ -184,7 +184,7 @@ def Join_Game():
         cursor.execute('SELECT * FROM Game where GameName = % s AND Password = % s', (session['GameName'], password,))
         account = cursor.fetchall()
         if account:
-
+            # will do some modification if you join a game or not
             return render_template('Home_page.html')
         else:
             error = _('Password Incorrect')
