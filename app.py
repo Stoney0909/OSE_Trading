@@ -11,6 +11,7 @@ from flask import g, request
 from babel.dates import format_datetime, format_date
 from babel.numbers import format_currency
 from forex_python.converter import CurrencyRates
+from datetime import date
 
 app = Flask(__name__)
 
@@ -25,7 +26,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    return 'zh'
+    return 'en'
     # request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
@@ -89,11 +90,14 @@ app.register_blueprint(Buy_Sell_api)
 
 GameID = 1
 
+
 def SetGameID(i):
     GameID = i
 
+
 def GetGameID():
     return GameID
+
 
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
@@ -133,7 +137,7 @@ def login_page():
 @app.route('/Home', methods=['GET', 'POST'])
 def home_page():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM PlayerGame where GameID = %s ORDER BY AmountOfMoney desc ',(GameID,))
+    cursor.execute('SELECT * FROM PlayerGame where GameID = %s ORDER BY AmountOfMoney desc ', (GameID,))
     data = cursor.fetchall()  # data from database
 
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -172,6 +176,40 @@ def gamePage():
     return render_template('Game.html', gameData='', game=CurrentGame)
 
 
+@app.route('/Create_Game', methods=['GET', 'POST'])
+def Create_Game():
+    currentdate = date.today()
+    if request.method == 'POST' and 'gameName' and 'endDate' in request.form:
+        gameName = request.form.get('gameName')
+        password = request.form.get('password')
+        endDate = request.form.get('endDate')
+        dateofGameEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
+
+        # SQL call for gamename to check to see if it exists
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Game where GameName = % s', (gameName,))
+        gameData = cursor.fetchall()
+
+        if gameData:
+            return render_template('create_Game.html', game=CurrentGame, message="Game Name has been taken.",
+                                   currentdate=currentdate)
+        else:
+            cursor1 = mysql.connection.cursor(MySQLdb.cursors.Cursor)
+            cursor1.execute('SELECT GameID FROM Game')
+            gameData1 = cursor1.fetchall()
+            gameID = int(''.join(map(str, gameData1[-1])))
+            gameID = gameID + 1
+
+            cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s) ', (gameID, session['username'], gameName, dateofGameEnd, password,))
+            cursor.fetchall()
+            return render_template('create_Game.html', game=CurrentGame, message="Game has been created",
+                                   currentdate=currentdate)
+
+    return render_template('create_Game.html', game=CurrentGame, message='',
+                               currentdate=currentdate)
+
+
+
 @app.route('/post_game', methods=['POST'])
 def gamePassword():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -198,7 +236,8 @@ def gamePassword():
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
 def transaction_history():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s and GameID = %s', (session['id'], GetGameID()))
+    cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s and GameID = %s',
+                   (session['id'], GetGameID()))
     account = cursor.fetchall()
     return render_template('TransactionHistory.html', len=len(account), Account=account)
 
@@ -206,15 +245,17 @@ def transaction_history():
 @app.route('/PayBackLoanPage', methods=['GET', 'POST'])
 def PayBack():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT Amount_Of_Money_PayBack_Left FROM Loan where UserID = %s and GameID = %s', (session['id'], GetGameID()))
+    cursor.execute('SELECT Amount_Of_Money_PayBack_Left FROM Loan where UserID = %s and GameID = %s',
+                   (session['id'], GetGameID()))
     Amount_Of_Money_need_to_PayBack_Left = cursor.fetchone()['Amount_Of_Money_PayBack_Left']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT payBackDayBy FROM Loan where UserID = %s and GameID = %s', (session['id'],GetGameID()))
+    cursor.execute('SELECT payBackDayBy FROM Loan where UserID = %s and GameID = %s', (session['id'], GetGameID()))
     PaybackDay = cursor.fetchone()['payBackDayBy']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT AmountOfMoney FROM PlayerGame where UserID = %s and GameID = %s', (session['id'], GetGameID()))
+    cursor.execute('SELECT AmountOfMoney FROM PlayerGame where UserID = %s and GameID = %s',
+                   (session['id'], GetGameID()))
     AccountMoney = cursor.fetchone()['AmountOfMoney']
 
     if request.method == 'POST' and 'Pay_Back_Loan_Money' in request.form:
@@ -258,7 +299,6 @@ def PayBack():
                            Amount_Of_Money_need_to_PayBack_Left=Amount_Of_Money_need_to_PayBack_Left,
                            PaybackDay=PaybackDay,
                            AccountMoney=AccountMoney)
-
 
 
 @app.route('/loan', methods=['GET', 'POST'])

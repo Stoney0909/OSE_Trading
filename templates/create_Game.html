@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Game</title>
+</head>
+<body>
+
+       </div>
+        <ul class="nav">
+            <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
+            <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
+            <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
+
+            <li class="dropdown">
+                    <span class="user_name">{{ session['username']}}</span>
+                    <div class="dropdown-content">
+                    <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('gamePage') }}">{{ _('Game') }}</a>
+                    <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                    <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
+                    </div>
+            </li>
+        </ul>
+    </div>
+<form action="" method="post">
+    <label for="fname">{{ _('Game Name') }}:</label>
+    <input type="text" id="gameName" name="gameName" placeholder={{ _('Game Name') }} required style="outline: none">
+    <label for="fname">{{ _('Password') }}:</label>
+    <input type="text" id="password" name="password" placeholder={{ _('Password') }} >
+    <label for="fname">{{ _('End Date') }}:</label>
+    <input type="date" id="endDate" name="endDate" placeholder={{ _('End Date') }} required style="outline: none" min={{ currentdate }}>
+    <p style="text-align: center"><button type="submit" style="outline: none">{{ _('Submit') }}</button></p>
+</form>
+<a>{{ message }}</a>
+</body>
+</html>
