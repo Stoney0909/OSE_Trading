@@ -4,7 +4,7 @@ import MySQLdb.cursors
 from babel import Locale
 from flask_mail import Mail, Message
 from flask import Flask
-from flask import render_template, request, session, render_template, jsonify,redirect
+from flask import render_template, request, session, render_template, jsonify, redirect
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
 from flask import g, request
@@ -88,17 +88,6 @@ app.register_blueprint(Buy_Sell_api, url_prefix='/buyStock')
 
 app.register_blueprint(Buy_Sell_api)
 
-GameID = 1
-
-
-def SetGameID(i):
-    GameID = i
-
-
-def GetGameID():
-    return GameID
-
-
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
     msg = ''
@@ -122,6 +111,7 @@ def login_page():
             session['last_name'] = account['last_Name']
             session['phone'] = account['phone']
             session['gender'] = account['gender']
+            session['gameID'] = 1
             cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor3.execute('SELECT * FROM PlayerGame where username = %s', (account['username'],))
             Money = cursor3.fetchall()
@@ -184,11 +174,12 @@ def Join_Game():
         cursor.execute('SELECT * FROM Game where GameName = % s AND Password = % s', (session['GameName'], password,))
         account = cursor.fetchall()
         if account:
-            # will do some modification if you join a game or not
-            return render_template('Home_page.html')
+            session['gameID'] = account['GameID']
+            session['GameName'] = int(account['GameName'])
+            return render_template('Home_page.html', game=session['GameName'], error='')
         else:
             error = _('Password Incorrect')
-            return render_template('JoiningGame.html' ,game=session['GameName'], error=error)
+            return render_template('JoiningGame.html', game=session['GameName'], error=error)
     return render_template("JoiningGame.html")
 
 
@@ -219,6 +210,8 @@ def Create_Game():
             cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s) ',
                            (gameID, session['username'], gameName, dateofGameEnd, password,))
             cursor.fetchall()
+            mysql.connection.commit()
+
             return render_template('create_Game.html', game=CurrentGame, message="Game has been created",
                                    currentdate=currentdate)
 

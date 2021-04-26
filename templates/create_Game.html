@@ -28,10 +28,12 @@
 <form action="" method="post">
     <label for="fname">{{ _('Game Name') }}:</label>
     <input type="text" id="gameName" name="gameName" placeholder={{ _('Game Name') }} required style="outline: none">
-    <label for="fname">{{ _('Password') }}:</label>
+    <label for="password">{{ _('Password') }}:</label>
     <input type="text" id="password" name="password" placeholder={{ _('Password') }} >
-    <label for="fname">{{ _('End Date') }}:</label>
+    <label for="date">{{ _('End Date') }}:</label>
     <input type="date" id="endDate" name="endDate" placeholder={{ _('End Date') }} required style="outline: none" min={{ currentdate }}>
+    <label for="AmountofMoney">{{ _('Starting Money') }}:</label>
+    <input type="number" id="startingMoney" name="startingMoney" placeholder={{ _('Money') }} >
     <p style="text-align: center"><button type="submit" style="outline: none">{{ _('Submit') }}</button></p>
 </form>
 <a>{{ message }}</a>

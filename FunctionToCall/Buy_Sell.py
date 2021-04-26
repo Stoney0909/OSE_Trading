@@ -16,7 +16,7 @@ today = currentDT.strftime("%Y-%m-%d")
 
 
 def getGameID():
-    # app.GetGameID()
+    #app.GetGameID()
     ID = 1  # This need to change to app.GetGameID;
     return ID
 
@@ -125,16 +125,15 @@ def sellStock_Page():
                     '\'s stock')  # Do a little ediditing
                 GetMoney = float(currentPrice * float(shareToSold))
                 # AmountOfMoney = app.getMoney()
-                Money = float(amount_Left()) - GetMoney
+                Money = amount_Left() - GetMoney
 
-                cursor2.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s)',
-                                (session['id'], today, Description, float(GetMoney), float(Money)))
+                cursor2.execute('INSERT INTO transaction_History VALUES (NULL,%s,%s,%s,%s,%s,%s)',
+                                (session['id'], today, Description, float(GetMoney), float(Money), session['gameID'],))
 
-                cursor2.execute('UPDATE trading_Profile SET amount_Money = amount_Money + %s '
-                                'WHERE trading_ID = %s',
-                                ((int(shareToSold) * currentPrice), session['id'],))
+                cursor2.execute('UPDATE PlayerGame SET AmountOfMoney = AmountOfMoney + %s WHERE UserID = %s AND GameID = %s',
+                                ((int(shareToSold) * currentPrice), session['id'], session['gameID'],))
                 cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-                cursor3.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+                cursor3.execute('SELECT * FROM PlayerGame ORDER BY  AmountOfMoney desc')
                 data = cursor3.fetchall()
                 mysql.connection.commit()
                 Money = getMoney()
@@ -163,10 +162,10 @@ def gotToPortfolio():
 
 def amount_Left():
     cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor3.execute('SELECT amount_Money FROM trading_Profile where username = %s', (session['username'],))
+    cursor3.execute('SELECT AmountOfMoney FROM PlayerGame where UserID = %s and GameId = %s', (session['id'], session['gameID'],))
     Money = cursor3.fetchone()
     amount = 0.0
-    amount = float(Money['amount_Money'])
+    amount = float(Money['AmountOfMoney'])
     return amount
 
 
