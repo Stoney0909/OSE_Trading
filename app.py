@@ -3,7 +3,7 @@ import json
 import MySQLdb.cursors
 from babel import Locale
 from flask_mail import Mail, Message
-from flask import Flask
+from flask import Flask, url_for
 from flask import render_template, request, session, render_template, jsonify, redirect
 from flask_mysqldb import MySQL
 from flask_babel import _, refresh, Babel
@@ -112,10 +112,8 @@ def login_page():
             session['phone'] = account['phone']
             session['gender'] = account['gender']
             session['gameID'] = 1
-            cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor3.execute('SELECT * FROM PlayerGame where username = %s', (account['username'],))
-            Money = cursor3.fetchall()
-            return render_template('Home_page.html', len=len(data), data=data, Money=Money)
+
+            return redirect(url_for('home_page'))
         else:
             msg = _('Incorrect username / password!')
             # msg = format_currency(1099.98, 'USD', locale='en_US')
@@ -127,7 +125,7 @@ def login_page():
 @app.route('/Home', methods=['GET', 'POST'])
 def home_page():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM PlayerGame where GameID = %s ORDER BY AmountOfMoney desc ', (GameID,))
+    cursor.execute('SELECT * FROM PlayerGame where GameID = %s ORDER BY AmountOfMoney desc ', (session['gameID'],))
     data = cursor.fetchall()  # data from database
 
     cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -150,7 +148,7 @@ def gamePage():
         cursor.execute('SELECT * FROM Game where GameName = % s', (gameNameFromSearch,))
         gameData = cursor.fetchall()
         if gameData:
-            session['GameName'] = gameNameFromSearch
+            session['GameNameToJoin'] = gameNameFromSearch
             return render_template('JoiningGame.html', game=gameNameFromSearch)
         else:
             error = _('This Game does not exist')
@@ -171,12 +169,14 @@ def Join_Game():
     if request.method == 'POST' and 'GamePassword' in request.form:
         password = request.form.get('GamePassword')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Game where GameName = % s AND Password = % s', (session['GameName'], password,))
+        cursor.execute('SELECT GameID FROM Game where GameName = %s AND Password = %s', (session['GameNameToJoin'], password,))
         account = cursor.fetchall()
         if account:
-            session['gameID'] = account['GameID']
-            session['GameName'] = int(account['GameName'])
-            return render_template('Home_page.html', game=session['GameName'], error='')
+            gameID = account[0]['GameID']
+            session['gameID'] = gameID
+            session['GameName'] = session['GameNameToJoin']
+            return redirect(url_for('home_page'))
+
         else:
             error = _('Password Incorrect')
             return render_template('JoiningGame.html', game=session['GameName'], error=error)
@@ -190,6 +190,7 @@ def Create_Game():
         gameName = request.form.get('gameName')
         password = request.form.get('password')
         endDate = request.form.get('endDate')
+        startingMoney = request.form.get('startingMoney')
         dateofGameEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
 
         # SQL call for gamename to check to see if it exists
@@ -207,8 +208,8 @@ def Create_Game():
             gameID = int(''.join(map(str, gameData1[-1])))
             gameID = gameID + 1
 
-            cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s) ',
-                           (gameID, session['username'], gameName, dateofGameEnd, password,))
+            cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s, %s) ',
+                           (gameID, session['username'], gameName, dateofGameEnd, password, startingMoney,))
             cursor.fetchall()
             mysql.connection.commit()
 
