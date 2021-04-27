@@ -57,7 +57,7 @@
                <button style="margin-left: 15%" class="enter_btn" type="submit">{{ _('Search') }}</button>
            </form>
 
-            <p style="color: white">{{ error }}</p>
+            <p style="color: white; text-align: center">{{ error }}</p>
             {% for games in gameData %}
                 <form  action="" method="POST" onclick="myFunction()">
                     <a> {{ games['GameName'] }} </a>
