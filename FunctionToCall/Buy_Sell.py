@@ -127,18 +127,15 @@ def sellStock_Page():
 
                 cursor2.execute('UPDATE PlayerGame SET AmountOfMoney = AmountOfMoney + %s WHERE UserID = %s AND GameID = %s',
                                 ((int(shareToSold) * currentPrice), session['id'], session['gameID'],))
-                cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-                cursor3.execute('SELECT * FROM PlayerGame ORDER BY  AmountOfMoney desc')
-                data = cursor3.fetchall()
                 mysql.connection.commit()
-                Money = getMoney()
-                return render_template('Home_page.html', len=len(data), data=data, Money=Money)
+
+                return redirect(url_for('home_page'))
 
 
 def gotToPortfolio():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s',
-                   (session['Transaction_ID'],))
+    cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s and GameID=%s',
+                   (session['Transaction_ID'], session['gameID']))
     account = cursor.fetchall()
     if account:
         for i in range(0, len(account)):

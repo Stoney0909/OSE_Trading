@@ -99,9 +99,6 @@ def login_page():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM trading_Profile WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
-        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor2.execute('SELECT * FROM PlayerGame ORDER BY UserID desc')
-        data = cursor2.fetchall()
         if account:
             session['loggedin'] = True
             session['id'] = account['trading_ID']
@@ -112,6 +109,7 @@ def login_page():
             session['phone'] = account['phone']
             session['gender'] = account['gender']
             session['gameID'] = 1
+            session['GameName'] = 'Public game'
 
             return redirect(url_for('home_page'))
         else:
@@ -147,6 +145,15 @@ def gamePage():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Game where GameName = % s', (gameNameFromSearch,))
         gameData = cursor.fetchall()
+
+        if gameData:
+            cursor.execute('SELECT * FROM PlayerGame where GameID = % s and UserID=%s', (gameData[0]['GameID'], session['id']))
+            usergamedata = cursor.fetchall()
+            if usergamedata:
+                session['gameID'] = gameData[0]['GameID']
+                session['GameName'] = gameNameFromSearch
+                return redirect(url_for('home_page'))#if account is already in the game
+
         if gameData:
             session['GameNameToJoin'] = gameNameFromSearch
             return render_template('JoiningGame.html', game=gameNameFromSearch)
@@ -154,14 +161,8 @@ def gamePage():
             error = _('This Game does not exist')
             return render_template('Game.html', gameData='', game=CurrentGame, error=error)
     if request.method == 'POST':
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
-        data = cursor.fetchall()
-        cursor3 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor3.execute('SELECT * FROM trading_Profile where username = %s', (session['username'],))
-        Money = cursor3.fetchall()
-        return render_template('Home_page.html', len=len(data), data=data, Money=Money)
-    return render_template('Game.html', gameData='', game=CurrentGame)
+        return redirect(url_for('home_page'))
+    return render_template('Game.html', gameData='', game=session['GameName'])
 
 
 @app.route('/JoiningGame', methods=['GET', 'POST'])
@@ -172,9 +173,15 @@ def Join_Game():
         cursor.execute('SELECT GameID FROM Game where GameName = %s AND Password = %s', (session['GameNameToJoin'], password,))
         account = cursor.fetchall()
         if account:
-            gameID = account[0]['GameID']
-            session['gameID'] = gameID
+            cursor.execute('SELECT StartingMoney FROM Game where GameName = %s',
+                           (session['GameNameToJoin'],))
+            startingmoney = cursor.fetchall()
+            session['gameID'] = account[0]['GameID']
             session['GameName'] = session['GameNameToJoin']
+            cursor.execute('INSERT INTO PlayerGame VALUES (%s, %s, %s, %s) ',
+                           (session['id'], session['username'], session['gameID'], startingmoney[0]['StartingMoney'],))
+            cursor.fetchall()
+            mysql.connection.commit()
             return redirect(url_for('home_page'))
 
         else:
@@ -208,6 +215,14 @@ def Create_Game():
             gameID = int(''.join(map(str, gameData1[-1])))
             gameID = gameID + 1
 
+            session['gameID'] = gameID
+            session['GameName'] = gameName
+
+            cursor.execute('INSERT INTO PlayerGame VALUES (%s, %s, %s, %s) ',
+                           (session['id'], session['username'], gameID, startingMoney))
+            cursor.fetchall()
+            mysql.connection.commit()
+
             cursor.execute('INSERT INTO Game VALUES (%s, %s, %s, %s, %s, %s) ',
                            (gameID, session['username'], gameName, dateofGameEnd, password, startingMoney,))
             cursor.fetchall()
@@ -220,34 +235,34 @@ def Create_Game():
                            currentdate=currentdate)
 
 
-@app.route('/post_game', methods=['POST'])
-def gamePassword():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
-    data = cursor.fetchall()
-    PasswordGame = request.form['javascript_data']
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    # cursor.execute('SELECT * FROM Game where GameName = % s', (session['GameName'],))
-    cursor.execute('SELECT * FROM Game WHERE GameName = % s AND Password = % s', (session['GameName'], PasswordGame,))
-    gameData = cursor.fetchall()
-    session['Correct_Password'] = PasswordGame
-    print(PasswordGame)
-    if gameData:
-        message = _('You successfully join the Game')
-        session['Correct_Password'] = PasswordGame
-        Password = PasswordGame
-        return render_template('Game.html', gameData='', game=CurrentGame)
-    else:
-        session['Correct_Password'] = 'wrong'
-        return render_template('Home_page.html', len=len(data), data=data)
-    return render_template('Home_page.html', len=len(data), data=data)
+# @app.route('/post_game', methods=['POST'])
+# def gamePassword():
+#     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+#     cursor.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
+#     data = cursor.fetchall()
+#     PasswordGame = request.form['javascript_data']
+#     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+#     # cursor.execute('SELECT * FROM Game where GameName = % s', (session['GameName'],))
+#     cursor.execute('SELECT * FROM Game WHERE GameName = % s AND Password = % s', (session['GameName'], PasswordGame,))
+#     gameData = cursor.fetchall()
+#     session['Correct_Password'] = PasswordGame
+#     print(PasswordGame)
+#     if gameData:
+#         message = _('You successfully join the Game')
+#         session['Correct_Password'] = PasswordGame
+#         Password = PasswordGame
+#         return render_template('Game.html', gameData='', game=session['GameName'])
+#     else:
+#         session['Correct_Password'] = 'wrong'
+#         return render_template('Home_page.html', len=len(data), data=data)
+#     return redirect(url_for('home_page'))
 
 
 @app.route('/TransactionHistory', methods=['GET', 'POST'])
 def transaction_history():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM transaction_History WHERE trading_ID = %s and GameID = %s',
-                   (session['id'], GetGameID()))
+                   (session['id'], session['gameID']))
     account = cursor.fetchall()
     return render_template('TransactionHistory.html', len=len(account), Account=account)
 

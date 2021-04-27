@@ -129,13 +129,13 @@ def portfolio_Page():
     totalGain = 0.0
     number = 0.0
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s and GameID = %s', (session['id'], GetGameID()))
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s and GameID = %s', (session['id'], session['gameID']))
 
     if request.method == 'GET':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
             'SELECT * FROM transactions_Table WHERE numberOfShareSold != numberOfShareAtBuying AND trading_ID = %s and GameID = %s',
-            (session['id'], GetGameID()))
+            (session['id'], session['gameID']))
         account = cursor.fetchall()
         if account:  # if there is data in here
             for i in range(0, len(account)):
@@ -160,7 +160,7 @@ def portfolio_Page():
         session['Transaction_ID'] = post_id
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM transactions_Table WHERE transactions_ID = %s and GameID = %s',
-                       (post_id,GetGameID()))
+                       (post_id, session['gameID']))
         account = cursor.fetchall()
         if account:
             for i in range(0, len(account)):
@@ -214,8 +214,8 @@ def getGraph(nameOfStock):
 # getting the Table
 def getTable():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID = %s',
-                   (session['id'],))
+    cursor.execute('SELECT * FROM transactions_Table WHERE trading_ID =%s and GameID = %s',
+                   (session['id'], session['gameID'],))
     account = cursor.fetchall()
     if account:
         for i in range(0, len(account)):
