@@ -20,6 +20,9 @@ today = currentDT.strftime("%Y-%m-%d")
 def buy_Stock():
     msg = ''
     legend = _('Monthly Data')
+    if session['IdOfSearch'] == '':
+        return render_template('StockMarket_page.html', stockid='', values='', labels='', legend='',
+                           message="")
     stockData = yf.Ticker(session['IdOfSearch'])
     stockID = session['IdOfSearch']
     history = stockData.history(period="1d", interval="1m")
