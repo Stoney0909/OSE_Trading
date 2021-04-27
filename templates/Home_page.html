@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ _('Home') }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_Page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Leaderboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/HomePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/LeaderBoard.css') }}">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 
@@ -16,13 +16,6 @@
         background-size: cover;
         background-position: center center;
         position: relative;
-    }
-    .AccountMoneyDisplay
-    {
-        font-size: large;
-        color: white;
-        position: absolute;
-        margin: 15% 5%;
     }
 </style>
 <body>
@@ -39,7 +32,7 @@
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
                     <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Password') }}</a>
                     <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
                     <a href="{{ url_for('gamePage') }}">{{ _('Game') }}</a>
                     <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
@@ -48,22 +41,34 @@
             </li>
         </ul>
     </div>
-<div class="Learderboard">
 
-    <div class= "position">
-      <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
-       <div class="Information">{{ _('Your Money') }}</div>
-    </div>
+    <div class="Learderboard">
+
+        <div class= "position">
+            <div class="hexagon hexagon1">
+                <div class="hexagon-in1">
+                    <div class="hexagon-in2"></div>
+                </div>
+            </div>
+            <div class="Information">{{_('Rank') }}</div>
+        </div>
+
         <div class="logo2">
             <img src="{{ url_for('static', filename='img/leaderboard.png') }}">
         </div>
+
         <div class= "position2">
-             <div class="hexagon hexagon1"><div class="hexagon-in1"><div class="hexagon-in2"></div></div></div>
-              <div class="Information2">{{_('Your Rank')}}</div>
+            <div class="hexagon hexagon1">
+                <div class="hexagon-in1">
+                    <div class="hexagon-in2"></div>
+                </div>
+            </div>
+            <div class="Information2">{{_('Money')}}</div>
         </div>
-  <div style="width:700px;height:300px;border:1px solid #f8f8f8;position: absolute; left:30px; top: 250px;">
-    <div class="tablediv">
-       <table id="table1">
+
+    <div style="width:700px;height:300px;border:1px solid #f8f8f8;position: absolute; left:30px; top: 250px;">
+        <div class="tablediv">
+            <table id="table1">
                 <tr>
                     <th style="color: #f8f8f8"><i class='fas fa-star' style='font-size:20px;color:red'></i>{{ _('Rank') }}</th>
                     <th style="color: #f8f8f8"> <i class='fas fa-user-circle' style='font-size:20px;color:red'></i> {{ _('Name') }} </th>
@@ -71,16 +76,15 @@
                 </tr>
 
                 {%for i in range(0, len)%}
-
                     <tr id="tbody">
                        <td style=" color: #f8f8f8;text-align: center; font-size: 15px">{{i + 1}}</td>
                        <td style=" color: #f8f8f8;text-align: center ;font-size: 15px">{{data[i]['username']}}</td>
                        <td style=" color: #f8f8f8;text-align: center; font-size: 15px">{{ '%0.2f'| format(data[i]['AmountOfMoney'])| ConvertNumberToEuros }} </td>
                     </tr>
                 {%endfor%}
-       </table>
+            </table>
+        </div>
     </div>
-  </div>
  </div>
 </header>
 </body>

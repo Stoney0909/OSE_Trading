@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/Loan.css') }}">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/PaybackLoad.css') }}">
 </head>
 
 <style>
@@ -14,63 +14,6 @@
          background-attachment: fixed;
          background-size: 100% 100%;
     }
-
-   *
-   {
-         box-sizing: border-box;
-   }
-
-    input[type=text], textarea
-    {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        box-sizing: border-box;
-        border-radius: 25px;
-        border: none;
-        background-color: #d5d5d5;
-    }
-
-  button
-  {
-      background-color: #51679c;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-      width: 50%;
-      border-radius: 25px;
-
-  }
-
-    button:hover
-    {
-        opacity: 0.8;
-    }
-    .InformationAmount,
-    .InformationPayBack,
-    .InformationPayBAck,
-    .loanAmount,
-    .InformationButton
-    {
-        margin-left: 30%;
-    }
-.container {
-    position: absolute;
-    margin: 5% 30%;
-    background-color: #ffffff;
-    width: 40%;
-    height: auto;
-    border-radius: 10px;
-}
-
-#LoanPlayBack
-{
-    position: relative;
-}
-
 </style>
 
 <body>
@@ -83,14 +26,14 @@
 
     <div id = "LoanPlayBack">
         <form method="post">
-            <p class="InformationPayBack">{{ _('Pay back day: ') }} {{ PaybackDay | getAppropriate_Date}}</p>
-            <p class="InformationAmount">{{ _('Amount of money in account: ') }} {{ AccountMoney | ConvertNumberToEuros}}</p>
-            <p class="InformationPayBAck">{{ _('Amount of money need to pay back: ') }} {{ Amount_Of_Money_need_to_PayBack_Left | ConvertNumberToEuros }}</p>
+            <p style="text-align: center" class="InformationPayBack">{{ _('Pay back day: ') }} {{ PaybackDay | getAppropriate_Date}}</p>
+            <p style="text-align: center" class="InformationAmount">{{ _('Amount of money in account: ') }} {{ AccountMoney | ConvertNumberToEuros}}</p>
+            <p style="text-align: center" class="InformationPayBAck">{{ _('Amount of money need to pay back: ') }} {{ Amount_Of_Money_need_to_PayBack_Left | ConvertNumberToEuros }}</p>
 
-            <input class="loanAmount" type="text" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money" required>
+            <input  style="width: 50%; margin-left: 25%" class="loanAmount" type="text" placeholder="Pay back Price:" name = "Pay_Back_Loan_Money" required>
             <br>
             <button class="InformationButton" type="submit"  name = "Pay_Back_Loan_Money_Submit">{{ _('Submit') }}</button>
-            <h1>{{ msg }}</h1>
+            <p style="text-align: center">{{ msg }}</p>
         </form>
 
     </div>

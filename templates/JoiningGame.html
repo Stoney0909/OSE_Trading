@@ -3,61 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ _('Home') }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/HOME_Page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Leaderboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/JoinGame.css') }}">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <style>
     header{
-        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/backgound_home.jpeg') }});
+        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ url_for('static', filename='img/SearchGame.jpg') }});
         height: 110vh;
         -webkit-background-size: cover;
         background-size: cover;
         background-position: center center;
         position: relative;
     }
-    .AccountMoneyDisplay
-    {
-        font-size: large;
-        color: white;
-        position: absolute;
-        margin: 15% 5%;
-    }
-    .info
-    {
-        position: absolute;
-        right: 580px;
-        top: 200px;
-    }
-
-    .search
-    {
-        font-size: 30px;
-        color: #f8f8f8;
-
-    }
-   .enter_btn
-   {
-       background-color: #14375e;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 35%;
-        border-radius: 25px;
-        outline: none;
-   }
 </style>
 <body>
 <header>
     <div class="wrapper">
-{#        <div class="logo">#}
-{#            <img src="{{ url_for('static', filename='img/Logo2.png') }}">#}
-{#        </div>#}
+        <div class="logo">
+             <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
+        </div>
+
         <ul class="nav">
             <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
             <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
@@ -67,7 +34,7 @@
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
                     <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Password') }}</a>
                     <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
                     <a href="{{ url_for('gamePage') }}">{{ _('Game') }}</a>
                     <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
@@ -81,9 +48,8 @@
         <a >{{ _('Game To Join:') }}</a>
            <a>{{ game }}</a>
            <form action="/JoiningGame" method="POST">
-
                <input style="outline: none;width: 60%; padding: 8px; text-align: center;" type="text" placeholder={{ _('Password') }} name="GamePassword" class="input-field " value="{{ gameName }}">
-               <button class="enter_btn" type="submit">{{ _('Join') }}</button>
+               <button style="margin-left: 15%" class="enter_btn" type="submit">{{ _('Join') }}</button>
            </form>
        <p>{{ error }}</p>
     </div>

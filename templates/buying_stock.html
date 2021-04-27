@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/BuyStock_Page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/BuyStockPage.css') }}">
     <title>Stock Market</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
@@ -29,15 +29,16 @@
             <a href="{{ url_for('stock_Account_api.stock_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('home_page') }}">{{ _('Home') }}</a></li>
+            <li style="color: cornsilk; text-decoration: none;padding: 5px 50px;font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;font-size: 20px;">{{ _('Stock Market') }}</li>
             <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
             <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
                     <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Password') }}</a>
                     <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('gamePage') }}">{{ _('Game') }}</a>
                     <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
                     <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>

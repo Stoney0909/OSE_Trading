@@ -1,4 +1,4 @@
-*
+    *
     {
         margin:0;
         padding: 0;
@@ -87,6 +87,11 @@
         height: auto;
     }
 
+    p
+    {
+        text-align: center;
+    }
+
     botton:focus
     {
          outline: none;
@@ -98,38 +103,29 @@
         text-decoration: none;
     }
 
-    .input-icons i {
-            position: absolute;
-        }
-
-        .input-icons {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .icon {
-            padding: 10px;
-            color: #455778;
-            min-width: 50px;
-            text-align: center;
-        }
-
-        .input-field {
-            width: 60%;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .searchText
-        {
-            font-size: 50px;
-            color: white;
-            font-family: "Arial Black", Gadget, sans-serif;
-        }
-
-    button
+    .search
     {
-        background-color: #14375e;
+        font-size: 30px;
+        color: #f8f8f8;
+
+    }
+
+    .info
+    {
+        position: absolute;
+        margin: 17% 38%;
+        width: 40%;
+    }
+
+    .search
+    {
+        font-size: 30px;
+        color: #f8f8f8;
+
+    }
+   .enter_btn
+   {
+       background-color: #14375e;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -138,57 +134,4 @@
         width: 35%;
         border-radius: 25px;
         outline: none;
-    }
-
-
-    .Buy{
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 20px;
-        background-color: #4a6b8b;
-        color: white;
-        padding: 5px 5px;
-        border: none;
-        cursor: pointer;
-        width: 20%;
-        outline: none;
-    }
-
-    .Buy:hover
-    {
-        opacity: 0.9;
-    }
-
-    button:hover
-    {
-        background-color: #235593;
-    }
-
-    #StockSearchSideBar
-    {
-        position: absolute;
-        margin-top: 15%;
-        margin-left: 10%;
-        text-align: center;
-        width: 40%;
-    }
-
-    #Stock_show
-    {
-        background-color: white;
-        opacity: 0.9;
-        position: absolute;
-        margin-top: 13%;
-        margin-left: 60% ;
-        text-align: center;
-        border-radius: 3%;
-    }
-
-    .container
-    {
-        padding: 14px 20px;
-    }
-    p
-    {
-    color:red;
-    }
+   }

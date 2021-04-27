@@ -1,0 +1,57 @@
+*
+   {
+         box-sizing: border-box;
+   }
+
+    input[type=text], textarea
+    {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: none;
+        background-color: #d5d5d5;
+    }
+
+  button
+  {
+      background-color: #51679c;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 50%;
+      border-radius: 25px;
+
+  }
+
+    button:hover
+    {
+        opacity: 0.8;
+    }
+    .InformationAmount, .InformationPayBack, .InformationPayBAck, .loanAmount
+    {
+        text-align: center;
+    }
+
+    .InformationButton
+    {
+        margin-left: 25%;
+    }
+
+.container {
+    position: absolute;
+    margin: 5% 30%;
+    background-color: #ffffff;
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#LoanPlayBack
+{
+    position: relative;
+}

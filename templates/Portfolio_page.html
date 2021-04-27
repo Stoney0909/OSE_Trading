@@ -28,20 +28,22 @@
             <li><a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a></li>
         </div>
         <ul class="nav">
-            <li><a href="{{ url_for('home_page') }}">{{ _('Home') }}</a></li>
             <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
+            <li style="color: cornsilk; text-decoration: none;padding: 5px 50px;font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;font-size: 20px;">{{ _('Portfolio') }}</li>
             <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
-                        <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
-                        <a href="{{ url_for('account_api.changePassword_page') }}">{{ _('Change Password') }}</a>
-                        <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
-                        <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
-                        <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
+                    <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Password') }}</a>
+                    <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
+                    <a href="{{ url_for('gamePage') }}">{{ _('Game') }}</a>
+                    <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
+                    <a href="{{ url_for('login_page') }}">{{ _('Sign out') }}</a>
                     </div>
             </li>
         </ul>
+
     </div>
     <form action="" method="post">
     <table>
@@ -66,7 +68,6 @@
                  <td><button class="enter_btn" name="Sell" value="{{account[i]['transactions_ID']}}" type="submit">{{ _('Sell') }}</button></td>
             </tr>
          {% endfor %}
-
          <td></td>
          <td></td>
          <td></td>

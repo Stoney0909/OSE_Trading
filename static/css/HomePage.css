@@ -1,4 +1,4 @@
-    *
+   *
     {
         margin:0;
         padding: 0;
@@ -102,25 +102,3 @@
         color: white;
         text-decoration: none;
     }
-
-    #FormDisplay
-    {
-        position: absolute;
-        margin: 15% 37%;
-        border-radius: 5%;
-        outline: none;
-        color: white;
-    }
-
-    table{
-        padding: 20px 6px;
-        outline: none;
-    }
-
-    table td
-    {
-        text-align: center;
-        width: 150px;
-        padding-top: 5px;
-    }
-

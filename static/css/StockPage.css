@@ -1,4 +1,4 @@
-    *
+*
     {
         margin:0;
         padding: 0;
@@ -98,22 +98,55 @@
         text-decoration: none;
     }
 
-        button
+    .input-icons i
     {
-        background-color: #14375e;
+        position: absolute;
+    }
+
+    .input-icons {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .input-field {
+        width: 60%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .searchText {
+        font-size: 50px;
         color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
+        font-family: "Arial Black", Gadget, sans-serif;
+    }
+
+    .Buy{
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 20px;
+        background-color: #4a6b8b;
+        color: white;
+        padding: 5px 5px;
         border: none;
         cursor: pointer;
-        width: 35%;
-        border-radius: 25px;
+        width: 20%;
         outline: none;
     }
 
-    button:hover
+    .Buy:hover
     {
-        background-color: #235593;
+        opacity: 0.9;
+    }
+
+
+
+    #StockSearchSideBar
+    {
+        position: absolute;
+        margin-top: 15%;
+        margin-left: 10%;
+        text-align: center;
+        width: 40%;
     }
 
     #Stock_show
@@ -132,33 +165,48 @@
         padding: 14px 20px;
     }
 
-    #StockSearchSideBar
+    p
     {
-        position: absolute;
-        margin-top: 15%;
-        margin-left: 10%;
-        width: 30%;
+        color:red;
     }
 
-    .description
+    .enter_btn
     {
-        padding-top: 10px;
-        font-size: 30px;
+        background-color: #14375e;
         color: white;
-        font-family: "Arial Black", Gadget, sans-serif;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 35%;
+        border-radius: 25px;
+        outline: none;
     }
 
-    input
+    .enter_btn:hover
     {
-        width: 40%;
-        padding: 5px;
-        margin: 8px 0;
-        display: inline-block;
-        box-sizing: border-box;
-        border: none;
-        background-color: #f8f8f8;
+        background-color: #235593;
     }
-    input:focus
+
+    .Graph_Buttons
     {
-        outline: none
+        background-color: white;
+        color: #235593;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 14px 20px;
+        margin: 8px 0;
+        width: 20%;
+        border-radius: 10%;
+    }
+
+    .Graph_Buttons:hover
+    {
+        background-color: #d5ebff;
+    }
+
+    .DateButton
+    {
+        margin-top: 10%;
     }

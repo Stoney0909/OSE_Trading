@@ -186,8 +186,8 @@ def portfolio_Page():
 def getGraph(nameOfStock):
     legend = "Monthly Data"
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-    stockData = yf.Ticker(session['IdOfSearch'])
-    stockID = session['IdOfSearch']
+    stockData = yf.Ticker(nameOfStock)
+    # stockID = session['IdOfSearch']
     history = stockData.history(period="1d", interval="1m")
     time = list()
     for row in history.index:

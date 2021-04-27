@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Loan</title>
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/Loan.css') }}">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/LoanPage.css') }}">
 </head>
 
 <style>
@@ -15,65 +15,6 @@
          background-size: 100% 100%;
     }
 
-   *
-   {
-         box-sizing: border-box;
-   }
-
-    input[type=text], textarea
-    {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        box-sizing: border-box;
-        border-radius: 25px;
-        border: none;
-        background-color: #d5d5d5;
-    }
-  button
-  {
-      background-color: #51679c;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-      width: 50%;
-      border-radius: 25px;
-
-  }
-
-    button:hover
-    {
-        opacity: 0.8;
-    }
-    .information,
-    .placeholdermoney
-    {
-        margin-left: 40%;
-    }
-    .buttonSubmit
-    {
-        margin-left: 30%;
-    }
-
-
-.container {
-    position: absolute;
-    margin: 5% 30%;
-    background-color: #ffffff;
-    width: 40%;
-    height: auto;
-    border-radius: 10px;
-}
-
-#GetLoanDisplay
-{
-    position: relative;
-}
-
-
 </style>
 
 <body>
@@ -84,15 +25,13 @@
         <h2>{{ _('Loan') }}</h2>
     </div>
 
-
-
     <div class = "GetLoanDisplay">
-        <p class="information">{{ _('Enter amount of loan:') }}</p>
+        <p style="text-align: center" class="information">{{ _('Enter amount of loan:') }}</p>
         <form method="post">
-            <input class="placeholdermoney" placeholder="Range 1000 - 1000000" type="text" name = "Loan_Amount" required>
+            <input style="width: 50%; margin-left: 25%" class="placeholdermoney" placeholder="Range 1000 - 1000000" type="text" name = "Loan_Amount" required>
             <br>
             <button class="buttonSubmit" type="submit"  name = "Loan_Amount_Submit">{{ _('Submit') }}</button>
-            <h1>{{ Confirm_Msg }}</h1>
+            <p style="text-align: center">{{ Confirm_Msg }}</p>
         </form>
     </div>
 
