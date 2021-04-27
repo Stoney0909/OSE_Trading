@@ -271,16 +271,16 @@ def transaction_history():
 def PayBack():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT Amount_Of_Money_PayBack_Left FROM Loan where UserID = %s and GameID = %s',
-                   (session['id'], GetGameID()))
+                   (session['id'], session['gameID']))
     Amount_Of_Money_need_to_PayBack_Left = cursor.fetchone()['Amount_Of_Money_PayBack_Left']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT payBackDayBy FROM Loan where UserID = %s and GameID = %s', (session['id'], GetGameID()))
+    cursor.execute('SELECT payBackDayBy FROM Loan where UserID = %s and GameID = %s', (session['id'], session['gameID']))
     PaybackDay = cursor.fetchone()['payBackDayBy']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT AmountOfMoney FROM PlayerGame where UserID = %s and GameID = %s',
-                   (session['id'], GetGameID()))
+                   (session['id'], session['gameID']))
     AccountMoney = cursor.fetchone()['AmountOfMoney']
 
     if request.method == 'POST' and 'Pay_Back_Loan_Money' in request.form:
@@ -305,11 +305,11 @@ def PayBack():
                     PaybackDay)
 
         cursor.execute('UPDATE PlayerGame SET AmountOfMoney = %s WHERE UserID = %s and GameID = %s',
-                       (AccountMoney, session['id'], GetGameID()))
+                       (AccountMoney, session['id'], session['gameID']))
         cursor.fetchall()
 
         cursor.execute('DELETE FROM Loan WHERE UserID = %s and GameID = %s',
-                       (session['id'], GetGameID()))
+                       (session['id'],session['gameID']))
         cursor.fetchall()
 
         mysql.connection.commit()
@@ -388,7 +388,7 @@ def Loan():
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('SELECT AmountOfMoney FROM PlayerGame WHERE UserID = %s and GameID = %s',
-                           (session['id'], GetGameID()))
+                           (session['id'],session['gameID']))
             account = cursor.fetchone()
             moneyAvalaible = account['AmountOfMoney']
 
@@ -397,12 +397,12 @@ def Loan():
             if checkLoansucess:
                 cursor.execute('INSERT INTO Loan VALUES (NULL, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s)',
                                (UserID, Amount_OF_Loan, Interest_Amount, Total_Pay_Back, Interest_Rate,
-                                Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Total_Pay_Back, GetGameID()))
+                                Pay_BackDay_Period, Loan_Date, Pay_Back_Day, Total_Pay_Back, session['gameID']))
                 cursor.fetchall()
 
                 NewAmountOfMoney = moneyAvalaible + Amount_OF_Loan
                 cursor.execute('UPDATE PlayerGame SET AmountOfMoney = %s WHERE UserID = %s and GameID = %s',
-                               (NewAmountOfMoney, session['id'], GetGameID()))
+                               (NewAmountOfMoney, session['id'], session['gameID']))
                 cursor.fetchall()
 
                 Confirm_Msg = _('You had loan ') + str(ConvertNumberToEuros(Amount_OF_Loan)) + \
