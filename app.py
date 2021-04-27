@@ -110,7 +110,6 @@ def login_page():
             session['gender'] = account['gender']
             session['gameID'] = 1
             session['GameName'] = 'Public game'
-
             return redirect(url_for('home_page'))
         else:
             msg = _('Incorrect username / password!')
@@ -331,7 +330,6 @@ def Loan():
     # Grabing data
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     Confirm_Msg = ''
-    UserID = 0
     Pay_BackDay_Period = 0
     checkLoansucess = True
     checkUserHasLoan = False
@@ -430,11 +428,7 @@ def contact():
         msg = Message("Feedback", sender=email, recipients=['oumarcisseju@gmail.com'])
         msg.body = _("You have received a new feedback from {} <{}>. Comment {}.").format(lastname, email, feedback)
         mail.send(msg)
-        cursor2 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor2.execute('SELECT * FROM trading_Profile ORDER BY  amount_Money desc')
-        data = cursor2.fetchall()
-        Money = getMoney()
-        return render_template('Home_page.html', len=len(data), data=data, Money=Money)
+        return redirect(url_for('home_page'))
 
     else:
         return render_template('contact.html')
