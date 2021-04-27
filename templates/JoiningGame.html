@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ _('Home') }}</title>
+    <title>{{ _('Join Game') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/JoinGame.css') }}">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -51,7 +51,7 @@
                <input style="outline: none;width: 60%; padding: 8px; text-align: center;" type="text" placeholder={{ _('Password') }} name="GamePassword" class="input-field " value="{{ gameName }}">
                <button style="margin-left: 15%" class="enter_btn" type="submit">{{ _('Join') }}</button>
            </form>
-       <p>{{ error }}</p>
+       <p style="color: white">{{ error }}</p>
     </div>
  </div>
 

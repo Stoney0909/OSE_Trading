@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CreateGame.css') }}">
 </head>
-<body>
 
-       </div>
+<style>
+    body{
+        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.2)), url({{ url_for('static', filename='img/SearchGame.jpg') }});
+        height: 110vh;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+    }
+
+</style>
+
+<body>
+    <div class="wrapper">
+        <div class="logo">
+             <a href="{{ url_for('home_page') }}"><img src="{{ url_for('static', filename='img/Logo2.png') }}"></a>
+        </div>
         <ul class="nav">
             <li><a href="{{ url_for('stock_Account_api.stock_page') }}">{{ _('Stock Market') }}</a></li>
             <li><a href="{{ url_for('stock_Account_api.portfolio_Page') }}">{{ _('Portfolio') }}</a></li>
             <li><a href="{{ url_for('transaction_history') }}">{{ _('Transaction History') }}</a></li>
-
             <li class="dropdown">
                     <span class="user_name">{{ session['username']}}</span>
                     <div class="dropdown-content">
                     <a href="{{ url_for('account_api.edit_profile') }}">{{ _('Profile') }}</a>
-                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Change Password') }}</a>
+                    <a href="{{ url_for('account_api.changePassword_page') }}" >{{ _('Password') }}</a>
                     <a href="{{ url_for('Loan') }}">{{ _('Loan') }}</a>
                     <a href="{{ url_for('gamePage') }}">{{ _('Game') }}</a>
                     <a href="{{ url_for('contact') }}">{{ _('Contact') }}</a>
@@ -25,17 +40,20 @@
             </li>
         </ul>
     </div>
-<form action="" method="post">
-    <label for="fname">{{ _('Game Name') }}:</label>
-    <input type="text" id="gameName" name="gameName" placeholder={{ _('Game Name') }} required style="outline: none">
-    <label for="password">{{ _('Password') }}:</label>
-    <input type="text" id="password" name="password" placeholder={{ _('Password') }} >
-    <label for="date">{{ _('End Date') }}:</label>
-    <input type="date" id="endDate" name="endDate" placeholder={{ _('End Date') }} required style="outline: none" min={{ currentdate }}>
-    <label for="AmountofMoney">{{ _('Starting Money') }}:</label>
-    <input type="number" id="startingMoney" name="startingMoney" placeholder={{ _('Money') }} >
-    <p style="text-align: center"><button type="submit" style="outline: none">{{ _('Submit') }}</button></p>
-</form>
-<a>{{ message }}</a>
+
+
+    <form style="width: 25%" class = "info" action="" method="post">
+        <label style="color: white" for="fname">{{ _('Game Name') }}:</label>
+        <input type="text" id="gameName" name="gameName" placeholder={{ _('Game Name') }} required style="outline: none">
+        <label style="color: white" for="password">{{ _('Password') }}:</label>
+        <input type="text" id="password" name="password" placeholder={{ _('Password') }} >
+        <label style="color: white" for="date">{{ _('End Date') }}:</label>
+        <input type="date" id="endDate" name="endDate" placeholder={{ _('End Date') }} required style="outline: none" min={{ currentdate }}>
+        <label style="color: white" for="AmountofMoney">{{ _('Starting Money') }}:</label>
+        <input type="number" id="startingMoney" name="startingMoney" placeholder={{ _('Money') }} >
+        <p style="text-align: center"><button class="enter_btn" type="submit" style="outline: none">{{ _('Submit') }}</button></p>
+    </form>
+
+    <p style="color: white">{{ message }}</p>
 </body>
 </html>
